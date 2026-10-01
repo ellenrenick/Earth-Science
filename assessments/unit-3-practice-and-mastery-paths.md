@@ -5,8 +5,8 @@ All items are in the Canvas sandbox (300209), unpublished. Same structure as the
 | Item | Canvas id | Notes |
 | --- | --- | --- |
 | New Quiz: "Unit 3 Practice Test: Forces Beneath Our Feet (HS-ESS2-3)" | 13882096 | Mastery Paths trigger. 1 attempt. |
-| Assignment: "Unit 3 Review: Back to the Layers (Mastery Path)" | 13882099 | Released for scores 0% to under 75% (below 3 on the 0-4 scale). Complete/incomplete. |
-| Assignment: "Unit 3 Extension: Listening to Mars (Mastery Path)" | 13882100 | Released for 75% and up (3 or 4). Complete/incomplete. |
+| Assignment: "Unit 3 Review: Back to the Layers (Mastery Path)" | 13882099 | Released for scores under 67.5% (below 2.7 of 4: C, D, F). Complete/incomplete. |
+| Assignment: "Unit 3 Extension: Listening to Mars (Mastery Path)" | 13882100 | Released for 67.5% and up (2.7 of 4 and up: A, B). Complete/incomplete. |
 
 Mastery Paths rule id 19835. Both path assignments are assigned only to "Mastery Paths".
 
@@ -30,12 +30,12 @@ Mastery Paths rule id 19835. Both path assignments are assigned only to "Mastery
 
 Essay rubrics use the same 4/3/2/1/0 levels as the CSA.
 
-## Review assignment (below 75%)
+## Review assignment (below 67.5%)
 
 Five parts, one per learning target. Each part gives a key idea in plain words, then a task: fill-in table for P- vs S-waves; sentence frames on a 3-station shadow-zone table; a layers table with a word bank; a heat-sources sentence frame; ordering the 5 steps of a convection loop plus a sentence frame. Points students to Module 15 Lesson 2 (pp. 399-403) and Module 13 Lesson 4 (pp. 362-364).
 
 Key: Task 1 P faster/yes/yes, S slower/yes/no. Task 2 liquid (S-waves can't travel through liquid); shadow zone. Task 3 crust solid/rock/least dense/coolest; mantle solid that flows slowly/rock; outer core liquid/iron and nickel; inner core solid/iron and nickel/most dense/hottest. Task 4 heat left from formation; radioactive decay. Task 5a B, D, E, A, C.
 
-## Extension assignment (75% and up)
+## Extension assignment (67.5% and up)
 
 "Listening to Mars": uses NASA InSight marsquake data (Mars has a liquid core, radius about 1,830 km of 3,390 km) to (1) explain why one seismometer can't find a shadow zone, (2) compare core-to-planet ratios (Earth about 0.55, Mars about 0.54), (3) write a CER on why Earth has moving plates and Mars does not (heat sources + convection), (4) draw side-by-side interior and convection models.
