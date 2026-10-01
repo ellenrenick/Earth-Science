@@ -1,0 +1,37 @@
+name: Canvas token check
+
+# Confirms the CANVAS_TOKEN secret can reach Canvas. Read-only: it only GETs
+# the sandbox and live course records and prints their names. Never prints the token.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/canvas-check.yml
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      CANVAS_BASE: https://kernhigh.instructure.com
+      CANVAS_TOKEN: ${{ secrets.CANVAS_TOKEN }}
+    steps:
+      - name: Check token and course access
+        run: |
+          if [ -z "$CANVAS_TOKEN" ]; then
+            echo "::error::CANVAS_TOKEN secret is missing or empty in this repository"; exit 1
+          fi
+          status=0
+          for id in 300209 342899; do
+            code=$(curl -s -o course.json -w '%{http_code}' \
+              -H "Authorization: Bearer $CANVAS_TOKEN" \
+              "$CANVAS_BASE/api/v1/courses/$id")
+            if [ "$code" = "200" ]; then
+              name=$(python3 -c "import json;d=json.load(open('course.json'));print(d.get('name'),'|',d.get('workflow_state'))")
+              echo "OK course $id: $name"
+            else
+              echo "::error::Course $id returned HTTP $code"; status=1
+            fi
+          done
+          me=$(curl -s -o me.json -w '%{http_code}' -H "Authorization: Bearer $CANVAS_TOKEN" "$CANVAS_BASE/api/v1/users/self")
+          [ "$me" = "200" ] && echo "Token belongs to: $(python3 -c "import json;print(json.load(open('me.json')).get('name'))")"
+          exit $status
