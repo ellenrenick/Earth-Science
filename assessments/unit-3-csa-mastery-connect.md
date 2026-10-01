@@ -182,3 +182,18 @@ Q5 and Q13 are teacher-graded (rubrics above).
 ## Step 3: After scoring
 
 Mastery Connect reports a score for each aligned target. Copy each student's 0-4 per target into the **U3 ESS2-3** tab of the Learning Target Tracker (CSA columns for 3.1-3.5).
+
+## Canvas sandbox (300209)
+
+- New Quiz: "Unit 3 CSA: Forces Beneath Our Feet (HS-ESS2-3)", id 13881975, unpublished, 19 pts.
+- Outcome group: "HS-ESS2-3 · Unit 3: Forces Beneath Our Feet" (id 137878). Each outcome: 0-4 scale (4 Mastered, 3 Proficient, 2 Approaching, 1 Not yet meeting, 0 Insufficient evidence), mastery at 3, calculation = most recent score.
+
+| Outcome | Canvas id | Align these quiz questions |
+| --- | --- | --- |
+| ESS2-3 LT 3.1: P-waves vs S-waves | 35182 | Q1, Q2, Q3 |
+| ESS2-3 LT 3.2: Seismic data reveals layers | 35183 | Q4, Q5 |
+| ESS2-3 LT 3.3: Describe Earth's layers | 35184 | Q6, Q7, Q8 |
+| ESS2-3 LT 3.4: Sources of Earth's heat | 35185 | Q9, Q10, Q11 |
+| ESS2-3 LT 3.5: Model mantle convection | 35186 | Q12, Q13 |
+
+Question-to-outcome alignment in New Quizzes has to be done in the quiz editor; the public API has no field for it.
