@@ -33,3 +33,7 @@ Outcome alignment: every question in a CFA aligns to that CFA's one outcome. Thi
 - 3.3: crust, mantle, outer core, inner core; outer and inner core are iron and nickel, outer core is liquid; deeper = hotter and denser.
 - 3.4: heat left from formation and radioactive decay; explanation of either; the sun only heats the surface.
 - 3.5: loop labeled core, rising warm rock, sinking cool rock; warm rock is less dense so it rises, cool rock is denser so it sinks; moves heat outward, cycles rock, moves plates.
+
+## Canvas module
+
+All Unit 3 items are in the sandbox module "Unit 3: Forces Beneath Our Feet (HS-ESS2-3)" (id 1637025, unpublished), placed after the older "Unit 3: Composition of the Earth" module. Order: one header per learning target with its CFA and review (indented), then the practice test with its review and extension (indented), then the CSA.
