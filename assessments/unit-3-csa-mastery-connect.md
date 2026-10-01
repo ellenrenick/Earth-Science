@@ -186,7 +186,7 @@ Mastery Connect reports a score for each aligned target. Copy each student's 0-4
 ## Canvas sandbox (300209)
 
 - New Quiz: "Unit 3 CSA: Forces Beneath Our Feet (HS-ESS2-3)", id 13881975, unpublished, 19 pts.
-- Outcome group: "HS-ESS2-3 · Unit 3: Forces Beneath Our Feet" (id 137878). Each outcome: 0-4 scale (4 Mastered, 3 Proficient, 2 Approaching, 1 Not yet meeting, 0 Insufficient evidence), mastery at 3, calculation = most recent score.
+- Outcome group: "HS-ESS2-3 · Unit 3: Forces Beneath Our Feet" (id 137878). Each outcome: 0-4 scale (4 Mastered, 3 Proficient, 2 Approaching, 1 Not yet meeting, 0 Insufficient evidence), mastery at 3, calculation = highest score.
 
 | Outcome | Canvas id | Align these quiz questions |
 | --- | --- | --- |
