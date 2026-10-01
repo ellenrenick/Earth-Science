@@ -1,0 +1,4658 @@
+[
+ {
+  "num": 1,
+  "days": "Day 37",
+  "title": "The Shadow Zone Mystery",
+  "targets": [],
+  "cfa": null,
+  "student_url": "https://kernhigh.instructure.com/courses/300209/pages/unit-3-lesson-1-day-37-the-shadow-zone-mystery",
+  "teacher_url": "https://kernhigh.instructure.com/courses/300209/pages/teacher-unit-3-lesson-1-day-37-the-shadow-zone-mystery",
+  "notebook": [
+   {
+    "t": "p",
+    "runs": [
+     {
+      "text": "Set up your Unit 3 section.",
+      "b": true
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 1,
+    "runs": [
+     {
+      "text": "Cover page:",
+      "b": true
+     },
+     {
+      "text": " \"Unit 3: Forces Beneath Our Feet.\" Write the driving question:"
+     },
+     {
+      "text": " What is inside Earth, and why does it move?",
+      "i": true
+     },
+     {
+      "text": " Draw a picture of what you"
+     },
+     {
+      "text": " think",
+      "i": true
+     },
+     {
+      "text": " is inside Earth (it's OK to be wrong)."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 2,
+    "runs": [
+     {
+      "text": "Learning targets page:",
+      "b": true
+     },
+     {
+      "text": " copy targets 3.1-3.5 from Slide 2. Leave a box next to each one to rate yourself 1-4 later."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 3,
+    "runs": [
+     {
+      "text": "Table of contents:",
+      "b": true
+     },
+     {
+      "text": " add \"Unit 3 cover,\" \"Unit 3 targets,\" and \"L1 Shadow Zone Mystery.\""
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 4,
+    "runs": [
+     {
+      "text": "L1 page:",
+      "b": true
+     },
+     {
+      "text": " title \"The Shadow Zone Mystery.\" Make a two-column chart:"
+     },
+     {
+      "text": " I notice",
+      "i": true
+     },
+     {
+      "text": " |"
+     },
+     {
+      "text": " I wonder",
+      "i": true
+     },
+     {
+      "text": ". Below it, the vocabulary chart from Slide 5."
+     }
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "h": "Do Now",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Think of a watermelon. How could you figure out what's inside it"
+       },
+       {
+        "text": " without cutting it open",
+        "b": true
+       },
+       {
+        "text": "? List 2 ideas in your notebook."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Unit 3 learning targets",
+    "blocks": [
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 1,
+      "runs": [
+       {
+        "text": "3.1",
+        "b": true
+       },
+       {
+        "text": " I can describe how P-waves and S-waves travel differently through solids and liquids."
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 2,
+      "runs": [
+       {
+        "text": "3.2",
+        "b": true
+       },
+       {
+        "text": " I can use seismic wave data, including the shadow zone, to identify Earth's layers and which one is liquid."
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 3,
+      "runs": [
+       {
+        "text": "3.3",
+        "b": true
+       },
+       {
+        "text": " I can describe Earth's layers by composition, density, temperature, and state (solid or liquid)."
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 4,
+      "runs": [
+       {
+        "text": "3.4",
+        "b": true
+       },
+       {
+        "text": " I can identify the two sources of Earth's internal heat: heat left from formation and radioactive decay."
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 5,
+      "runs": [
+       {
+        "text": "3.5",
+        "b": true
+       },
+       {
+        "text": " I can model how mantle convection moves heat and cycles rock between Earth's interior and surface."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "The phenomenon",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "The deepest hole humans have ever drilled is about"
+       },
+       {
+        "text": " 12 km",
+        "b": true
+       },
+       {
+        "text": " deep. Earth is about"
+       },
+       {
+        "text": " 6,371 km",
+        "b": true
+       },
+       {
+        "text": " to the center. We have never seen Earth's inside."
+       }
+      ]
+     },
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "But in 1914, a scientist named Beno Gutenberg noticed something strange. When a big earthquake happens, seismographs all over the world record the shaking. But"
+       },
+       {
+        "text": " some stations on the far side of Earth record nothing at all",
+        "b": true
+       },
+       {
+        "text": ". This \"quiet\" ring around the planet is called the"
+       },
+       {
+        "text": " shadow zone",
+        "b": true
+       },
+       {
+        "text": "."
+       }
+      ]
+     },
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Your teacher will show a picture of the shadow zone.",
+        "b": true
+       },
+       {
+        "text": " Fill in your"
+       },
+       {
+        "text": " I notice / I wonder",
+        "i": true
+       },
+       {
+        "text": " chart."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Driving question",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "What is inside Earth, and why does it move?",
+        "b": true
+       }
+      ]
+     },
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Turn and talk: Why might earthquake waves NOT reach some places? Write your best guess under your chart. We will come back to it at the end of the unit."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Unit 3 vocabulary",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Copy this chart. Draw a small picture for each word."
+       }
+      ]
+     },
+     {
+      "t": "table",
+      "rows": [
+       [
+        {
+         "h": true,
+         "runs": [
+          {
+           "text": "Word"
+          }
+         ]
+        },
+        {
+         "h": true,
+         "runs": [
+          {
+           "text": "What it means"
+          }
+         ]
+        },
+        {
+         "h": true,
+         "runs": [
+          {
+           "text": "Picture"
+          }
+         ]
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "crust"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Thin, solid, rocky outer layer we live on"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": []
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "mantle"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Thick layer of hot solid rock that flows very slowly"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": []
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "outer core"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Layer of liquid iron and nickel"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": []
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "inner core"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Solid ball of iron and nickel at the center"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": []
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "seismic wave"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Wave of energy that travels through Earth after an earthquake"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": []
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "P-wave"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Fastest seismic wave; push-pull motion; goes through solids and liquids"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": []
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "S-wave"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Slower seismic wave; side-to-side motion; goes through solids only"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": []
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "density"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "How much matter is packed into a space (how \"heavy for its size\")"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": []
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "convection"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Hot material rises, cool material sinks, making a loop"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": []
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "radioactive decay"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Unstable elements breaking down and giving off heat"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": []
+        }
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Exit ticket",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "In your notebook:"
+       },
+       {
+        "text": " One thing I think is inside Earth is ______ because ______.",
+        "i": true
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "teacher": {
+   "glance": "Launch day. Hook with the shadow zone, set up the Unit 3 notebook section, pre-teach the 10 vocabulary words with pictures (per the course support plan). No CFA today.",
+   "materials": [
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "Projector; a shadow zone diagram (textbook Module 15, Lesson 2 figure of seismic wave paths, or any labeled shadow zone image); optional: a watermelon or a wrapped box to shake for the Do Now."
+      }
+     ]
+    }
+   ],
+   "agenda": [
+    [
+     "5",
+     "Do Now: watermelon question. Take 3-4 ideas (thump it, weigh it, X-ray, shake it). Connect: scientists 'thump' Earth with earthquakes."
+    ],
+    [
+     "8",
+     "Notebook setup: cover page with driving question + initial model drawing, targets page, table of contents."
+    ],
+    [
+     "10",
+     "Phenomenon: 12 km deepest hole vs 6,371 km radius. Show the shadow zone image with no labels first. Notice/Wonder chart; share out."
+    ],
+    [
+     "5",
+     "Driving question turn-and-talk. Record class ideas on chart paper to revisit on Day 49."
+    ],
+    [
+     "17",
+     "Vocabulary chart with pictures. Model 2-3 pictures; students finish in pairs. Quick gesture for P-wave (push-pull) and S-wave (side-to-side)."
+    ],
+    [
+     "5",
+     "Exit ticket."
+    ]
+   ],
+   "notes": [
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 1,
+     "runs": [
+      {
+       "text": "The deepest hole is the Kola Superdeep Borehole (about 12 km). Gutenberg (1914) located the core boundary at about 2,900 km depth; Inge Lehmann (1936) found the solid inner core."
+      }
+     ]
+    },
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 2,
+     "runs": [
+      {
+       "text": "Don't explain the shadow zone today. Students should leave with the question, not the answer. Lessons 2-3 resolve it."
+      }
+     ]
+    },
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 3,
+     "runs": [
+      {
+       "text": "Expected wonders to collect: Why don't the waves reach? Is something blocking them? Is part of Earth hollow or liquid?"
+      }
+     ]
+    }
+   ],
+   "key": [
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "No key. Look for exit tickets that name a layer or a material; note students who draw Earth as hollow or all lava, since these misconceptions come up again in Lessons 3-4."
+      }
+     ]
+    }
+   ],
+   "supports": "Sentence frames are on the slides. Pair students for the vocabulary pictures. Let students who are new to English label pictures in their home language too."
+  }
+ },
+ {
+  "num": 2,
+  "days": "Days 38-39",
+  "title": "Seismic Waves: P-waves vs S-waves",
+  "targets": [
+   {
+    "code": "3.1",
+    "text": "I can describe how P-waves and S-waves travel differently through solids and liquids."
+   }
+  ],
+  "cfa": "3.1",
+  "student_url": "https://kernhigh.instructure.com/courses/300209/pages/unit-3-lesson-2-days-38-39-seismic-waves-p-waves-vs-s-waves",
+  "teacher_url": "https://kernhigh.instructure.com/courses/300209/pages/teacher-unit-3-lesson-2-days-38-39-seismic-waves-p-waves-vs-s-waves",
+  "notebook": [
+   {
+    "t": "p",
+    "runs": [
+     {
+      "text": "Title:",
+      "b": true
+     },
+     {
+      "text": " L2 Seismic Waves. Add it to your table of contents."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 1,
+    "runs": [
+     {
+      "text": "Draw a long Slinky twice. On the first, show a"
+     },
+     {
+      "text": " P-wave",
+      "b": true
+     },
+     {
+      "text": " (bunched-up and spread-out coils). On the second, show an"
+     },
+     {
+      "text": " S-wave",
+      "b": true
+     },
+     {
+      "text": " (wavy, side to side). Add arrows for the direction the wave travels and the direction the coils move."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 2,
+    "runs": [
+     {
+      "text": "Copy and fill in the comparison chart from Slide 4."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 3,
+    "runs": [
+     {
+      "text": "Day 39: write answers to the reading questions (Slide 5) under the chart."
+     }
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "h": "Do Now",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "When an earthquake happens, does everyone feel it at the same time? Why or why not?"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Learning target 3.1",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "I can describe how P-waves and S-waves travel differently through solids and liquids."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Slinky demo",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Watch the demo, then try it with a partner."
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 1,
+      "runs": [
+       {
+        "text": "P-wave:",
+        "b": true
+       },
+       {
+        "text": " Stretch the Slinky on the floor. Push one end forward quickly. The coils"
+       },
+       {
+        "text": " squeeze and stretch",
+        "i": true
+       },
+       {
+        "text": " in the same direction the wave moves."
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 2,
+      "runs": [
+       {
+        "text": "S-wave:",
+        "b": true
+       },
+       {
+        "text": " Shake one end"
+       },
+       {
+        "text": " side to side",
+        "i": true
+       },
+       {
+        "text": ". The coils move across the direction the wave moves."
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 3,
+      "runs": [
+       {
+        "text": "Race:",
+        "b": true
+       },
+       {
+        "text": " Which wave reached the other end first?"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Compare the two waves",
+    "blocks": [
+     {
+      "t": "table",
+      "rows": [
+       [
+        {
+         "h": true,
+         "runs": []
+        },
+        {
+         "h": true,
+         "runs": [
+          {
+           "text": "P-wave (primary)"
+          }
+         ]
+        },
+        {
+         "h": true,
+         "runs": [
+          {
+           "text": "S-wave (secondary)"
+          }
+         ]
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Motion"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______"
+          }
+         ]
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Speed"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______ (arrives first)"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______ (arrives second)"
+          }
+         ]
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Travels through solids?"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______"
+          }
+         ]
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Travels through liquids?"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______"
+          }
+         ]
+        }
+       ]
+      ]
+     },
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Memory tricks:",
+        "b": true
+       },
+       {
+        "text": " P = Primary = first. S-waves Stop at liquids."
+       }
+      ]
+     },
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Why do S-waves stop?",
+        "b": true
+       },
+       {
+        "text": " Side-to-side shaking only works in stiff material that springs back. A liquid just flows out of the way."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Day 39: Reading",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Read"
+       },
+       {
+        "text": " Module 15, Lesson 2: Seismic Waves and Earth's Interior (pp. 399-403)",
+        "b": true
+       },
+       {
+        "text": ". Answer in your notebook:"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 1,
+      "runs": [
+       {
+        "text": "What is a seismograph?"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 2,
+      "runs": [
+       {
+        "text": "Which wave arrives first at a seismograph, and why?"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 3,
+      "runs": [
+       {
+        "text": "What happens to an S-wave when it reaches liquid?"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 4,
+      "runs": [
+       {
+        "text": "Why do seismic waves change speed and direction inside Earth?"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Show what you know: CFA 3.1",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Take"
+       },
+       {
+        "text": " Unit 3 CFA 3.1: P-waves vs S-waves",
+        "b": true
+       },
+       {
+        "text": " (5 questions). If you score below a B, a review page for this target will open for you."
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "teacher": {
+   "glance": "Two days. Day 38: Slinky demo and comparison chart. Day 39: textbook reading + questions, then CFA 3.1 (Mastery Path opens Review 3.1 for scores under 67.5%).",
+   "materials": [
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "Metal or plastic Slinkys (1 per pair, or a few for demo stations); open floor or long tables; textbooks (Module 15, Lesson 2, pp. 399-403); Chromebooks for CFA 3.1."
+      }
+     ]
+    }
+   ],
+   "agenda": [
+    [
+     "Day 38: 5",
+     "Do Now. Answer: no, people closer feel it first, because waves take time to travel."
+    ],
+    [
+     "10",
+     "Teacher Slinky demo: P-wave push, S-wave shake. Students describe motion in their own words."
+    ],
+    [
+     "15",
+     "Pairs try both waves. Race: P-wave arrives first."
+    ],
+    [
+     "15",
+     "Comparison chart and notebook drawings. Introduce 'S-waves Stop at liquids' with the 'liquid can't spring back' explanation."
+    ],
+    [
+     "5",
+     "Exit: show P or S with your hand (push vs side-to-side) as you call out descriptions."
+    ],
+    [
+     "Day 39: 5",
+     "Review the chart with hand gestures."
+    ],
+    [
+     "25",
+     "Reading pp. 399-403 with questions; read aloud the first section together."
+    ],
+    [
+     "15",
+     "CFA 3.1 on Canvas."
+    ],
+    [
+     "5",
+     "Students who finish early: start the Earthquakes 1 - Recording Station Gizmo (optional)."
+    ]
+   ],
+   "notes": [
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 1,
+     "runs": [
+      {
+       "text": "P-waves are compressional (longitudinal); S-waves are shear (transverse). In the crust, P-waves travel about 6 km/s, S-waves about 3.5 km/s."
+      }
+     ]
+    },
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 2,
+     "runs": [
+      {
+       "text": "P-waves slow down and bend when they enter the liquid outer core; they do not stop. Watch for students who think P-waves stop in liquid."
+      }
+     ]
+    },
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 3,
+     "runs": [
+      {
+       "text": "In a Slinky, you can't truly show the liquid case. Use the 'liquid can't spring back' explanation, or a tray of water: pushing it makes ripples spread, but side-to-side 'shear' just slides the water."
+      }
+     ]
+    }
+   ],
+   "key": [
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "Chart:",
+       "b": true
+      },
+      {
+       "text": " P = push-pull / squeeze-stretch, faster, solids yes, liquids yes. S = side to side, slower, solids yes, liquids"
+      },
+      {
+       "text": " no",
+       "b": true
+      },
+      {
+       "text": "."
+      }
+     ]
+    },
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "Reading:",
+       "b": true
+      },
+      {
+       "text": " (1) An instrument that records ground shaking from seismic waves. (2) The P-wave, because it is the fastest. (3) It stops; S-waves cannot travel through liquid. (4) The layers have different materials, densities, and states (solid or liquid), which changes how fast waves travel and bends their paths."
+      }
+     ]
+    },
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "CFA 3.1 key:",
+       "b": true
+      },
+      {
+       "text": " A, B, C, D, False."
+      }
+     ]
+    }
+   ],
+   "supports": "Gestures for each wave. Partner reading for pp. 399-403. Students who score under 67.5% on CFA 3.1 get Review 3.1 automatically; check it before Lesson 3."
+  }
+ },
+ {
+  "num": 3,
+  "days": "Days 40-41",
+  "title": "Reading the Shadow Zone",
+  "targets": [
+   {
+    "code": "3.2",
+    "text": "I can use seismic wave data, including the shadow zone, to identify Earth's layers and which one is liquid."
+   }
+  ],
+  "cfa": "3.2",
+  "student_url": "https://kernhigh.instructure.com/courses/300209/pages/unit-3-lesson-3-days-40-41-reading-the-shadow-zone",
+  "teacher_url": "https://kernhigh.instructure.com/courses/300209/pages/teacher-unit-3-lesson-3-days-40-41-reading-the-shadow-zone",
+  "notebook": [
+   {
+    "t": "p",
+    "runs": [
+     {
+      "text": "Title:",
+      "b": true
+     },
+     {
+      "text": " L3 Reading the Shadow Zone. Add it to your table of contents."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 1,
+    "runs": [
+     {
+      "text": "Glue or tape your colored"
+     },
+     {
+      "text": " Shadow Zone Map",
+      "b": true
+     },
+     {
+      "text": " on the page."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 2,
+    "runs": [
+     {
+      "text": "Next to it, copy the station data table (Slide 3) and the 3 rules from Slide 4."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 3,
+    "runs": [
+     {
+      "text": "Write your CER (Slide 5) at the bottom of the page."
+     }
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "h": "Do Now",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "A station gets P-waves but no S-waves. Based on Lesson 2, what kind of material did the waves go through? How do you know?"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Learning target 3.2",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "I can use seismic wave data, including the shadow zone, to identify Earth's layers and which one is liquid."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Station data",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "One earthquake was recorded by stations all around the world. Distance is in degrees around Earth from the earthquake (0° = right at the earthquake, 180° = the exact opposite side)."
+       }
+      ]
+     },
+     {
+      "t": "table",
+      "rows": [
+       [
+        {
+         "h": true,
+         "runs": [
+          {
+           "text": "Distance"
+          }
+         ]
+        },
+        {
+         "h": true,
+         "runs": [
+          {
+           "text": "P-waves?"
+          }
+         ]
+        },
+        {
+         "h": true,
+         "runs": [
+          {
+           "text": "S-waves?"
+          }
+         ]
+        },
+        {
+         "h": true,
+         "runs": [
+          {
+           "text": "Color"
+          }
+         ]
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "20°"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Yes"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Yes"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "green"
+          }
+         ]
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "50°"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Yes"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Yes"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "green"
+          }
+         ]
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "80°"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Yes"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Yes"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "green"
+          }
+         ]
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "100°"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Yes"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Yes"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "green"
+          }
+         ]
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "110°"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "No"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "No"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "red"
+          }
+         ]
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "120°"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "No"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "No"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "red"
+          }
+         ]
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "135°"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "No"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "No"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "red"
+          }
+         ]
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "150°"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Yes"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "No"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "yellow"
+          }
+         ]
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "165°"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Yes"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "No"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "yellow"
+          }
+         ]
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "180°"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Yes"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "No"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "yellow"
+          }
+         ]
+        }
+       ]
+      ]
+     },
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "On your Shadow Zone Map, color a dot at each distance on"
+       },
+       {
+        "text": " both",
+        "b": true
+       },
+       {
+        "text": " sides of the circle. Then shade in each color zone."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Make sense of the map",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "3 rules:",
+        "b": true
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 1,
+      "runs": [
+       {
+        "text": "Green",
+        "b": true
+       },
+       {
+        "text": " (P and S): the waves only went through solid rock."
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 2,
+      "runs": [
+       {
+        "text": "Yellow",
+        "b": true
+       },
+       {
+        "text": " (P only): the waves went through a"
+       },
+       {
+        "text": " liquid",
+        "b": true
+       },
+       {
+        "text": ". S-waves were stopped."
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 3,
+      "runs": [
+       {
+        "text": "Red",
+        "b": true
+       },
+       {
+        "text": " (nothing): the"
+       },
+       {
+        "text": " shadow zone",
+        "b": true
+       },
+       {
+        "text": ". P-waves bent (refracted) at the core and missed this area; S-waves were stopped."
+       }
+      ]
+     },
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Now draw:",
+        "b": true
+       },
+       {
+        "text": " a circle inside Earth that would block S-waves from reaching every yellow station. Label it \"liquid outer core.\""
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "CER: Which layer is liquid?",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Claim:",
+        "b": true
+       },
+       {
+        "text": " The ______ is liquid."
+       }
+      ]
+     },
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Evidence:",
+        "b": true
+       },
+       {
+        "text": " Stations at ______ recorded P-waves but no S-waves. Stations at ______ recorded no waves at all."
+       }
+      ]
+     },
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Reasoning:",
+        "b": true
+       },
+       {
+        "text": " S-waves cannot travel through ______, so ______. P-waves bend when they enter the core, so ______."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Show what you know: CFA 3.2",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Take"
+       },
+       {
+        "text": " Unit 3 CFA 3.2: Seismic data reveals layers",
+        "b": true
+       },
+       {
+        "text": " (5 questions). If you score below a B, a review page for this target will open for you."
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "teacher": {
+   "glance": "Two days. Day 40: color the shadow zone map from station data. Day 41: interpret the map, draw the core, write a CER, then CFA 3.2.",
+   "materials": [
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "Printed"
+      },
+      {
+       "text": " Shadow Zone Map",
+       "href": "https://github.com/ellenrenick/Earth-Science/blob/claude/vibrant-cerf-kl0bt9/lessons/unit-3/files/shadow-zone-map.pdf"
+      },
+      {
+       "text": " (1 per student) and the"
+      },
+      {
+       "text": " teacher key",
+       "href": "https://github.com/ellenrenick/Earth-Science/blob/claude/vibrant-cerf-kl0bt9/lessons/unit-3/files/shadow-zone-map-KEY.pdf"
+      },
+      {
+       "text": " (these are in the course GitHub repo; print from there); green, yellow, and red colored pencils; glue sticks; Chromebooks for CFA 3.2."
+      }
+     ]
+    }
+   ],
+   "agenda": [
+    [
+     "Day 40: 5",
+     "Do Now: liquid, because S-waves can't travel through liquid."
+    ],
+    [
+     "10",
+     "Model how to read degrees on the map: 0° at the earthquake, both sides count up to 180°. Plot the 20° station together."
+    ],
+    [
+     "25",
+     "Pairs plot and color all stations on both sides, then shade the zones."
+    ],
+    [
+     "10",
+     "Gallery walk: does everyone's map look the same? Why is it symmetrical?"
+    ],
+    [
+     "Day 41: 10",
+     "Go over the 3 rules. Ask: what would have to be inside Earth to make the yellow zone?"
+    ],
+    [
+     "10",
+     "Students draw the liquid outer core. Show the key; discuss why the P-waves bending creates the red ring."
+    ],
+    [
+     "15",
+     "CER with frames."
+    ],
+    [
+     "15",
+     "CFA 3.2 on Canvas."
+    ]
+   ],
+   "notes": [
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 1,
+     "runs": [
+      {
+       "text": "Real values: the P-wave shadow zone is about 104°-140° from the earthquake. S-waves are missing everywhere beyond about 104°."
+      }
+     ]
+    },
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 2,
+     "runs": [
+      {
+       "text": "The core-mantle boundary is about 2,900 km deep. The key draws it to scale."
+      }
+     ]
+    },
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 3,
+     "runs": [
+      {
+       "text": "Common misconception: \"the earthquake wasn't strong enough to reach.\" Counter: the farthest stations (180°) still get P-waves."
+      }
+     ]
+    },
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 4,
+     "runs": [
+      {
+       "text": "Inner core is solid (found by Lehmann in 1936 from faint P-waves inside the shadow zone). Mention it as an extension; it's not needed for the CER."
+      }
+     ]
+    }
+   ],
+   "key": [
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "Map:",
+       "b": true
+      },
+      {
+       "text": " green 0°-100°, red 110°-135°, yellow 150°-180°, on both sides. The drawn core should block straight-line paths to the yellow zone."
+      }
+     ]
+    },
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "CER:",
+       "b": true
+      },
+      {
+       "text": " Claim: the outer core is liquid. Evidence: stations at 150°, 165°, 180° got P-waves but no S-waves; stations at 110°-135° got no waves. Reasoning: S-waves cannot travel through liquid, so they were stopped by the outer core; P-waves bend when they enter the core, so they miss the 110°-135° stations and make the shadow zone."
+      }
+     ]
+    },
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "CFA 3.2 key:",
+       "b": true
+      },
+      {
+       "text": " C and D (multi-select), D, C, B, A."
+      }
+     ]
+    }
+   ],
+   "supports": "Pre-color the 20&deg; dot on student maps. CER frames on the slide. Pair a strong reader with each student who needs support for the CER."
+  }
+ },
+ {
+  "num": 4,
+  "days": "Day 42",
+  "title": "Earth's Layers and the Density Lab",
+  "targets": [
+   {
+    "code": "3.3",
+    "text": "I can describe Earth's layers by composition, density, temperature, and state (solid or liquid)."
+   }
+  ],
+  "cfa": "3.3",
+  "student_url": "https://kernhigh.instructure.com/courses/300209/pages/unit-3-lesson-4-day-42-earths-layers-and-the-density-lab",
+  "teacher_url": "https://kernhigh.instructure.com/courses/300209/pages/teacher-unit-3-lesson-4-day-42-earths-layers-and-the-density-lab",
+  "notebook": [
+   {
+    "t": "p",
+    "runs": [
+     {
+      "text": "Title:",
+      "b": true
+     },
+     {
+      "text": " L4 Density Lab and Earth's Layers. Add it to your table of contents."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 1,
+    "runs": [
+     {
+      "text": "Lab section:",
+      "b": true
+     },
+     {
+      "text": " question, prediction, a labeled drawing of your density column, and your observations."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 2,
+    "runs": [
+     {
+      "text": "Layers section:",
+      "b": true
+     },
+     {
+      "text": " draw a large circle cut in half (like a cut peach). Draw and label the 4 layers."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 3,
+    "runs": [
+     {
+      "text": "Copy and fill in the layers chart from Slide 5."
+     }
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "h": "Do Now",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "If you pour honey, water, and oil into one cup, what do you think will happen? Draw your prediction."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Learning target 3.3",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "I can describe Earth's layers by composition, density, temperature, and state (solid or liquid)."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Density lab",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Question:",
+        "b": true
+       },
+       {
+        "text": " What happens when liquids with different densities are put together?"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 1,
+      "runs": [
+       {
+        "text": "Pour a small amount of"
+       },
+       {
+        "text": " honey",
+        "b": true
+       },
+       {
+        "text": " into the cup. Let it settle."
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 2,
+      "runs": [
+       {
+        "text": "Slowly pour"
+       },
+       {
+        "text": " dish soap",
+        "b": true
+       },
+       {
+        "text": " down the side of the cup."
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 3,
+      "runs": [
+       {
+        "text": "Slowly pour"
+       },
+       {
+        "text": " colored water",
+        "b": true
+       },
+       {
+        "text": " down the side."
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 4,
+      "runs": [
+       {
+        "text": "Slowly pour"
+       },
+       {
+        "text": " vegetable oil",
+        "b": true
+       },
+       {
+        "text": " down the side."
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 5,
+      "runs": [
+       {
+        "text": "Gently drop in a"
+       },
+       {
+        "text": " penny",
+        "b": true
+       },
+       {
+        "text": ", a"
+       },
+       {
+        "text": " grape",
+        "b": true
+       },
+       {
+        "text": ", and a"
+       },
+       {
+        "text": " plastic bead",
+        "b": true
+       },
+       {
+        "text": ". Where does each one stop?"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 6,
+      "runs": [
+       {
+        "text": "Draw and label your column."
+       }
+      ]
+     },
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Safety:",
+        "b": true
+       },
+       {
+        "text": " No tasting. Clean spills right away (soap and oil are slippery)."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Connect the lab to Earth",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "In the cup, the"
+       },
+       {
+        "text": " densest",
+        "b": true
+       },
+       {
+        "text": " material sank to the bottom and the"
+       },
+       {
+        "text": " least dense",
+        "b": true
+       },
+       {
+        "text": " floated on top."
+       }
+      ]
+     },
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "When Earth was young and very hot, the same thing happened. Heavy metals (iron and nickel) sank to the center. Lighter rock rose to the top. That's why Earth has"
+       },
+       {
+        "text": " layers",
+        "b": true
+       },
+       {
+        "text": "."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Earth's layers",
+    "blocks": [
+     {
+      "t": "table",
+      "rows": [
+       [
+        {
+         "h": true,
+         "runs": [
+          {
+           "text": "Layer"
+          }
+         ]
+        },
+        {
+         "h": true,
+         "runs": [
+          {
+           "text": "Made of"
+          }
+         ]
+        },
+        {
+         "h": true,
+         "runs": [
+          {
+           "text": "Solid or liquid"
+          }
+         ]
+        },
+        {
+         "h": true,
+         "runs": [
+          {
+           "text": "Density"
+          }
+         ]
+        },
+        {
+         "h": true,
+         "runs": [
+          {
+           "text": "Temperature"
+          }
+         ]
+        },
+        {
+         "h": true,
+         "runs": [
+          {
+           "text": "Depth"
+          }
+         ]
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Crust"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "least dense"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "coolest"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "0 to about 5-70 km"
+          }
+         ]
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Mantle"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "to about 2,900 km"
+          }
+         ]
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Outer core"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "to about 5,150 km"
+          }
+         ]
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Inner core"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "most dense"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "hottest"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "to 6,371 km (center)"
+          }
+         ]
+        }
+       ]
+      ]
+     },
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Pattern:",
+        "b": true
+       },
+       {
+        "text": " As you go deeper, Earth gets ______ and ______."
+       }
+      ]
+     },
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Puzzle:",
+        "b": true
+       },
+       {
+        "text": " The inner core is the hottest layer. Why is it solid? (Hint: think about the weight of everything above it.)"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Show what you know: CFA 3.3",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Take"
+       },
+       {
+        "text": " Unit 3 CFA 3.3: Describe Earth's layers",
+        "b": true
+       },
+       {
+        "text": " (5 questions). If you score below a B, a review page for this target will open for you."
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "teacher": {
+   "glance": "One day. Density column lab, connect to Earth's layering, fill in the layers chart, then CFA 3.3.",
+   "materials": [
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "Per group (3-4 students): clear plastic cup; about 2 tbsp each of honey (or corn syrup), dish soap, water with food coloring, vegetable oil; a penny, a grape, a small plastic bead; paper towels. Chromebooks for CFA 3.3."
+      }
+     ]
+    }
+   ],
+   "agenda": [
+    [
+     "5",
+     "Do Now prediction."
+    ],
+    [
+     "15",
+     "Density lab in groups. Circulate; remind students to pour slowly down the side."
+    ],
+    [
+     "5",
+     "Debrief: densest on the bottom. Where did the penny, grape, and bead stop, and why?"
+    ],
+    [
+     "12",
+     "Connect to Earth: differentiation. Fill in the layers chart together; discuss the inner core puzzle."
+    ],
+    [
+     "13",
+     "CFA 3.3 on Canvas; groups clean up in rotation."
+    ]
+   ],
+   "notes": [
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 1,
+     "runs": [
+      {
+       "text": "Typical densities (g/mL): honey about 1.4, dish soap about 1.06, water 1.0, vegetable oil about 0.92. The penny sinks to the bottom; the grape usually rests on the honey or soap; a plastic bead usually floats in or on the oil (depends on the plastic)."
+      }
+     ]
+    },
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 2,
+     "runs": [
+      {
+       "text": "Earth layers: crust 5-70 km thick (oceanic thin, continental thick); mantle to about 2,900 km; outer core 2,900-5,150 km; inner core 5,150-6,371 km. Inner core temperature is about 5,000-6,000 °C, similar to the sun's surface."
+      }
+     ]
+    },
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 3,
+     "runs": [
+      {
+       "text": "The mantle is solid but flows over millions of years (plastic behavior). Some students will call it \"magma\"; correct this here, because Lesson 7 depends on it."
+      }
+     ]
+    },
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 4,
+     "runs": [
+      {
+       "text": "Limitation to discuss: Earth's layers aren't liquids poured in a cup, and the mantle and crust are solid."
+      }
+     ]
+    }
+   ],
+   "key": [
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "Layers chart:",
+       "b": true
+      },
+      {
+       "text": " Crust: rock, solid. Mantle: rock, solid that flows slowly, denser than crust, hot. Outer core: iron and nickel, liquid, denser, very hot. Inner core: iron and nickel, solid, most dense, hottest. Pattern: hotter and denser. Puzzle: the pressure is so great that the metal is squeezed into a solid."
+      }
+     ]
+    },
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "CFA 3.3 key:",
+       "b": true
+      },
+      {
+       "text": " A, B, C, D, B."
+      }
+     ]
+    }
+   ],
+   "supports": "Pre-measure liquids into labeled cups for each group. Provide a word bank for the layers chart (rock, iron and nickel, solid, liquid, solid that flows slowly)."
+  }
+ },
+ {
+  "num": 5,
+  "days": "Day 43",
+  "title": "Mid-Unit Check: Reteach and Extend",
+  "targets": [
+   {
+    "code": "3.1",
+    "text": "I can describe how P-waves and S-waves travel differently through solids and liquids."
+   },
+   {
+    "code": "3.2",
+    "text": "I can use seismic wave data, including the shadow zone, to identify Earth's layers and which one is liquid."
+   },
+   {
+    "code": "3.3",
+    "text": "I can describe Earth's layers by composition, density, temperature, and state (solid or liquid)."
+   }
+  ],
+  "cfa": null,
+  "student_url": "https://kernhigh.instructure.com/courses/300209/pages/unit-3-lesson-5-day-43-mid-unit-check-reteach-and-extend",
+  "teacher_url": "https://kernhigh.instructure.com/courses/300209/pages/teacher-unit-3-lesson-5-day-43-mid-unit-check-reteach-and-extend",
+  "notebook": [
+   {
+    "t": "p",
+    "runs": [
+     {
+      "text": "Title:",
+      "b": true
+     },
+     {
+      "text": " L5 Mid-Unit Check. Add it to your table of contents."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 1,
+    "runs": [
+     {
+      "text": "Go to your Unit 3 targets page. Rate yourself 1-4 on targets 3.1, 3.2, and 3.3, using your CFA scores."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 2,
+    "runs": [
+     {
+      "text": "Write the station you are assigned to and what you worked on."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 3,
+    "runs": [
+     {
+      "text": "Finish with the exit ticket (Slide 5)."
+     }
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "h": "Do Now",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Open Canvas and look at your scores on CFAs 3.1, 3.2, and 3.3. Rate yourself on each target on your targets page."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Today's targets",
+    "blocks": [
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 1,
+      "runs": [
+       {
+        "text": "3.1",
+        "b": true
+       },
+       {
+        "text": " I can describe how P-waves and S-waves travel differently through solids and liquids."
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 2,
+      "runs": [
+       {
+        "text": "3.2",
+        "b": true
+       },
+       {
+        "text": " I can use seismic wave data, including the shadow zone, to identify Earth's layers and which one is liquid."
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 3,
+      "runs": [
+       {
+        "text": "3.3",
+        "b": true
+       },
+       {
+        "text": " I can describe Earth's layers by composition, density, temperature, and state (solid or liquid)."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Where do I go?",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "If a review opened for you on Canvas",
+        "b": true
+       },
+       {
+        "text": " (Review 3.1, 3.2, or 3.3): go to the"
+       },
+       {
+        "text": " reteach table",
+        "b": true
+       },
+       {
+        "text": " and work through it. Your teacher will work with you."
+       }
+      ]
+     },
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "If no review opened:",
+        "b": true
+       },
+       {
+        "text": " go to the"
+       },
+       {
+        "text": " extension table",
+        "b": true
+       },
+       {
+        "text": " (Slide 4)."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Extension table: Design an Earth",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Imagine a planet that is the same as Earth, except its outer core is"
+       },
+       {
+        "text": " solid",
+        "b": true
+       },
+       {
+        "text": "."
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 1,
+      "runs": [
+       {
+        "text": "Draw what the shadow zone map would look like for this planet. Would there still be a shadow zone? Would yellow stations still exist?"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 2,
+      "runs": [
+       {
+        "text": "Explain how a scientist on that planet would know the core is solid."
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 3,
+      "runs": [
+       {
+        "text": "Try the Earthquakes 1 - Recording Station Gizmo if you finish."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Exit ticket",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Which target (3.1, 3.2, or 3.3) do you feel best about? Which one do you still need help with? Why?"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "teacher": {
+   "glance": "Mid-unit check (per the course support plan): use CFA 3.1-3.3 results to split the room into a reteach group and an extension group.",
+   "materials": [
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "CFA 3.1-3.3 results (Canvas gradebook or the U3 tab of the Learning Target Tracker); small whiteboards; Slinky; extra Shadow Zone Maps; Chromebooks."
+      }
+     ]
+    }
+   ],
+   "agenda": [
+    [
+     "10",
+     "Do Now and self-rating. Pull up scores; quickly confirm group lists."
+    ],
+    [
+     "35",
+     "Reteach table: work Reviews 3.1-3.3 with students, focusing on the target each one missed. Extension table: the solid-core thought experiment."
+    ],
+    [
+     "5",
+     "Exit ticket."
+    ]
+   ],
+   "notes": [
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 1,
+     "runs": [
+      {
+       "text": "The Mastery Paths already opened the right review for each student. Students who got a review should finish it today; mark it complete in SpeedGrader."
+      }
+     ]
+    },
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 2,
+     "runs": [
+      {
+       "text": "Re-check: have reteach students redo 2-3 questions orally or on whiteboards. Record re-check scores in the tracker's Re-check column."
+      }
+     ]
+    },
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 3,
+     "runs": [
+      {
+       "text": "Most-missed items to reteach (predict): S-waves vs liquids (3.1), reading the yellow zone as 'liquid' (3.2), the inner core being solid (3.3)."
+      }
+     ]
+    }
+   ],
+   "key": [
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "Extension:",
+       "b": true
+      },
+      {
+       "text": " With a solid outer core, S-waves would pass through, so there would be no 'P-only' (yellow) zone. P-waves (and S-waves) would still bend at the boundary because the core is denser, so a smaller shadow zone could still appear. Evidence of a solid core: S-waves arriving on the far side of the planet."
+      }
+     ]
+    }
+   ],
+   "supports": "Keep reteach groups to 4-6. Use the 'Try it' checks on the review pages as warm-ups."
+  }
+ },
+ {
+  "num": 6,
+  "days": "Day 44",
+  "title": "Where Does Earth's Heat Come From?",
+  "targets": [
+   {
+    "code": "3.4",
+    "text": "I can identify the two sources of Earth's internal heat: heat left from formation and radioactive decay."
+   }
+  ],
+  "cfa": "3.4",
+  "student_url": "https://kernhigh.instructure.com/courses/300209/pages/unit-3-lesson-6-day-44-where-does-earths-heat-come-from",
+  "teacher_url": "https://kernhigh.instructure.com/courses/300209/pages/teacher-unit-3-lesson-6-day-44-where-does-earths-heat-come-from",
+  "notebook": [
+   {
+    "t": "p",
+    "runs": [
+     {
+      "text": "Title:",
+      "b": true
+     },
+     {
+      "text": " L6 Earth's Heat. Add it to your table of contents."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 1,
+    "runs": [
+     {
+      "text": "Draw a big T-chart:"
+     },
+     {
+      "text": " Real sources of Earth's internal heat",
+      "i": true
+     },
+     {
+      "text": " |"
+     },
+     {
+      "text": " NOT sources",
+      "i": true
+     },
+     {
+      "text": ". Sort the cards from Slide 4."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 2,
+    "runs": [
+     {
+      "text": "Under the T-chart, write the two sources in a box with a picture for each."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 3,
+    "runs": [
+     {
+      "text": "Answer the exit question (Slide 5)."
+     }
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "h": "Do Now",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Rub your hands together fast for 10 seconds. What happens? Where did that heat come from?"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Learning target 3.4",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "I can identify the two sources of Earth's internal heat: heat left from formation and radioactive decay."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Two sources of heat",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "1. Heat left from formation.",
+        "b": true
+       },
+       {
+        "text": " About 4.6 billion years ago, Earth formed as rocks smashed together. Each crash turned energy of motion into heat, like rubbing your hands. Heavy metals sinking to the center made more heat. Earth is still slowly cooling off."
+       }
+      ]
+     },
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "2. Radioactive decay.",
+        "b": true
+       },
+       {
+        "text": " Some elements in rock, like"
+       },
+       {
+        "text": " uranium",
+        "b": true
+       },
+       {
+        "text": ","
+       },
+       {
+        "text": " thorium",
+        "b": true
+       },
+       {
+        "text": ", and"
+       },
+       {
+        "text": " potassium",
+        "b": true
+       },
+       {
+        "text": ", are unstable. They slowly break down and give off energy as heat. This is still happening today."
+       }
+      ]
+     },
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Heat always flows from hot to cold: from Earth's hot center"
+       },
+       {
+        "text": " outward",
+        "b": true
+       },
+       {
+        "text": " toward the cooler surface."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Card sort: source or not?",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Sort these into"
+       },
+       {
+        "text": " Real source",
+        "i": true
+       },
+       {
+        "text": " or"
+       },
+       {
+        "text": " NOT a source",
+        "i": true
+       },
+       {
+        "text": ":"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 1,
+      "runs": [
+       {
+        "text": "Rocks crashing together when Earth formed"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 2,
+      "runs": [
+       {
+        "text": "Sunlight"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 3,
+      "runs": [
+       {
+        "text": "Uranium breaking down in rocks"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 4,
+      "runs": [
+       {
+        "text": "Volcanoes"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 5,
+      "runs": [
+       {
+        "text": "Iron sinking to the center of early Earth"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 6,
+      "runs": [
+       {
+        "text": "Earthquakes"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 7,
+      "runs": [
+       {
+        "text": "Potassium breaking down in rocks"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 8,
+      "runs": [
+       {
+        "text": "Ocean tides"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Exit question",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "A classmate says, \"The sun heats Earth's core.\" Explain why they are wrong. Use the two real sources in your answer."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Show what you know: CFA 3.4",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Take"
+       },
+       {
+        "text": " Unit 3 CFA 3.4: Sources of Earth's heat",
+        "b": true
+       },
+       {
+        "text": " (5 questions). If you score below a B, a review page for this target will open for you."
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "teacher": {
+   "glance": "One day. Hand-rubbing hook, two heat sources, card sort, then CFA 3.4.",
+   "materials": [
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "Card sort sets (print the 8 items from Slide 4 and cut, 1 set per pair) or students sort in their notebooks; Chromebooks for CFA 3.4."
+      }
+     ]
+    }
+   ],
+   "agenda": [
+    [
+     "5",
+     "Do Now: friction turns motion energy into heat."
+    ],
+    [
+     "15",
+     "Mini-lesson on the two sources (Slide 3). Act out accretion: students 'collide' fists gently to show motion becoming heat."
+    ],
+    [
+     "12",
+     "Card sort in pairs; whole-class check."
+    ],
+    [
+     "5",
+     "Exit question in notebooks."
+    ],
+    [
+     "13",
+     "CFA 3.4 on Canvas."
+    ]
+   ],
+   "notes": [
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 1,
+     "runs": [
+      {
+       "text": "Radioactive decay supplies roughly half of Earth's heat flow today; the rest is primordial heat from accretion and core formation. (Exact split is still debated; 'about half' is a safe classroom statement.)"
+      }
+     ]
+    },
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 2,
+     "runs": [
+      {
+       "text": "Volcanoes and earthquakes are effects of internal heat, not sources. The sun drives surface processes (weather, water cycle) but not the interior."
+      }
+     ]
+    },
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 3,
+     "runs": [
+      {
+       "text": "Bridge to Lesson 7: heat flowing outward is what drives mantle convection."
+      }
+     ]
+    }
+   ],
+   "key": [
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "Card sort:",
+       "b": true
+      },
+      {
+       "text": " Real sources: rocks crashing together when Earth formed; uranium breaking down; iron sinking to the center of early Earth; potassium breaking down. NOT sources: sunlight; volcanoes; earthquakes; ocean tides."
+      }
+     ]
+    },
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "Exit:",
+       "b": true
+      },
+      {
+       "text": " The sun only heats the surface. The heat inside comes from heat left over from Earth's formation and from radioactive decay of elements like uranium."
+      }
+     ]
+    },
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "CFA 3.4 key:",
+       "b": true
+      },
+      {
+       "text": " C, A, B, True, D."
+      }
+     ]
+    }
+   ],
+   "supports": "Picture icons on cards. Sentence frame for the exit: 'The sun only heats ______. The heat inside Earth comes from ______ and ______.'"
+  }
+ },
+ {
+  "num": 7,
+  "days": "Days 45-46",
+  "title": "Convection Lab: Heat on the Move",
+  "targets": [
+   {
+    "code": "3.5",
+    "text": "I can model how mantle convection moves heat and cycles rock between Earth's interior and surface."
+   }
+  ],
+  "cfa": "3.5",
+  "student_url": "https://kernhigh.instructure.com/courses/300209/pages/unit-3-lesson-7-days-45-46-convection-lab-heat-on-the-move",
+  "teacher_url": "https://kernhigh.instructure.com/courses/300209/pages/teacher-unit-3-lesson-7-days-45-46-convection-lab-heat-on-the-move",
+  "notebook": [
+   {
+    "t": "p",
+    "runs": [
+     {
+      "text": "Title:",
+      "b": true
+     },
+     {
+      "text": " L7 Convection Lab. Add it to your table of contents."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 1,
+    "runs": [
+     {
+      "text": "Lab:",
+      "b": true
+     },
+     {
+      "text": " question, prediction, a side-view drawing of the container with arrows showing how the color moved, and observations."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 2,
+    "runs": [
+     {
+      "text": "Model:",
+      "b": true
+     },
+     {
+      "text": " draw the mantle as a ring around the core. Add one convection loop with arrows: rise, sideways, cool, sink."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 3,
+    "runs": [
+     {
+      "text": "Day 46: reading questions (Slide 5)."
+     }
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "h": "Do Now",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Hot air balloons rise. Why? What do you think happens to hot rock deep in the mantle?"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Learning target 3.5",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "I can model how mantle convection moves heat and cycles rock between Earth's interior and surface."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Convection lab",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Question:",
+        "b": true
+       },
+       {
+        "text": " How does heat make a liquid move?"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 1,
+      "runs": [
+       {
+        "text": "Fill the clear container with room-temperature water. Let it sit still for 1 minute."
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 2,
+      "runs": [
+       {
+        "text": "Set it so one end sits over a cup of"
+       },
+       {
+        "text": " hot water",
+        "b": true
+       },
+       {
+        "text": " and the other end over a cup of"
+       },
+       {
+        "text": " ice water",
+        "b": true
+       },
+       {
+        "text": "."
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 3,
+      "runs": [
+       {
+        "text": "Using the dropper, put 2 drops of"
+       },
+       {
+        "text": " red",
+        "b": true
+       },
+       {
+        "text": " food coloring at the bottom over the hot cup, and 2 drops of"
+       },
+       {
+        "text": " blue",
+        "b": true
+       },
+       {
+        "text": " at the bottom over the ice cup."
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 4,
+      "runs": [
+       {
+        "text": "Watch for 5 minutes without bumping the table. Draw what you see every minute."
+       }
+      ]
+     },
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Safety:",
+        "b": true
+       },
+       {
+        "text": " Hot water can burn. Don't move the cups once they are set."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Make sense of it",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Hot",
+        "b": true
+       },
+       {
+        "text": " water is"
+       },
+       {
+        "text": " less dense",
+        "b": true
+       },
+       {
+        "text": ", so it"
+       },
+       {
+        "text": " rises",
+        "b": true
+       },
+       {
+        "text": ". At the top it moves sideways and"
+       },
+       {
+        "text": " cools",
+        "b": true
+       },
+       {
+        "text": "."
+       },
+       {
+        "text": " Cool",
+        "b": true
+       },
+       {
+        "text": " water is"
+       },
+       {
+        "text": " denser",
+        "b": true
+       },
+       {
+        "text": ", so it"
+       },
+       {
+        "text": " sinks",
+        "b": true
+       },
+       {
+        "text": ". This loop is a"
+       },
+       {
+        "text": " convection current",
+        "b": true
+       },
+       {
+        "text": "."
+       }
+      ]
+     },
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "The mantle does the same thing, but much, much slower (a few centimeters per year) because it is solid rock that flows like putty."
+       }
+      ]
+     },
+     {
+      "t": "table",
+      "rows": [
+       [
+        {
+         "h": true,
+         "runs": [
+          {
+           "text": "In the lab"
+          }
+         ]
+        },
+        {
+         "h": true,
+         "runs": [
+          {
+           "text": "In Earth"
+          }
+         ]
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Hot water cup"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______"
+          }
+         ]
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Water in the container"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______"
+          }
+         ]
+        }
+       ],
+       [
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "Ice water cup / cool top"
+          }
+         ]
+        },
+        {
+         "h": false,
+         "runs": [
+          {
+           "text": "______"
+          }
+         ]
+        }
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Day 46: Reading",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Read"
+       },
+       {
+        "text": " Module 13, Lesson 4: Causes of Plate Motions (pp. 362-364)",
+        "b": true
+       },
+       {
+        "text": ". Answer in your notebook:"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 1,
+      "runs": [
+       {
+        "text": "What is a convection current?"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 2,
+      "runs": [
+       {
+        "text": "Where does the energy for mantle convection come from?"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 3,
+      "runs": [
+       {
+        "text": "How does mantle convection affect the plates of the crust?"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Show what you know: CFA 3.5",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Take"
+       },
+       {
+        "text": " Unit 3 CFA 3.5: Model mantle convection",
+        "b": true
+       },
+       {
+        "text": " (5 questions). If you score below a B, a review page for this target will open for you."
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "teacher": {
+   "glance": "Two days. Day 45: convection lab and lab-to-Earth model. Day 46: textbook reading + questions, then CFA 3.5.",
+   "materials": [
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "Per group: clear plastic shoebox or loaf-pan-size container; 2 small cups (one hot tap water, one ice water) to set under the ends; red and blue food coloring; dropper or pipette; paper towels. Hot water from a kettle or tap (no boiling water at tables). Textbooks (Module 13, Lesson 4, pp. 362-364); Chromebooks."
+      }
+     ]
+    }
+   ],
+   "agenda": [
+    [
+     "Day 45: 5",
+     "Do Now: hot air is less dense, so it rises."
+    ],
+    [
+     "10",
+     "Set up; teacher demo of dropping coloring at the bottom slowly."
+    ],
+    [
+     "15",
+     "Observe and draw at 1-minute intervals."
+    ],
+    [
+     "15",
+     "Debrief; complete the lab-to-Earth table; draw the mantle convection loop."
+    ],
+    [
+     "5",
+     "Exit: show the loop with your finger in the air."
+    ],
+    [
+     "Day 46: 5",
+     "Review the loop: heated, rises, sideways, cools, sinks."
+    ],
+    [
+     "25",
+     "Reading pp. 362-364 with questions."
+    ],
+    [
+     "15",
+     "CFA 3.5 on Canvas."
+    ],
+    [
+     "5",
+     "Preview Lesson 8: you will build a full model."
+    ]
+   ],
+   "notes": [
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 1,
+     "runs": [
+      {
+       "text": "Red should rise over the hot cup, spread across the top, and drift down at the cold end; blue should stay low and spread along the bottom toward the hot side. Results improve if the water sits still first."
+      }
+     ]
+    },
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 2,
+     "runs": [
+      {
+       "text": "Stress the limitation: the lab uses fast-moving liquid; the mantle is solid rock moving a few cm per year (about as fast as fingernails grow)."
+      }
+     ]
+    },
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 3,
+     "runs": [
+      {
+       "text": "Mantle convection is one driver of plate motion (with slab pull and ridge push in the textbook). Keep the focus on convection for this unit; Unit 4 picks up plate motion."
+      }
+     ]
+    }
+   ],
+   "key": [
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "Lab-to-Earth table:",
+       "b": true
+      },
+      {
+       "text": " hot cup = the core (heat source); water = the mantle; ice cup / cool top = the cooler region near the crust."
+      }
+     ]
+    },
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "Reading:",
+       "b": true
+      },
+      {
+       "text": " (1) A loop where heated material rises, cools, and sinks. (2) Earth's internal heat: heat from formation and radioactive decay, flowing out from the core. (3) The slowly moving mantle drags or pushes the plates, so they move a few cm per year."
+      }
+     ]
+    },
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "CFA 3.5 key:",
+       "b": true
+      },
+      {
+       "text": " B, A, C, D, A."
+      }
+     ]
+    }
+   ],
+   "supports": "Assign roles (dropper, timer, artist, reporter). Provide a partially drawn convection loop for students who need it."
+  }
+ },
+ {
+  "num": 8,
+  "days": "Days 47-48",
+  "title": "Build Your Earth Interior Model",
+  "targets": [
+   {
+    "code": "3.2",
+    "text": "I can use seismic wave data, including the shadow zone, to identify Earth's layers and which one is liquid."
+   },
+   {
+    "code": "3.3",
+    "text": "I can describe Earth's layers by composition, density, temperature, and state (solid or liquid)."
+   },
+   {
+    "code": "3.4",
+    "text": "I can identify the two sources of Earth's internal heat: heat left from formation and radioactive decay."
+   },
+   {
+    "code": "3.5",
+    "text": "I can model how mantle convection moves heat and cycles rock between Earth's interior and surface."
+   }
+  ],
+  "cfa": null,
+  "student_url": "https://kernhigh.instructure.com/courses/300209/pages/unit-3-lesson-8-days-47-48-build-your-earth-interior-model",
+  "teacher_url": "https://kernhigh.instructure.com/courses/300209/pages/teacher-unit-3-lesson-8-days-47-48-build-your-earth-interior-model",
+  "notebook": [
+   {
+    "t": "p",
+    "runs": [
+     {
+      "text": "Title:",
+      "b": true
+     },
+     {
+      "text": " L8 Earth Interior Model. Add it to your table of contents."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 1,
+    "runs": [
+     {
+      "text": "Day 47: sketch a rough draft of your model here first."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 2,
+    "runs": [
+     {
+      "text": "Day 48: tape your peer feedback (Slide 4) here, and list 2 changes you made."
+     }
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "h": "Do Now",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Look back at the drawing on your Unit 3 cover page from Day 37. What would you change now?"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Your task",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Build a labeled model (poster or full notebook page) of Earth's interior that answers the driving question:"
+       },
+       {
+        "text": " What is inside Earth, and why does it move?",
+        "b": true
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Model checklist",
+    "blocks": [
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 1,
+      "runs": [
+       {
+        "text": "☐ All 4 layers, drawn in the right order, labeled"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 2,
+      "runs": [
+       {
+        "text": "☐ For each layer: solid or liquid, and what it's made of"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 3,
+      "runs": [
+       {
+        "text": "☐ Arrows showing heat flowing"
+       },
+       {
+        "text": " outward",
+        "b": true
+       },
+       {
+        "text": " from the core"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 4,
+      "runs": [
+       {
+        "text": "☐ The 2 sources of Earth's heat, labeled"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 5,
+      "runs": [
+       {
+        "text": "☐ At least one"
+       },
+       {
+        "text": " convection loop",
+        "b": true
+       },
+       {
+        "text": " in the mantle (rise, sideways, cool, sink)"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 6,
+      "runs": [
+       {
+        "text": "☐ One seismic wave path: an S-wave stopping at the outer core, and a P-wave passing through"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": false,
+      "n": 7,
+      "runs": [
+       {
+        "text": "☐ A short written explanation (3-5 sentences): how we know what's inside Earth, and how heat makes the mantle move"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Day 48: Peer review",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Trade models with a partner. Use the checklist. Write on a sticky note:"
+       }
+      ]
+     },
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Glow:",
+        "b": true
+       },
+       {
+        "text": " One thing your model shows really well is ______."
+       }
+      ]
+     },
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Grow:",
+        "b": true
+       },
+       {
+        "text": " Your model would be clearer if you ______."
+       }
+      ]
+     },
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Then revise your model using the feedback."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Exit ticket",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "What is one change you made to your model after peer review, and why?"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "teacher": {
+   "glance": "Two days. Students build the unit summative model (scope & sequence summative: labeled model of Earth's interior showing heat flow and convection, with a short written explanation). Day 48 is peer review and revision.",
+   "materials": [
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "Poster paper or 11x17 paper; colored pencils/markers; rulers; compasses or lids to trace circles; sticky notes."
+      }
+     ]
+    }
+   ],
+   "agenda": [
+    [
+     "Day 47: 5",
+     "Do Now: revisit the Day 37 drawing."
+    ],
+    [
+     "10",
+     "Go over the checklist; show a quick teacher sketch (layers only) as a starting point."
+    ],
+    [
+     "35",
+     "Draft and start the final model."
+    ],
+    [
+     "Day 48: 20",
+     "Finish the model."
+    ],
+    [
+     "15",
+     "Peer review with glow/grow."
+    ],
+    [
+     "10",
+     "Revise; exit ticket."
+    ],
+    [
+     "5",
+     "Collect or photograph models."
+    ]
+   ],
+   "notes": [
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 1,
+     "runs": [
+      {
+       "text": "Score the model on targets 3.2-3.5 (0-4 each) using the checklist, or use it as evidence alongside the CSA."
+      }
+     ]
+    },
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 2,
+     "runs": [
+      {
+       "text": "If you want students to submit a photo on Canvas, add an assignment to the module (not created yet)."
+      }
+     ]
+    }
+   ],
+   "key": [
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "Strong model:",
+       "b": true
+      },
+      {
+       "text": " crust, mantle, liquid outer core, solid inner core in order; iron and nickel cores; arrows outward; 'heat from formation' and 'radioactive decay' labeled; a mantle loop rising near the core and sinking near the crust; an S-wave stopping at the outer core and a P-wave bending through it. Explanation mentions seismic waves as evidence and density differences driving convection."
+      }
+     ]
+    }
+   ],
+   "supports": "Offer a pre-drawn circle template with layer boundaries for students who need it. Checklist doubles as a scoring guide."
+  }
+ },
+ {
+  "num": 9,
+  "days": "Day 49",
+  "title": "Review Day and Practice Test",
+  "targets": [
+   {
+    "code": "3.1",
+    "text": "I can describe how P-waves and S-waves travel differently through solids and liquids."
+   },
+   {
+    "code": "3.2",
+    "text": "I can use seismic wave data, including the shadow zone, to identify Earth's layers and which one is liquid."
+   },
+   {
+    "code": "3.3",
+    "text": "I can describe Earth's layers by composition, density, temperature, and state (solid or liquid)."
+   },
+   {
+    "code": "3.4",
+    "text": "I can identify the two sources of Earth's internal heat: heat left from formation and radioactive decay."
+   },
+   {
+    "code": "3.5",
+    "text": "I can model how mantle convection moves heat and cycles rock between Earth's interior and surface."
+   }
+  ],
+  "cfa": null,
+  "student_url": "https://kernhigh.instructure.com/courses/300209/pages/unit-3-lesson-9-day-49-review-day-and-practice-test",
+  "teacher_url": "https://kernhigh.instructure.com/courses/300209/pages/teacher-unit-3-lesson-9-day-49-review-day-and-practice-test",
+  "notebook": [
+   {
+    "t": "p",
+    "runs": [
+     {
+      "text": "Title:",
+      "b": true
+     },
+     {
+      "text": " L9 Review. Add it to your table of contents."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 1,
+    "runs": [
+     {
+      "text": "Re-rate yourself on all 5 targets on your targets page."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 2,
+    "runs": [
+     {
+      "text": "For each review station, write 1 thing you learned or fixed."
+     }
+    ]
+   },
+   {
+    "t": "li",
+    "ordered": true,
+    "n": 3,
+    "runs": [
+     {
+      "text": "Revisit the driving question on your cover page: answer it in 2-3 sentences."
+     }
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "h": "Do Now",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Rate yourself 1-4 on each Unit 3 target. Circle the one you'll focus on today."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Practice test",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Take the"
+       },
+       {
+        "text": " Unit 3 Practice Test",
+        "b": true
+       },
+       {
+        "text": " on Canvas. It looks just like the real CSA: 13 questions, including 2 written answers. After your teacher grades it, a review (C, D, or F) or an extension (A or B) will open for you."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Review stations",
+    "blocks": [
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 1,
+      "runs": [
+       {
+        "text": "Waves:",
+        "b": true
+       },
+       {
+        "text": " Slinky and hand-gesture quiz. P or S?"
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 2,
+      "runs": [
+       {
+        "text": "Shadow zone:",
+        "b": true
+       },
+       {
+        "text": " color a new station table and write a CER."
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 3,
+      "runs": [
+       {
+        "text": "Layers:",
+        "b": true
+       },
+       {
+        "text": " put layer cards in order and match properties."
+       }
+      ]
+     },
+     {
+      "t": "li",
+      "ordered": true,
+      "n": 4,
+      "runs": [
+       {
+        "text": "Heat and convection:",
+        "b": true
+       },
+       {
+        "text": " sequence the convection loop cards; name the 2 heat sources."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Driving question, revisited",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "What is inside Earth, and why does it move?",
+        "b": true
+       },
+       {
+        "text": " Answer it on your cover page using at least 4 vocabulary words."
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "teacher": {
+   "glance": "Review day before the CSA (per the support plan): practice test in the same format, then stations. The practice test's Mastery Path opens the review (below a B) or the extension (A or B) once essays are graded.",
+   "materials": [
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "Chromebooks; Slinkys; extra Shadow Zone Maps; layer and convection-step cards; the class chart of Day 37 driving-question ideas."
+      }
+     ]
+    }
+   ],
+   "agenda": [
+    [
+     "5",
+     "Do Now self-rating."
+    ],
+    [
+     "25",
+     "Practice test. Grade the two essays (P5, P13) during stations so the Mastery Path opens before Day 50."
+    ],
+    [
+     "15",
+     "Review stations (rotate by need, using CFA and practice results)."
+    ],
+    [
+     "5",
+     "Driving question revisited; compare with the Day 37 class chart."
+    ]
+   ],
+   "notes": [
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 1,
+     "runs": [
+      {
+       "text": "Mastery Paths wait for the full practice-test score, so the two essays must be graded before students see their review/extension."
+      }
+     ]
+    },
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 2,
+     "runs": [
+      {
+       "text": "If grading can't finish today, students work on the path assignment as a warm-up on Day 50 or as homework."
+      }
+     ]
+    }
+   ],
+   "key": [
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "Practice test key and rubrics: see"
+      },
+      {
+       "text": " assessments/unit-3-practice-and-mastery-paths.md",
+       "i": true
+      },
+      {
+       "text": " in the course repo."
+      }
+     ]
+    }
+   ],
+   "supports": "Send students to the station for their lowest target first."
+  }
+ },
+ {
+  "num": 10,
+  "days": "Day 50",
+  "title": "Unit 3 CSA",
+  "targets": [
+   {
+    "code": "3.1",
+    "text": "I can describe how P-waves and S-waves travel differently through solids and liquids."
+   },
+   {
+    "code": "3.2",
+    "text": "I can use seismic wave data, including the shadow zone, to identify Earth's layers and which one is liquid."
+   },
+   {
+    "code": "3.3",
+    "text": "I can describe Earth's layers by composition, density, temperature, and state (solid or liquid)."
+   },
+   {
+    "code": "3.4",
+    "text": "I can identify the two sources of Earth's internal heat: heat left from formation and radioactive decay."
+   },
+   {
+    "code": "3.5",
+    "text": "I can model how mantle convection moves heat and cycles rock between Earth's interior and surface."
+   }
+  ],
+  "cfa": null,
+  "student_url": "https://kernhigh.instructure.com/courses/300209/pages/unit-3-lesson-10-day-50-unit-3-csa",
+  "teacher_url": "https://kernhigh.instructure.com/courses/300209/pages/teacher-unit-3-lesson-10-day-50-unit-3-csa",
+  "notebook": [
+   {
+    "t": "p",
+    "runs": [
+     {
+      "text": "Title:",
+      "b": true
+     },
+     {
+      "text": " L10 CSA reflection. Add it to your table of contents."
+     }
+    ]
+   },
+   {
+    "t": "p",
+    "runs": [
+     {
+      "text": "After the test: rate yourself on all 5 targets one last time. Which target improved the most since Day 37?"
+     }
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "h": "Before you start",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Clear your desk except for your Chromebook and a pencil. You may sketch on scratch paper. Read every question twice. Questions 5 and 13 need written answers: use claim, evidence, and reasoning."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "Unit 3 CSA",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Open"
+       },
+       {
+        "text": " Unit 3 CSA: Forces Beneath Our Feet (HS-ESS2-3)",
+        "b": true
+       },
+       {
+        "text": " on Canvas."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "h": "When you finish",
+    "blocks": [
+     {
+      "t": "p",
+      "runs": [
+       {
+        "text": "Do your notebook reflection. Then work quietly on your review or extension assignment from the practice test, or a Gizmo."
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "teacher": {
+   "glance": "Summative day: Unit 3 CSA (13 questions; 11 self-graded, 2 teacher-graded free responses).",
+   "materials": [
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "Chromebooks; scratch paper."
+      }
+     ]
+    }
+   ],
+   "agenda": [
+    [
+     "5",
+     "Directions; students open the CSA."
+    ],
+    [
+     "40",
+     "CSA."
+    ],
+    [
+     "5",
+     "Notebook reflection."
+    ]
+   ],
+   "notes": [
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 1,
+     "runs": [
+      {
+       "text": "Score Q5 and Q13 with the rubrics; record per-target scores in the U3 tab of the Learning Target Tracker (CSA columns)."
+      }
+     ]
+    },
+    {
+     "t": "li",
+     "ordered": false,
+     "n": 2,
+     "runs": [
+      {
+       "text": "Students under 1.8 on a target get an intervention pick in the tracker."
+      }
+     ]
+    }
+   ],
+   "key": [
+    {
+     "t": "p",
+     "runs": [
+      {
+       "text": "CSA key and rubrics: see"
+      },
+      {
+       "text": " assessments/unit-3-csa-mastery-connect.md",
+       "i": true
+      },
+      {
+       "text": " in the course repo."
+      }
+     ]
+    }
+   ],
+   "supports": "Extended time and read-aloud per IEP/504. Small-group setting as needed."
+  }
+ }
+]
