@@ -198,6 +198,7 @@ tr:last-child td { border-bottom: 0; }
         </div>
         <dl>
           <div><dt>Collected from</dt><dd id="tag-where"></dd></div>
+          <div><dt>How it got there</dt><dd id="tag-how"></dd></div>
           <div><dt>Field notes</dt><dd id="tag-notes"></dd></div>
           <div><dt>Lab results</dt><dd>
             <div class="chem">
@@ -228,7 +229,27 @@ tr:last-child td { border-bottom: 0; }
         <div class="step-num">1</div>
         <div class="step-body">
           <h2>Origin: lava flow or tephra?</h2>
-          <p><strong>Lava flow</strong> material hardened as part of a flow of molten rock moving across the ground. <strong>Pyroclastic material (tephra)</strong> was thrown into the air by an eruption, as liquid blobs or as solid pieces, and then landed. The "Collected from" line on the tag is your best clue.</p>
+          <p>Ask one question: <strong>did this rock flow there, or fly there?</strong> <strong>Lava flow</strong> material hardened as part of molten rock moving across the ground. <strong>Pyroclastic material (tephra)</strong> was thrown into the air by an eruption, as liquid blobs or solid pieces, and then landed. Read the <strong>How it got there</strong> line on the specimen tag, then compare it with the clues below.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Clue</th><th>Lava flow (it flowed there)</th><th>Pyroclastic / tephra (it flew there)</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Where it was found</strong></td><td>Part of, or on top of, a long tongue or sheet of rock that runs downhill from the vent</td><td>Lying loose on the ground, in a layer that covers hills and valleys alike, or alone far from any flow</td></tr>
+                <tr><td><strong>Words on the tag</strong></td><td>flow, sheet, tongue, oozed, crept, moved downhill, rode on top of the flow</td><td>fell, rained down, landed, thrown, blasted, tossed, flew, carried by wind</td></tr>
+                <tr><td><strong>What the layer does</strong></td><td>Stays in a valley or low channel, like a river frozen in place</td><td>Blankets everything like snow. It is thicker near the vent and thinner farther away</td></tr>
+                <tr><td><strong>Shape of the specimen</strong></td><td>Shaped by flowing: rope-like folds, jagged spiny surfaces, smooth-faced blocks</td><td>Shaped by flying: twisted, spindle-shaped, splatted flat, cracked crust, or loose fragments of one size</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout" style="display:grid;gap:6px">
+            <strong>Watch out for these tricky ones</strong>
+            <ul class="rules" style="margin:0">
+              <li><strong>A'a clinker</strong> is loose rubble, but it never left the ground. It rode on top of the flow, so it is <strong>lava flow</strong>.</li>
+              <li><strong>Obsidian</strong> is glass, but this glass oozed out as a flow, so it is <strong>lava flow</strong>.</li>
+              <li>A <strong>volcanic block</strong> looks like a piece of block lava, but it was blasted through the air, so it is <strong>tephra</strong>.</li>
+              <li><strong>Cow-pie bombs</strong> and <strong>spatter</strong> were liquid when they landed, but they flew first, so they are <strong>tephra</strong>.</li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -342,7 +363,7 @@ const FIELDS = [
   { key: "t2", label: "Texture 2", hint: "holes", opts: ["vesicular", "none"] },
   { key: "comp", label: "Composition", hint: "use SiO₂", opts: ["felsic", "intermediate", "mafic", "ultramafic"] },
   { key: "name", label: "Rock name", hint: "", opts: ["rhyolite", "andesite", "basalt"] },
-  { key: "origin", label: "Origin", hint: "", opts: ["lava flow", "pyroclastic (tephra)"] },
+  { key: "origin", label: "Origin", hint: "flowed or flew?", opts: ["lava flow", "pyroclastic (tephra)"] },
   { key: "size", label: "Tephra size", hint: "measure it", opts: ["< 2 mm", "2–64 mm", "> 64 mm", "N/A (lava flow)"] },
   { key: "material", label: "Material", hint: "", opts: ["pahoehoe", "a'a", "a'a clinker", "block lava", "ash", "lapilli", "pumice", "scoria", "reticulite", "agglutinate (spatter)", "volcanic block", "ribbon bomb", "fusiform (spindle) bomb", "bread-crust bomb", "cow-pie bomb", "spherical bomb"] }
 ];
@@ -412,6 +433,25 @@ const SAMPLES = [
 ];
 
 // Hand-lens texture, recorded per sample for the lens drawing only.
+// Origin evidence: did it flow there or fly there?
+const HOW = {
+ "VM-01": "Lying loose among thousands of similar pieces that piled up around the vent and built the cone. They rained down out of the sky during the eruption.",
+ "VM-02": "Broken off a solid sheet of rock that stretches for kilometers downhill from the vent. People watched the molten rock creep across the ground before it hardened.",
+ "VM-03": "Part of a pale layer that blankets hills and valleys alike and gets thinner the farther you go from the volcano. It fell from a tall eruption column.",
+ "VM-04": "Part of a thick, steep-sided tongue of rock that crept slowly down the side of the mountain. Its surface is a jumble of blocks like this one.",
+ "VM-05": "Lying alone on the ground 200 m from the vent, far from any lava flow. Its shape shows it was soft while it flew through the air.",
+ "VM-06": "Fell from the sky as a dusty gray layer over rooftops, cars, and roads 10 km from the volcano.",
+ "VM-07": "Part of a steep-sided tongue of rock that oozed out of a vent and moved downhill. The flow's surface is a pile of smooth-sided blocks like this one.",
+ "VM-08": "Cut from the solid inside of a long tongue of rock that moved downhill from the vent and hardened in place.",
+ "VM-09": "Lying alone on the crater rim. People watched glowing lumps like this arc through the air and crash down during the eruption.",
+ "VM-10": "Part of a loose layer covering the ground around small cones. The layer is thicker near the vents and thinner farther away, like snow after a snowfall.",
+ "VM-11": "Fell out of the sky downwind of a fountain of molten rock. The wind carried it before it landed.",
+ "VM-12": "Lying alone on the ground near the vent, with no lava flow nearby. Its pointed, twisted shape formed while it spun through the air.",
+ "VM-13": "Loose rubble riding on top of a moving flow of molten rock. It never left the ground: it rode along on the flow and tumbled off its front edge.",
+ "VM-14": "Lying 30 m from the vent. Molten blobs were tossed out of a lava fountain and splatted onto the ground here.",
+ "VM-15": "Lying in a pit it dug when it crashed down 2 km from the crater. No lava flow ever reached this spot."
+};
+
 const LENS = {
   "VM-01": "aph", "VM-02": "aph", "VM-03": "glass", "VM-04": "por", "VM-05": "aph", "VM-06": "pyro",
   "VM-07": "glass", "VM-08": "aph", "VM-09": "por", "VM-10": "pyro", "VM-11": "net", "VM-12": "por",
@@ -935,6 +975,7 @@ function show(i) {
   $("lens-text").textContent = s.lens;
   $("tag-id").textContent = s.id;
   $("tag-where").textContent = s.where;
+  $("tag-how").textContent = HOW[s.id];
   $("tag-notes").textContent = s.notes;
   $("tag-si").textContent = s.si.toFixed(1) + "%";
   $("tag-float").textContent = s.float;
