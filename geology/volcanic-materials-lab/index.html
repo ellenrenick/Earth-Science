@@ -1,0 +1,1023 @@
+<title>Volcanic Materials ID Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a field-station bench. Specimen "photo" on cm grid paper at left, specimen tag + notebook at right, specimen tray strip below. */
+:root {
+  --bg: #F1F3F0;
+  --surface: #FFFFFF;
+  --ink: #1B1F23;
+  --muted: #59626A;
+  --line: #D3D8D8;
+  --accent: #4C6A1C;      /* olivine */
+  --accent-soft: #E4ECD3;
+  --hot: #B0441C;         /* fresh lava */
+  --hot-soft: #F6E2D8;
+  --tag: #F7F5EC;
+  --f-display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "Atkinson Hyperlegible", "Segoe UI", Verdana, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14171A; --surface: #1D2125; --ink: #E6E9EB; --muted: #9AA3AA; --line: #31373C;
+    --accent: #A8C66A; --accent-soft: #263018; --hot: #E57E52; --hot-soft: #3A2117; --tag: #23272B;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14171A; --surface: #1D2125; --ink: #E6E9EB; --muted: #9AA3AA; --line: #31373C;
+  --accent: #A8C66A; --accent-soft: #263018; --hot: #E57E52; --hot-soft: #3A2117; --tag: #23272B;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.5; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 20px; padding-block: 20px 56px; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; line-height: 1.1; }
+h1 { font-size: clamp(2rem, 5vw, 3.1rem); font-weight: 800; font-stretch: 72%; letter-spacing: -0.01em; text-transform: uppercase; }
+h2 { font-size: 1.6rem; font-weight: 750; font-stretch: 80%; }
+h3 { font-size: 1.12rem; font-weight: 700; font-stretch: 92%; }
+p { margin: 0; }
+.eyebrow { font-family: var(--f-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.muted { color: var(--muted); }
+a { color: var(--accent); }
+button, select { font: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+header.top { display: grid; gap: 14px; padding-bottom: 18px; border-bottom: 2px solid var(--ink); }
+.top-row { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px; }
+.intro { max-width: 68ch; }
+.tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+.tab { border: 1.5px solid var(--ink); background: transparent; color: var(--ink); padding: 8px 16px; border-radius: 999px; cursor: pointer; font-family: var(--f-display); font-weight: 700; font-stretch: 90%; letter-spacing: 0.02em; }
+.tab[aria-selected="true"] { background: var(--ink); color: var(--bg); }
+.progress { font-family: var(--f-mono); font-size: 0.85rem; color: var(--muted); }
+.progress b { color: var(--ink); font-weight: 500; }
+
+section.view { padding-top: 24px; }
+
+/* Specimen view */
+.bench { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 880px) { .bench { grid-template-columns: minmax(0, 1fr); } }
+.photo { display: grid; gap: 12px; min-width: 0; }
+.photo-frame { position: relative; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); background: #E8EBEC; }
+.photo-frame canvas { display: block; width: 100%; height: auto; }
+.photo-label { position: absolute; left: 12px; top: 10px; font-family: var(--f-mono); font-size: 0.8rem; background: rgba(255,255,255,.85); color: #1B1F23; padding: 2px 8px; border-radius: 3px; }
+.lens-row { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 16px; align-items: center; }
+@media (max-width: 480px) { .lens-row { grid-template-columns: minmax(0, 1fr); justify-items: center; } }
+.lens { width: 180px; max-width: 100%; aspect-ratio: 1; border-radius: 50%; display: block; }
+.lens-note { min-width: 0; }
+.nav-row { display: flex; justify-content: space-between; gap: 8px; }
+.btn { border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); padding: 8px 14px; border-radius: 6px; cursor: pointer; }
+.btn:hover { border-color: var(--ink); }
+.btn.primary { background: var(--accent); color: var(--surface); border-color: var(--accent); font-weight: 700; }
+
+.tag { background: var(--tag); border: 1px solid var(--line); border-radius: 6px; padding: 18px 18px 16px; display: grid; gap: 12px; min-width: 0; position: relative; }
+.tag::before { content: ""; position: absolute; top: 14px; right: 16px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--line); background: var(--bg); }
+.tag h2 { font-size: 2rem; }
+.tag dl { margin: 0; display: grid; gap: 10px; }
+.tag dt { font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.tag dd { margin: 0; }
+.chem { display: flex; flex-wrap: wrap; gap: 10px 20px; font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.chem div { display: grid; }
+.chem strong { font-size: 1.35rem; font-weight: 500; }
+
+.notebook { border-top: 2px dashed var(--line); padding-top: 14px; display: grid; gap: 10px; }
+.field { display: grid; grid-template-columns: 9.5em minmax(0, 1fr); gap: 8px; align-items: center; }
+.field label { font-weight: 700; font-size: 0.92rem; }
+.field label small { display: block; font-weight: 400; color: var(--muted); font-size: 0.78rem; }
+.field select { width: 100%; padding: 7px 8px; border-radius: 5px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); }
+.field select.filled { border-color: var(--accent); background: var(--accent-soft); }
+@media (max-width: 420px) { .field { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+
+.tray { margin-top: 28px; }
+.tray-grid { margin-top: 10px; display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 10px; }
+.tray-item { border: 1.5px solid var(--line); background: var(--surface); border-radius: 6px; padding: 0; cursor: pointer; overflow: hidden; color: var(--ink); text-align: left; display: grid; }
+.tray-item canvas { width: 100%; height: auto; display: block; }
+.tray-item span { display: flex; justify-content: space-between; align-items: center; padding: 5px 8px; font-family: var(--f-mono); font-size: 0.78rem; }
+.tray-item[aria-current="true"] { border-color: var(--hot); box-shadow: 0 0 0 2px var(--hot); }
+.dot { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--muted); }
+.dot.part { background: linear-gradient(90deg, var(--accent) 50%, transparent 50%); border-color: var(--accent); }
+.dot.done { background: var(--accent); border-color: var(--accent); }
+
+/* Guide */
+.guide { display: grid; gap: 30px; }
+.step { display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); gap: 14px; }
+.step-num { font-family: var(--f-display); font-weight: 800; font-stretch: 62%; font-size: 2.8rem; line-height: 0.9; color: var(--hot); }
+.step-body { display: grid; gap: 12px; min-width: 0; }
+.step-body > p { max-width: 70ch; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 10px; display: grid; gap: 6px; align-content: start; }
+.card canvas { width: 100%; height: auto; border-radius: 4px; display: block; }
+.card .lensmini { width: 96px; height: 96px; border-radius: 50%; justify-self: center; }
+.card h3 { font-size: 1.05rem; }
+.card p { font-size: 0.92rem; }
+.pill { display: inline-block; font-family: var(--f-mono); font-size: 0.72rem; padding: 1px 7px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
+.pill.hot { background: var(--hot-soft); color: var(--hot); }
+.silica { display: grid; gap: 6px; max-width: 760px; }
+.silica-bar { display: grid; grid-template-columns: 5fr 7fr 11fr 17fr; border-radius: 4px; overflow: hidden; border: 1px solid var(--line); }
+.silica-bar div { padding: 10px 8px; font-weight: 700; font-size: 0.9rem; min-width: 0; }
+.silica-bar small { display: block; font-weight: 400; font-family: var(--f-mono); font-size: 0.72rem; }
+.sb1 { background: #2E3B22; color: #E9F0DC; }
+.sb2 { background: #3A3D3F; color: #F0F0F0; }
+.sb3 { background: #8E9496; color: #111; }
+.sb4 { background: #E3DCCB; color: #111; }
+.silica-ticks { display: grid; grid-template-columns: 5fr 7fr 11fr 17fr; font-family: var(--f-mono); font-size: 0.75rem; color: var(--muted); }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+tr:last-child td { border-bottom: 0; }
+.rules { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; max-width: 72ch; }
+.group-h { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+
+/* Lab sheet */
+.sheet-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 12px; margin-bottom: 14px; }
+.sheet td.empty { color: var(--muted); }
+.sheet td:first-child { font-family: var(--f-mono); white-space: nowrap; }
+.sheet button.linkish { background: none; border: 0; color: var(--accent); cursor: pointer; padding: 0; font-family: var(--f-mono); text-decoration: underline; }
+.confirm { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.callout { background: var(--hot-soft); border-radius: 6px; padding: 12px 14px; max-width: 76ch; }
+@media (prefers-reduced-motion: no-preference) {
+  .photo-frame canvas { transition: opacity .2s ease; }
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="top-row">
+      <div style="display:grid;gap:6px">
+        <span class="eyebrow">Honors Geology · Volcanism &amp; Extrusive Rocks</span>
+        <h1>Volcanic Materials ID Lab</h1>
+      </div>
+      <p class="progress" id="progress">Specimens identified: <b>0</b> of 15</p>
+    </div>
+    <p class="intro">Fifteen specimens from real volcanoes are laid out on the bench. For each one, read the specimen tag, look through the hand lens, and measure it on the grid. Use the <strong>ID Guide</strong> to make each choice in the notebook. When all 15 are done, open <strong>My Lab Sheet</strong> and copy your answers into the Canvas quiz.</p>
+    <nav class="tabs" role="tablist" aria-label="Lab sections">
+      <button class="tab" role="tab" id="tab-bench" aria-selected="true" data-view="bench">Specimens</button>
+      <button class="tab" role="tab" id="tab-guide" aria-selected="false" data-view="guide">ID Guide</button>
+      <button class="tab" role="tab" id="tab-sheet" aria-selected="false" data-view="sheet">My Lab Sheet</button>
+    </nav>
+  </header>
+
+  <!-- SPECIMENS -->
+  <section class="view" id="view-bench" role="tabpanel" aria-labelledby="tab-bench">
+    <div class="bench">
+      <div class="photo">
+        <div class="photo-frame">
+          <canvas id="specimen" width="720" height="460" aria-label="Specimen photo"></canvas>
+          <span class="photo-label" id="photo-label">VM-01</span>
+        </div>
+        <div class="lens-row">
+          <canvas id="lens" class="lens" width="180" height="180" aria-label="Hand lens view"></canvas>
+          <div class="lens-note">
+            <span class="eyebrow">Hand lens · about 10× · field of view ≈ 10 mm</span>
+            <p id="lens-text"></p>
+          </div>
+        </div>
+        <div class="nav-row">
+          <button class="btn" id="prev">← Previous</button>
+          <button class="btn" id="next">Next →</button>
+        </div>
+      </div>
+
+      <aside class="tag" aria-label="Specimen tag">
+        <div style="display:grid;gap:2px">
+          <span class="eyebrow">Specimen</span>
+          <h2 id="tag-id">VM-01</h2>
+        </div>
+        <dl>
+          <div><dt>Collected from</dt><dd id="tag-where"></dd></div>
+          <div><dt>Field notes</dt><dd id="tag-notes"></dd></div>
+          <div><dt>Lab results</dt><dd>
+            <div class="chem">
+              <div><span class="muted" style="font-size:.78rem">SiO₂ (silica)</span><strong id="tag-si"></strong></div>
+              <div><span class="muted" style="font-size:.78rem">Float test</span><strong id="tag-float" style="font-size:1rem;padding-top:.3rem"></strong></div>
+            </div>
+          </dd></div>
+          <div><dt>Size</dt><dd id="tag-size"></dd></div>
+        </dl>
+        <form class="notebook" id="notebook" autocomplete="off">
+          <span class="eyebrow">Your notebook · saved in this browser</span>
+        </form>
+      </aside>
+    </div>
+
+    <div class="tray">
+      <div class="group-h"><h3>Specimen tray</h3><span class="muted" style="font-size:.9rem">Filled dot = all 7 notebook choices made</span></div>
+      <div class="tray-grid" id="tray"></div>
+    </div>
+  </section>
+
+  <!-- GUIDE -->
+  <section class="view" id="view-guide" role="tabpanel" aria-labelledby="tab-guide" hidden>
+    <div class="guide">
+      <p class="callout">Work through the steps in order. Each step matches one line in your notebook. Use evidence from the specimen photo, the hand lens, and the specimen tag.</p>
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h2>Origin: lava flow or tephra?</h2>
+          <p><strong>Lava flow</strong> material hardened as part of a flow of molten rock moving across the ground. <strong>Pyroclastic material (tephra)</strong> was thrown into the air by an eruption, as liquid blobs or as solid pieces, and then landed. The "Collected from" line on the tag is your best clue.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h2>Texture 1: grain size</h2>
+          <p>Look through the hand lens. Pick the one texture that describes the main body of the rock.</p>
+          <div class="cards" id="tex-cards"></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h2>Texture 2: holes</h2>
+          <p>Holes in a volcanic rock are <strong>vesicles</strong>. They are gas bubbles that were frozen in place as the lava cooled. If the hand lens note says holes make up about 10% of the rock or more, choose <strong>vesicular</strong>. If there are no holes, or only a few, choose <strong>none</strong>.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h2>Composition and rock name</h2>
+          <p>Color is a helpful hint, but it can fool you. Volcanic glass is dark even when it is felsic. Use the <strong>silica (SiO₂) percentage</strong> on the tag to decide.</p>
+          <div class="silica" aria-label="Silica scale">
+            <div class="silica-bar">
+              <div class="sb1">Ultramafic<small>&lt; 45%</small></div>
+              <div class="sb2">Mafic<small>45–52%</small></div>
+              <div class="sb3">Intermediate<small>52–63%</small></div>
+              <div class="sb4">Felsic<small>&gt; 63%</small></div>
+            </div>
+            <div class="silica-ticks"><span>40%</span><span>45%</span><span>52%</span><span style="display:flex;justify-content:space-between">63%<span>80%</span></span></div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Composition</th><th>Volcanic rock name</th><th>Usual color</th><th>Lava behavior</th></tr></thead>
+              <tbody>
+                <tr><td>Felsic</td><td><strong>Rhyolite</strong></td><td>Light (pink, cream, pale gray). Glass is black.</td><td>Very thick and sticky. Traps gas, so eruptions are explosive.</td></tr>
+                <tr><td>Intermediate</td><td><strong>Andesite</strong></td><td>Medium gray</td><td>Thick. Often explosive.</td></tr>
+                <tr><td>Mafic</td><td><strong>Basalt</strong></td><td>Dark gray to black, or rusty red where iron has oxidized</td><td>Runny. Gas escapes easily, so eruptions are gentler.</td></tr>
+                <tr><td>Ultramafic</td><td>Komatiite (very rare today)</td><td>Dark green to black</td><td>Extremely runny. None in this lab.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h2>Tephra size</h2>
+          <p>Measure the longest side of the specimen using the grid squares in the photo. Check the scale label in the bottom corner, because the squares are not always 1 cm. Lava flow samples get <strong>N/A</strong>.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Size class</th><th>Longest side</th><th>About as big as…</th></tr></thead>
+              <tbody>
+                <tr><td><strong>&lt; 2 mm</strong> (ash)</td><td>less than 0.2 cm</td><td>flour, sand grains</td></tr>
+                <tr><td><strong>2–64 mm</strong> (lapilli size)</td><td>0.2 cm to 6.4 cm</td><td>a pea to a golf ball</td></tr>
+                <tr><td><strong>&gt; 64 mm</strong> (block and bomb size)</td><td>more than 6.4 cm</td><td>a tennis ball or bigger</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <h2>Name the volcanic material</h2>
+          <ol class="rules">
+            <li>If it is from a <strong>lava flow</strong>, choose one of the four lava flow materials.</li>
+            <li>If it is tephra and shows a shape that formed while it was <strong>soft and flying</strong> (twisted, stretched, splatted, cracked crust), it is a <strong>bomb</strong> or <strong>agglutinate</strong>.</li>
+            <li>If it is tephra and mostly <strong>holes</strong>, it is <strong>pumice</strong>, <strong>scoria</strong>, or <strong>reticulite</strong>, whatever its size.</li>
+            <li>Otherwise, name it by size: <strong>ash</strong>, <strong>lapilli</strong>, or <strong>volcanic block</strong>.</li>
+          </ol>
+          <div class="group-h"><h3>Lava flow materials</h3><span class="pill">N/A tephra size</span></div>
+          <div class="cards" id="lava-cards"></div>
+          <div class="group-h"><h3>Pyroclastic materials (tephra)</h3><span class="pill hot">thrown into the air</span></div>
+          <div class="cards" id="tephra-cards"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAB SHEET -->
+  <section class="view" id="view-sheet" role="tabpanel" aria-labelledby="tab-sheet" hidden>
+    <div class="sheet-head">
+      <div style="display:grid;gap:4px">
+        <h2>My Lab Sheet</h2>
+        <p class="muted">Copy each row into the matching question in the Canvas quiz. Your answers are saved only in this browser on this device.</p>
+      </div>
+      <div class="confirm" id="clear-area">
+        <button class="btn" id="clear-btn" type="button">Clear my answers</button>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table class="sheet" id="sheet"></table>
+    </div>
+  </section>
+</div>
+
+<script>
+(function () {
+"use strict";
+
+/* ---------------- data ---------------- */
+const FIELDS = [
+  { key: "t1", label: "Texture 1", hint: "grain size", opts: ["aphanitic", "porphyritic", "glassy", "pyroclastic"] },
+  { key: "t2", label: "Texture 2", hint: "holes", opts: ["vesicular", "none"] },
+  { key: "comp", label: "Composition", hint: "use SiO₂", opts: ["felsic", "intermediate", "mafic", "ultramafic"] },
+  { key: "name", label: "Rock name", hint: "", opts: ["rhyolite", "andesite", "basalt"] },
+  { key: "origin", label: "Origin", hint: "", opts: ["lava flow", "pyroclastic (tephra)"] },
+  { key: "size", label: "Tephra size", hint: "measure it", opts: ["< 2 mm", "2–64 mm", "> 64 mm", "N/A (lava flow)"] },
+  { key: "material", label: "Material", hint: "", opts: ["pahoehoe", "a'a", "a'a clinker", "block lava", "ash", "lapilli", "pumice", "scoria", "reticulite", "agglutinate (spatter)", "volcanic block", "ribbon bomb", "fusiform (spindle) bomb", "bread-crust bomb", "cow-pie bomb", "spherical bomb"] }
+];
+
+// look: drawing recipe. len: longest side in cm. ves: fraction of holes. xtal: visible crystals.
+const SAMPLES = [
+  { id: "VM-01", look: "scoria", len: 3.6, seed: 11, si: 50.4, float: "Sinks", ves: 0.4, xtal: [],
+    where: "Loose cinders covering the slope of a small cone-shaped hill, Lava Beds National Monument, California.",
+    notes: "Dark reddish-black and rough, with sharp edges. Full of holes, so it feels light for a dark rock, but it still sinks in water.",
+    lens: "Holes make up about 40% of the rock. The rock between the holes is fine-grained, and no crystals are visible." },
+  { id: "VM-02", look: "pahoehoe", len: 26, seed: 22, si: 49.2, float: "Sinks", ves: 0.1, xtal: [],
+    where: "Broken from the surface of an active lava flow, Kīlauea, Hawaiʻi.",
+    notes: "Smooth, slightly shiny surface with curved folds that look like coiled rope. It was broken off a continuous sheet of hardened lava.",
+    lens: "Fine-grained, with no crystals visible. Small round holes make up about 10% of the rock." },
+  { id: "VM-03", look: "pumice", len: 4.6, seed: 33, si: 71.8, float: "Floats", ves: 0.7, xtal: [],
+    where: "Loose fragments from a thick pale layer about 15 km downwind of Mount Mazama (Crater Lake), Oregon.",
+    notes: "Pale gray-cream and rough, like a sponge made of glass. There are shiny threads between the holes.",
+    lens: "Long, stretched holes make up about 70% of the rock. The thin walls between the holes are glass. No crystals." },
+  { id: "VM-04", look: "blocklava", len: 30, seed: 44, si: 59.1, float: "Sinks", ves: 0, xtal: ["plag", "hbl"],
+    where: "A steep, thick lava flow made of jumbled angular blocks, Mount Shasta, California.",
+    notes: "Medium gray piece with flat, smooth faces and sharp corners. Dense and heavy.",
+    lens: "Fine-grained gray background with scattered white rectangular crystals (plagioclase) and black needle-shaped crystals (hornblende), 1–4 mm long. No holes." },
+  { id: "VM-05", look: "ribbon", len: 24, seed: 55, si: 48.6, float: "Sinks", ves: 0.15, xtal: [],
+    where: "Lying on the ground about 200 m from the vent of a cinder cone, Sunset Crater, Arizona.",
+    notes: "A long, flat, twisted strip with lines running along its length. It was soft when it flew and got stretched in the air.",
+    lens: "Fine-grained, with no crystals visible. Stretched holes make up about 15% of the rock." },
+  { id: "VM-06", look: "ash", len: 9, seed: 66, si: 60.5, float: "Sinks", ves: 0, xtal: [],
+    where: "Fell on rooftops 10 km from Soufrière Hills volcano, Montserrat, during an explosive eruption. Shown in a 9 cm dish.",
+    notes: "Gray powder that feels like flour mixed with very fine sand. It stains your fingers. The grains are too small to measure with the grid.",
+    lens: "Each grain is a broken, angular piece of glass, crystal, or rock. All grains are smaller than 1 mm. No holes are visible in the grains." },
+  { id: "VM-07", look: "obsidian", len: 12, seed: 77, si: 73.5, float: "Sinks", ves: 0, xtal: [],
+    where: "Big Obsidian Flow, Newberry Volcano, Oregon. The flow is a steep pile of smooth-sided blocks.",
+    notes: "Black and shiny, like dark glass. It breaks along curved, shell-shaped surfaces with razor-sharp edges. Thin edges look smoky and see-through.",
+    lens: "No grains or crystals at all. Completely smooth glass. No holes." },
+  { id: "VM-08", look: "aa", len: 28, seed: 88, si: 51.0, float: "Sinks", ves: 0.15, xtal: [],
+    where: "Cut from the solid inside of a lava flow, Mauna Loa, Hawaiʻi (1984 flow).",
+    notes: "Dark, heavy slab from the core of the flow. Its upper surface is very rough and jagged, rough enough to shred shoes.",
+    lens: "Fine-grained, with no crystals visible. Irregular, jagged holes make up about 15% of the rock." },
+  { id: "VM-09", look: "breadcrust", len: 18, seed: 99, si: 58.7, float: "Sinks", ves: 0.3, xtal: ["plag"],
+    where: "Landed on the crater rim of Ngauruhoe volcano, New Zealand.",
+    notes: "A rounded lump. Its dark, glassy outer crust is split by deep cracks, like the crust on a loaf of bread. Inside the cracks the rock is lighter gray and frothy.",
+    lens: "Inside the cracks: fine-grained gray background with white crystals (plagioclase) 1–3 mm long. Holes make up about 30% of the inside." },
+  { id: "VM-10", look: "lapilli", len: 2.8, seed: 110, si: 50.8, float: "Sinks", ves: 0.03, xtal: [],
+    where: "A layer of loose, gravel-sized fragments near the summit cones of Mauna Kea, Hawaiʻi.",
+    notes: "A handful of dark, gravel-sized fragments. Each fragment is fairly solid, not frothy. Measure the largest one.",
+    lens: "Each fragment is made of smaller broken bits of rock and glass stuck together. Very few holes (under 5%)." },
+  { id: "VM-11", look: "reticulite", len: 5.2, seed: 121, si: 49.5, float: "Floats briefly, then sinks", ves: 0.95, xtal: [],
+    where: "Collected downwind of a lava fountain that shot 500 m high, Kīlauea Iki, Hawaiʻi (1959).",
+    notes: "Golden-brown and extremely light. It looks like a 3-D net or honeycomb made of glass threads. Most of it is empty space.",
+    lens: "Thin glass threads form open, many-sided cells. About 95% of the volume is open space. No crystals." },
+  { id: "VM-12", look: "fusiform", len: 16, seed: 132, si: 47.8, float: "Sinks", ves: 0.15, xtal: ["oliv"],
+    where: "On the ground near the vent of Puʻu ʻŌʻō, Kīlauea, Hawaiʻi.",
+    notes: "Shaped like a football, with twisted, pointed ends and grooves running from end to end. It spun as it flew through the air.",
+    lens: "Fine-grained dark background with green, glassy crystals (olivine) 1–3 mm across. Holes make up about 15% of the rock." },
+  { id: "VM-13", look: "clinker", len: 11, seed: 143, si: 50.2, float: "Sinks", ves: 0.25, xtal: [],
+    where: "Loose rubble on top of a lava flow, Mauna Loa, Hawaiʻi.",
+    notes: "A loose chunk covered in sharp spines, rusty red in spots. Pieces like this break off the top of the flow and tumble down its front as it moves.",
+    lens: "Fine-grained, with no crystals visible. Irregular holes make up about 25% of the rock." },
+  { id: "VM-14", look: "cowpie", len: 32, seed: 154, si: 50.0, float: "Sinks", ves: 0.2, xtal: [],
+    where: "Landed about 30 m from Fissure 8, Kīlauea, Hawaiʻi (2018 eruption).",
+    notes: "A flattened, round splat with a wrinkled edge. It was still liquid when it hit the ground.",
+    lens: "Fine-grained, with no crystals visible. Holes make up about 20% of the rock." },
+  { id: "VM-15", look: "volblock", len: 45, seed: 165, si: 60.8, float: "Sinks", ves: 0, xtal: ["plag", "hbl"],
+    where: "Thrown about 2 km from the crater during an explosive eruption, Volcán de Colima, Mexico.",
+    notes: "A large, angular chunk with sharp corners and flat, broken faces. It was already solid rock when the eruption blasted it out.",
+    lens: "Fine-grained gray background with white plagioclase and black hornblende crystals 1–5 mm long. No holes." }
+];
+
+// Hand-lens texture, recorded per sample for the lens drawing only.
+const LENS = {
+  "VM-01": "aph", "VM-02": "aph", "VM-03": "glass", "VM-04": "por", "VM-05": "aph", "VM-06": "pyro",
+  "VM-07": "glass", "VM-08": "aph", "VM-09": "por", "VM-10": "pyro", "VM-11": "net", "VM-12": "por",
+  "VM-13": "aph", "VM-14": "aph", "VM-15": "por"
+};
+
+/* ---------------- storage ---------------- */
+const KEY = "vm-lab-answers-v1";
+let answers = {};
+try { answers = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { answers = {}; }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(answers)); } catch (e) {} }
+function filledCount(id) { const a = answers[id] || {}; return FIELDS.filter(f => a[f.key]).length; }
+
+/* ---------------- drawing helpers ---------------- */
+function rngFrom(seed) {
+  let a = seed * 2654435761 >>> 0;
+  return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+}
+const hsl = (h, s, l, a) => a === undefined ? `hsl(${h} ${s}% ${l}%)` : `hsl(${h} ${s}% ${l}% / ${a})`;
+const TAU = Math.PI * 2;
+
+function prep(cv, w, h) {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  const ctx = cv.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return ctx;
+}
+
+function blob(rng, cx, cy, rx, ry, o) {
+  o = o || {};
+  const n = o.n || 96, rough = o.rough ?? 0.08, jag = o.jag || 0, rot = o.rot || 0;
+  const harm = [];
+  for (let k = 2; k <= 7; k++) harm.push({ k, a: (rng() * 2 - 1) * rough * 1.6 / (k - 1), p: rng() * TAU });
+  const pts = [];
+  for (let i = 0; i < n; i++) {
+    const t = i / n * TAU;
+    let r = 1;
+    for (const hm of harm) r += hm.a * Math.sin(hm.k * t + hm.p);
+    if (jag) r += (rng() < 0.45 ? 1 : -0.35) * jag * (0.3 + rng() * 1.2);
+    const x = Math.cos(t) * rx * r, y = Math.sin(t) * ry * r;
+    pts.push([cx + x * Math.cos(rot) - y * Math.sin(rot), cy + x * Math.sin(rot) + y * Math.cos(rot)]);
+  }
+  return pts;
+}
+function trace(ctx, pts, smooth) {
+  ctx.beginPath();
+  if (!smooth) { pts.forEach((p, i) => i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1])); ctx.closePath(); return; }
+  const n = pts.length;
+  const mid = (a, b) => [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+  let m = mid(pts[n - 1], pts[0]);
+  ctx.moveTo(m[0], m[1]);
+  for (let i = 0; i < n; i++) { const p = pts[i], q = mid(p, pts[(i + 1) % n]); ctx.quadraticCurveTo(p[0], p[1], q[0], q[1]); }
+  ctx.closePath();
+}
+function bbox(pts) {
+  let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+  for (const [x, y] of pts) { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); }
+  return { x0, y0, x1, y1, w: x1 - x0, h: y1 - y0, cx: (x0 + x1) / 2, cy: (y0 + y1) / 2 };
+}
+function shadow(ctx, pts, smooth, strength) {
+  ctx.save();
+  ctx.shadowColor = `rgba(20,24,28,${strength ?? 0.38})`; ctx.shadowBlur = 16; ctx.shadowOffsetY = 9; ctx.shadowOffsetX = 4;
+  trace(ctx, pts, smooth); ctx.fillStyle = "#222"; ctx.fill();
+  ctx.restore();
+}
+function speckle(ctx, rng, b, dens, size, light, dark) {
+  const n = Math.min(26000, Math.round(b.w * b.h * dens));
+  for (let i = 0; i < n; i++) {
+    const s = size * (0.5 + rng());
+    ctx.fillStyle = rng() < 0.5 ? `rgba(255,255,255,${light * rng()})` : `rgba(0,0,0,${dark * rng()})`;
+    ctx.fillRect(b.x0 + rng() * b.w, b.y0 + rng() * b.h, s, s);
+  }
+}
+function shade(ctx, b, hi, lo) {
+  const g = ctx.createRadialGradient(b.cx - b.w * 0.22, b.cy - b.h * 0.3, Math.min(b.w, b.h) * 0.05, b.cx, b.cy, Math.max(b.w, b.h) * 0.62);
+  g.addColorStop(0, `rgba(255,255,255,${hi})`); g.addColorStop(0.5, "rgba(255,255,255,0)"); g.addColorStop(1, `rgba(0,0,0,${lo})`);
+  ctx.fillStyle = g; ctx.fillRect(b.x0 - 5, b.y0 - 5, b.w + 10, b.h + 10);
+}
+function vesicles(ctx, rng, b, frac, r, o) {
+  o = o || {};
+  const stretch = o.stretch || 1, ang = o.angle || 0;
+  const area = b.w * b.h * 0.75;
+  const n = Math.min(1600, Math.round(frac * area / (Math.PI * r * r * 0.9)));
+  for (let i = 0; i < n; i++) {
+    const rr = r * (0.35 + rng() * 1.1);
+    const x = b.x0 + rng() * b.w, y = b.y0 + rng() * b.h;
+    ctx.save(); ctx.translate(x, y); ctx.rotate(ang + (rng() - 0.5) * (o.spread ?? 0.5)); ctx.scale(stretch, 1 / Math.sqrt(stretch));
+    const g = ctx.createRadialGradient(-rr * 0.25, -rr * 0.25, rr * 0.1, 0, 0, rr);
+    g.addColorStop(0, o.inner || "rgba(5,5,5,0.92)"); g.addColorStop(1, o.edge || "rgba(20,20,20,0.55)");
+    ctx.beginPath(); ctx.arc(0, 0, rr, 0, TAU); ctx.fillStyle = g; ctx.fill();
+    ctx.beginPath(); ctx.arc(0, 0, rr, 0.1 * Math.PI, 0.75 * Math.PI); ctx.strokeStyle = o.rim || "rgba(255,255,255,0.28)"; ctx.lineWidth = Math.max(0.6, rr * 0.18); ctx.stroke();
+    ctx.restore();
+  }
+}
+function crystals(ctx, rng, b, kinds, size, count) {
+  for (const k of kinds) {
+    const n = count[k] ?? 30;
+    for (let i = 0; i < n; i++) {
+      const x = b.x0 + rng() * b.w, y = b.y0 + rng() * b.h, s = size * (0.5 + rng() * 0.9);
+      ctx.save(); ctx.translate(x, y); ctx.rotate(rng() * Math.PI);
+      if (k === "plag") {
+        ctx.fillStyle = "rgba(238,235,226,0.95)"; ctx.fillRect(-s / 2, -s * 0.22, s, s * 0.44);
+        ctx.strokeStyle = "rgba(120,115,105,0.6)"; ctx.lineWidth = 0.6; ctx.strokeRect(-s / 2, -s * 0.22, s, s * 0.44);
+      } else if (k === "hbl") {
+        ctx.fillStyle = "rgba(10,10,10,0.95)"; ctx.fillRect(-s * 0.65, -s * 0.11, s * 1.3, s * 0.22);
+      } else if (k === "oliv") {
+        ctx.beginPath();
+        for (let j = 0; j < 6; j++) { const t = j / 6 * TAU, rr = s * 0.42 * (0.8 + rng() * 0.35); j ? ctx.lineTo(Math.cos(t) * rr, Math.sin(t) * rr) : ctx.moveTo(Math.cos(t) * rr, Math.sin(t) * rr); }
+        ctx.closePath(); ctx.fillStyle = hsl(78, 52, 36 + rng() * 10); ctx.fill();
+        ctx.fillStyle = "rgba(255,255,220,0.55)"; ctx.fillRect(-s * 0.15, -s * 0.2, s * 0.12, s * 0.12);
+      }
+      ctx.restore();
+    }
+  }
+}
+function glassSheen(ctx, rng, b, n, alpha) {
+  for (let i = 0; i < n; i++) {
+    const cx = b.x0 + rng() * b.w, cy = b.y0 + rng() * b.h, r0 = Math.min(b.w, b.h) * (0.15 + rng() * 0.5), a0 = rng() * TAU;
+    for (let j = 0; j < 5; j++) {
+      ctx.beginPath(); ctx.arc(cx, cy, r0 + j * r0 * 0.09, a0, a0 + 0.8 + rng());
+      ctx.strokeStyle = `rgba(255,255,255,${alpha * (1 - j * 0.15) * (0.4 + rng() * 0.6)})`; ctx.lineWidth = 1 + rng() * 1.6; ctx.stroke();
+    }
+  }
+  const g = ctx.createLinearGradient(b.x0, b.y0, b.x0 + b.w * 0.5, b.y0 + b.h * 0.5);
+  g.addColorStop(0, "rgba(255,255,255,0)"); g.addColorStop(0.55, `rgba(255,255,255,${alpha * 1.4})`); g.addColorStop(0.65, "rgba(255,255,255,0)");
+  ctx.fillStyle = g; ctx.fillRect(b.x0, b.y0, b.w, b.h);
+}
+function oxidize(ctx, rng, b, n, a) {
+  for (let i = 0; i < n; i++) {
+    const x = b.x0 + rng() * b.w, y = b.y0 + rng() * b.h, r = Math.min(b.w, b.h) * (0.06 + rng() * 0.18);
+    const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0, hsl(12, 62, 30, a)); g.addColorStop(1, hsl(12, 62, 30, 0));
+    ctx.fillStyle = g; ctx.fillRect(x - r, y - r, r * 2, r * 2);
+  }
+}
+// Generic rock: shadow, base fill, clip, then the painter function, then shading.
+function rock(ctx, pts, smooth, base, paint, hi, lo) {
+  shadow(ctx, pts, smooth);
+  const b = bbox(pts);
+  ctx.save(); trace(ctx, pts, smooth); ctx.clip();
+  ctx.fillStyle = base; ctx.fillRect(b.x0 - 2, b.y0 - 2, b.w + 4, b.h + 4);
+  if (paint) paint(b);
+  shade(ctx, b, hi ?? 0.22, lo ?? 0.45);
+  ctx.restore();
+  return b;
+}
+
+/* ---------------- paper + scale ---------------- */
+const W = 720, H = 460;
+function paper(ctx, ppc, showScale) {
+  ctx.fillStyle = "#E9ECEC"; ctx.fillRect(0, 0, W, H);
+  const steps = [0.5, 1, 2, 5, 10];
+  let step = steps.find(s => s * ppc >= 22) || 10;
+  const px = step * ppc;
+  ctx.lineWidth = 1;
+  for (let x = 0, i = 0; x <= W; x += px, i++) { ctx.strokeStyle = i % 5 === 0 ? "rgba(70,110,140,0.32)" : "rgba(70,110,140,0.16)"; ctx.beginPath(); ctx.moveTo(x + 0.5, 0); ctx.lineTo(x + 0.5, H); ctx.stroke(); }
+  for (let y = 0, i = 0; y <= H; y += px, i++) { ctx.strokeStyle = i % 5 === 0 ? "rgba(70,110,140,0.32)" : "rgba(70,110,140,0.16)"; ctx.beginPath(); ctx.moveTo(0, y + 0.5); ctx.lineTo(W, y + 0.5); ctx.stroke(); }
+  if (showScale) {
+    let n = 5; while (n > 1 && n * px > W * 0.42) n--;
+    const x0 = W - 24 - n * px, y0 = H - 30;
+    ctx.fillStyle = "rgba(255,255,255,0.88)"; ctx.fillRect(x0 - 10, y0 - 22, n * px + 20, 44);
+    for (let i = 0; i < n; i++) { ctx.fillStyle = i % 2 ? "#FFFFFF" : "#1B1F23"; ctx.fillRect(x0 + i * px, y0, px, 8); }
+    ctx.strokeStyle = "#1B1F23"; ctx.strokeRect(x0 + 0.5, y0 + 0.5, n * px, 8);
+    ctx.fillStyle = "#1B1F23"; ctx.font = "500 12px 'IBM Plex Mono', monospace"; ctx.textBaseline = "bottom";
+    ctx.fillText("0", x0 - 3, y0 - 3);
+    const lab = fmt(n * step) + " cm"; ctx.fillText(lab, x0 + n * px - ctx.measureText(lab).width / 2, y0 - 3);
+    ctx.textBaseline = "top"; ctx.fillText("1 square = " + fmt(step) + " cm", x0, y0 + 11);
+  }
+}
+const fmt = v => (Math.round(v * 10) / 10).toString();
+
+/* ---------------- specimen recipes ---------------- */
+function drawLook(ctx, look, len, ppc, rng, s) {
+  const cx = W / 2, cy = H / 2 - 12, L = len * ppc;
+  const ves = s ? s.ves : 0.15, xt = s ? s.xtal : [];
+  const xsize = ppc * 0.28;
+  switch (look) {
+    case "scoria": {
+      const pts = blob(rng, cx, cy, L / 2, L * 0.37, { rough: 0.13, jag: 0.025, rot: -0.2 });
+      rock(ctx, pts, true, hsl(8, 14, 17), b => {
+        oxidize(ctx, rng, b, 6, 0.55); speckle(ctx, rng, b, 0.4, 1.4, 0.18, 0.4);
+        vesicles(ctx, rng, b, ves, L * 0.045, { spread: 3 });
+      }, 0.2, 0.5);
+      break;
+    }
+    case "pumice": {
+      const ang = -0.25;
+      const pts = blob(rng, cx, cy, L / 2, L * 0.32, { rough: 0.1, rot: ang });
+      rock(ctx, pts, true, hsl(42, 14, 80), b => {
+        speckle(ctx, rng, b, 0.35, 1.2, 0.3, 0.12);
+        for (let i = 0; i < 140; i++) { const y = b.y0 + rng() * b.h, x = b.x0 + rng() * b.w, l = L * (0.1 + rng() * 0.3); ctx.strokeStyle = `rgba(255,255,255,${0.25 * rng()})`; ctx.lineWidth = 0.8; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + Math.cos(ang) * l, y + Math.sin(ang) * l); ctx.stroke(); }
+        vesicles(ctx, rng, b, ves * 0.6, L * 0.014, { stretch: 3, angle: ang, spread: 0.25, inner: "rgba(70,62,50,0.75)", edge: "rgba(110,100,85,0.5)", rim: "rgba(255,255,255,0.55)" });
+      }, 0.3, 0.32);
+      break;
+    }
+    case "obsidian": {
+      const pts = [];
+      const nv = 9;
+      for (let i = 0; i < nv; i++) { const t = i / nv * TAU + rng() * 0.3, r = (0.75 + rng() * 0.3); pts.push([cx + Math.cos(t) * L / 2 * r, cy + Math.sin(t) * L * 0.36 * r]); }
+      rock(ctx, pts, false, hsl(220, 12, 7), b => {
+        glassSheen(ctx, rng, b, 4, 0.16);
+        ctx.strokeStyle = "rgba(120,130,140,0.55)"; ctx.lineWidth = 6; trace(ctx, pts, false); ctx.stroke();
+      }, 0.12, 0.35);
+      break;
+    }
+    case "pahoehoe": {
+      const pts = blob(rng, cx, cy, L / 2, L * 0.36, { rough: 0.06 });
+      rock(ctx, pts, true, hsl(210, 8, 20), b => {
+        speckle(ctx, rng, b, 0.25, 1.1, 0.12, 0.25);
+        const sp = L * 0.06;
+        for (let j = -9; j <= 9; j++) {
+          ctx.beginPath();
+          for (let k = 0; k <= 40; k++) {
+            const v = k / 40 * 2 - 1, y = b.cy + v * b.h * 0.55;
+            const x = b.cx + j * sp + L * 0.12 * (1 - v * v) + Math.sin(v * 9 + j) * 2;
+            k ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+          }
+          ctx.strokeStyle = "rgba(0,0,0,0.7)"; ctx.lineWidth = sp * 0.42; ctx.stroke();
+          ctx.save(); ctx.translate(-sp * 0.22, 0); ctx.strokeStyle = "rgba(200,215,230,0.42)"; ctx.lineWidth = sp * 0.2; ctx.stroke(); ctx.restore();
+        }
+        glassSheen(ctx, rng, b, 2, 0.08);
+        vesicles(ctx, rng, b, ves * 0.4, L * 0.008);
+      }, 0.3, 0.45);
+      break;
+    }
+    case "aa": {
+      const pts = blob(rng, cx, cy, L / 2, L * 0.3, { n: 120, rough: 0.09, jag: 0.05 });
+      rock(ctx, pts, false, hsl(15, 14, 17), b => {
+        oxidize(ctx, rng, b, 5, 0.35); speckle(ctx, rng, b, 0.5, 2.2, 0.16, 0.5);
+        vesicles(ctx, rng, b, ves, L * 0.012, { spread: 3 });
+      }, 0.18, 0.5);
+      break;
+    }
+    case "clinker": {
+      const pts = blob(rng, cx, cy, L / 2, L * 0.4, { n: 90, rough: 0.17, jag: 0.12 });
+      rock(ctx, pts, false, hsl(8, 22, 15), b => {
+        oxidize(ctx, rng, b, 9, 0.6); speckle(ctx, rng, b, 0.5, 2, 0.15, 0.5);
+        vesicles(ctx, rng, b, ves, L * 0.025, { spread: 3 });
+      }, 0.18, 0.55);
+      break;
+    }
+    case "blocklava": case "volblock": {
+      const nv = 7, pts = [];
+      for (let i = 0; i < nv; i++) { const t = i / nv * TAU + rng() * 0.35, r = 0.78 + rng() * 0.25; pts.push([cx + Math.cos(t) * L / 2 * r, cy + Math.sin(t) * L * (look === "volblock" ? 0.4 : 0.32) * r]); }
+      const baseL = look === "volblock" ? 50 : 44;
+      rock(ctx, pts, false, hsl(look === "volblock" ? 30 : 205, 6, baseL), b => {
+        const c = [b.cx + (rng() - 0.5) * b.w * 0.2, b.cy + (rng() - 0.5) * b.h * 0.2];
+        pts.forEach((p, i) => { const q = pts[(i + 1) % nv]; ctx.beginPath(); ctx.moveTo(c[0], c[1]); ctx.lineTo(p[0], p[1]); ctx.lineTo(q[0], q[1]); ctx.closePath(); ctx.fillStyle = `rgba(${rng() < 0.5 ? "255,255,255" : "0,0,0"},${0.04 + rng() * 0.12})`; ctx.fill(); });
+        speckle(ctx, rng, b, 0.45, 1.1, 0.15, 0.22);
+        crystals(ctx, rng, b, xt, Math.max(4, xsize * 1.0), { plag: 90, hbl: 40 });
+        if (look === "volblock") { for (let i = 0; i < 4; i++) { ctx.beginPath(); let x = b.x0 + rng() * b.w, y = b.y0; ctx.moveTo(x, y); for (let k = 0; k < 8; k++) { x += (rng() - 0.5) * 30; y += b.h / 8; ctx.lineTo(x, y); } ctx.strokeStyle = "rgba(0,0,0,0.35)"; ctx.lineWidth = 1.5; ctx.stroke(); } }
+      }, 0.2, 0.4);
+      break;
+    }
+    case "ribbon": {
+      const n = 60, top = [], bot = [], p0 = rng() * 3, A = L * 0.08;
+      for (let i = 0; i <= n; i++) {
+        const u = i / n, x = cx - L / 2 + u * L, y = cy + A * Math.sin(u * 7 + p0);
+        const twist = Math.abs(Math.cos(u * 5 + p0 * 0.7));
+        const w = L * 0.12 * Math.sin(Math.PI * Math.min(1, u * 1.1 + 0.03)) ** 0.5 * (0.45 + 0.55 * twist) + 2;
+        top.push([x, y - w]); bot.unshift([x, y + w * 0.9]);
+      }
+      const pts = top.concat(bot);
+      rock(ctx, pts, true, hsl(12, 12, 16), b => {
+        speckle(ctx, rng, b, 0.35, 1.3, 0.14, 0.3);
+        for (let k = -3; k <= 3; k++) { ctx.beginPath(); for (let i = 0; i <= n; i++) { const u = i / n, x = cx - L / 2 + u * L, y = cy + A * Math.sin(u * 7 + p0) + k * L * 0.013 * Math.abs(Math.cos(u * 5 + p0 * 0.7)); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.strokeStyle = k % 2 ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.35)"; ctx.lineWidth = 1.4; ctx.stroke(); }
+        vesicles(ctx, rng, b, ves, L * 0.007, { stretch: 2.6, angle: 0, spread: 0.3 });
+      }, 0.22, 0.4);
+      break;
+    }
+    case "fusiform": {
+      const n = 60, top = [], bot = [], ry = L * 0.2;
+      for (let i = 0; i <= n; i++) {
+        const u = i / n * 2 - 1, x = cx + u * L / 2;
+        const w = ry * Math.pow(Math.max(0, 1 - u * u), 0.9) + 2;
+        const tw = L * 0.03 * Math.sin(u * 6) * Math.abs(u) ** 3;
+        top.push([x, cy - w + tw]); bot.unshift([x, cy + w * 0.92 + tw]);
+      }
+      const pts = top.concat(bot);
+      rock(ctx, pts, true, hsl(18, 10, 18), b => {
+        speckle(ctx, rng, b, 0.35, 1.3, 0.14, 0.3);
+        for (let k = -4; k <= 4; k++) { ctx.beginPath(); for (let i = 0; i <= n; i++) { const u = i / n * 2 - 1, x = cx + u * L / 2, w = ry * Math.pow(Math.max(0, 1 - u * u), 0.9); const y = cy + (k / 5) * w + L * 0.03 * Math.sin(u * 6) * Math.abs(u) ** 3 + Math.sin(u * 3 + k) * 2; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.strokeStyle = "rgba(0,0,0,0.4)"; ctx.lineWidth = 2; ctx.stroke(); }
+        crystals(ctx, rng, b, xt, Math.max(4, xsize * 0.9), { oliv: 45 });
+        vesicles(ctx, rng, b, ves * 0.7, L * 0.01, { stretch: 1.8, spread: 0.4 });
+      }, 0.25, 0.45);
+      break;
+    }
+    case "breadcrust": {
+      const pts = blob(rng, cx, cy, L / 2, L * 0.4, { rough: 0.07 });
+      rock(ctx, pts, true, hsl(20, 6, 20), b => {
+        glassSheen(ctx, rng, b, 3, 0.1);
+        for (let c = 0; c < 9; c++) {
+          let x = b.x0 + b.w * (0.15 + rng() * 0.7), y = b.y0 + b.h * (0.15 + rng() * 0.7), a = rng() * TAU;
+          const path = [[x, y]];
+          for (let k = 0; k < 9; k++) { a += (rng() - 0.5) * 1.1; x += Math.cos(a) * L * 0.045; y += Math.sin(a) * L * 0.045; path.push([x, y]); }
+          const wide = L * (0.012 + rng() * 0.02);
+          ctx.lineCap = "round"; ctx.lineJoin = "round";
+          ctx.beginPath(); path.forEach((p, i) => i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]));
+          ctx.strokeStyle = "rgba(0,0,0,0.7)"; ctx.lineWidth = wide + 3; ctx.stroke();
+          ctx.strokeStyle = hsl(30, 7, 56); ctx.lineWidth = wide; ctx.stroke();
+          for (const p of path) { ctx.fillStyle = "rgba(30,30,30,0.7)"; ctx.beginPath(); ctx.arc(p[0] + (rng() - 0.5) * wide * 0.5, p[1] + (rng() - 0.5) * wide * 0.5, wide * 0.18, 0, TAU); ctx.fill(); }
+          for (const p of path) { if (rng() < 0.5) { ctx.fillStyle = "rgba(240,236,226,0.95)"; ctx.fillRect(p[0], p[1], wide * 0.25, wide * 0.1); } }
+        }
+      }, 0.22, 0.48);
+      break;
+    }
+    case "cowpie": {
+      const pts = blob(rng, cx, cy, L / 2, L * 0.4, { rough: 0.16, n: 140 });
+      rock(ctx, pts, true, hsl(6, 10, 18), b => {
+        speckle(ctx, rng, b, 0.35, 1.4, 0.13, 0.3);
+        for (const sc of [0.88, 0.74, 0.58, 0.4]) {
+          const q = pts.map(p => [b.cx + (p[0] - b.cx) * sc + Math.sin(p[1] * 0.2) * 3, b.cy + (p[1] - b.cy) * sc]);
+          trace(ctx, q, true); ctx.strokeStyle = "rgba(0,0,0,0.5)"; ctx.lineWidth = 4; ctx.stroke();
+          ctx.save(); ctx.translate(-1.5, -1.5); trace(ctx, q, true); ctx.strokeStyle = "rgba(255,255,255,0.12)"; ctx.lineWidth = 1.5; ctx.stroke(); ctx.restore();
+        }
+        vesicles(ctx, rng, b, ves * 0.6, L * 0.008, { spread: 3 });
+      }, 0.25, 0.42);
+      break;
+    }
+    case "spherical": {
+      const pts = blob(rng, cx, cy, L / 2, L * 0.46, { rough: 0.03 });
+      rock(ctx, pts, true, hsl(14, 9, 18), b => { speckle(ctx, rng, b, 0.35, 1.3, 0.14, 0.3); glassSheen(ctx, rng, b, 2, 0.07); vesicles(ctx, rng, b, 0.08, L * 0.012); }, 0.32, 0.55);
+      break;
+    }
+    case "agglutinate": {
+      for (let i = 0; i < 7; i++) {
+        const bx = cx + (rng() - 0.5) * L * 0.55, by = cy + (rng() - 0.5) * L * 0.3;
+        const pts = blob(rng, bx, by, L * (0.16 + rng() * 0.12), L * (0.1 + rng() * 0.07), { rough: 0.14, rot: rng() * 3 });
+        rock(ctx, pts, true, hsl(8, 18, 15 + rng() * 6), b => { oxidize(ctx, rng, b, 2, 0.5); speckle(ctx, rng, b, 0.35, 1.3, 0.15, 0.3); vesicles(ctx, rng, b, 0.2, L * 0.01, { spread: 3 }); }, 0.25, 0.5);
+      }
+      break;
+    }
+    case "reticulite": {
+      const pts = blob(rng, cx, cy, L / 2, L * 0.38, { rough: 0.13 });
+      shadow(ctx, pts, true, 0.25);
+      const b = bbox(pts);
+      ctx.save(); trace(ctx, pts, true); ctx.clip();
+      ctx.fillStyle = hsl(32, 25, 14); ctx.fillRect(b.x0, b.y0, b.w, b.h);
+      const sp = Math.max(9, L * 0.05), cells = [];
+      for (let y = b.y0 - sp, r = 0; y < b.y1 + sp; y += sp * 0.87, r++)
+        for (let x = b.x0 - sp + (r % 2) * sp / 2; x < b.x1 + sp; x += sp) cells.push([x + (rng() - 0.5) * sp * 0.4, y + (rng() - 0.5) * sp * 0.4]);
+      for (const [x, y] of cells) {
+        const g = ctx.createRadialGradient(x, y, 0, x, y, sp * 0.55);
+        g.addColorStop(0, hsl(30, 30, 8)); g.addColorStop(1, hsl(36, 40, 26));
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, sp * 0.55, 0, TAU); ctx.fill();
+      }
+      ctx.lineWidth = 1.3;
+      for (const [x, y] of cells) {
+        ctx.beginPath();
+        for (let j = 0; j < 6; j++) { const t = j / 6 * TAU + Math.PI / 6, rr = sp * 0.55 * (0.85 + rng() * 0.3); j ? ctx.lineTo(x + Math.cos(t) * rr, y + Math.sin(t) * rr) : ctx.moveTo(x + Math.cos(t) * rr, y + Math.sin(t) * rr); }
+        ctx.closePath(); ctx.strokeStyle = hsl(42, 58, 52 + rng() * 18, 0.9); ctx.stroke();
+      }
+      shade(ctx, b, 0.18, 0.5);
+      ctx.restore();
+      break;
+    }
+    case "ash": {
+      const r = 4.5 * ppc;
+      ctx.save(); ctx.shadowColor = "rgba(20,24,28,0.3)"; ctx.shadowBlur = 14; ctx.shadowOffsetY = 6;
+      ctx.beginPath(); ctx.arc(cx, cy, r, 0, TAU); ctx.fillStyle = "rgba(245,248,250,0.9)"; ctx.fill(); ctx.restore();
+      ctx.beginPath(); ctx.arc(cx, cy, r, 0, TAU); ctx.strokeStyle = "rgba(120,140,150,0.8)"; ctx.lineWidth = 3; ctx.stroke();
+      ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, r * 0.9, 0, TAU); ctx.clip();
+      const g = ctx.createRadialGradient(cx - r * 0.1, cy - r * 0.15, r * 0.1, cx, cy, r * 0.75);
+      g.addColorStop(0, hsl(30, 4, 66)); g.addColorStop(0.75, hsl(30, 4, 56)); g.addColorStop(1, hsl(30, 4, 56, 0));
+      ctx.fillStyle = g; ctx.fillRect(cx - r, cy - r, r * 2, r * 2);
+      const b = { x0: cx - r * 0.72, y0: cy - r * 0.72, w: r * 1.44, h: r * 1.44 };
+      for (let i = 0; i < 9000; i++) { const a = rng() * TAU, d = Math.sqrt(rng()) * r * 0.72; ctx.fillStyle = rng() < 0.5 ? `rgba(255,255,255,${0.35 * rng()})` : `rgba(0,0,0,${0.35 * rng()})`; ctx.fillRect(cx + Math.cos(a) * d, cy + Math.sin(a) * d, 0.9, 0.9); }
+      ctx.restore();
+      ctx.beginPath(); ctx.arc(cx - r * 0.35, cy - r * 0.45, r * 0.5, 3.6, 4.4); ctx.strokeStyle = "rgba(255,255,255,0.7)"; ctx.lineWidth = 3; ctx.stroke();
+      break;
+    }
+    case "lapilli": {
+      const placed = [];
+      const sizes = [2.8, 2.3, 2.1, 1.9, 1.7, 1.5, 1.4, 1.3, 1.2, 1.1, 1.0, 1.0, 0.9, 0.8, 0.8, 0.7, 0.7, 0.6, 0.6, 0.5];
+      for (const sz of sizes) {
+        let x, y, tries = 0;
+        do { x = 90 + rng() * (W - 180); y = 60 + rng() * (H - 150); tries++; } while (tries < 60 && placed.some(p => Math.hypot(p[0] - x, p[1] - y) < (p[2] + sz) * ppc * 0.55));
+        placed.push([x, y, sz]);
+        const pts = blob(rng, x, y, sz * ppc / 2, sz * ppc * (0.3 + rng() * 0.12), { rough: 0.16, n: 40, jag: 0.03, rot: rng() * 3 });
+        rock(ctx, pts, false, hsl(15 + rng() * 15, 8 + rng() * 8, 15 + rng() * 10), bb => { speckle(ctx, rng, bb, 0.6, 1.2, 0.2, 0.35); vesicles(ctx, rng, bb, ves, sz * ppc * 0.03, { spread: 3 }); }, 0.25, 0.5);
+      }
+      break;
+    }
+  }
+}
+function pickPpc(s) {
+  if (s.look === "lapilli") return 30;
+  if (s.look === "ash") return (H * 0.72) / 9;
+  return Math.min(70, (W * 0.6) / s.len);
+}
+function drawSpecimen(cv, s, w, h, showScale) {
+  const ctx = prep(cv, w, h);
+  ctx.scale(w / W, h / H);
+  const ppc = pickPpc(s);
+  paper(ctx, ppc, showScale);
+  drawLook(ctx, s.look, s.len, ppc, rngFrom(s.seed), s);
+}
+
+/* ---------------- hand lens ---------------- */
+function drawLens(cv, s, size, mode, opts) {
+  const ctx = prep(cv, size, size);
+  const rng = rngFrom((s ? s.seed : 7) + 999);
+  const R = size / 2, c = R;
+  const look = s ? s.look : "";
+  const base = {
+    scoria: hsl(8, 14, 20), pahoehoe: hsl(210, 8, 24), pumice: hsl(42, 14, 80), blocklava: hsl(205, 6, 46), volblock: hsl(30, 6, 50),
+    ribbon: hsl(12, 12, 20), ash: hsl(30, 4, 60), obsidian: hsl(220, 12, 8), aa: hsl(15, 14, 20), breadcrust: hsl(30, 7, 52),
+    lapilli: hsl(20, 10, 22), reticulite: hsl(32, 25, 12), fusiform: hsl(18, 10, 20), clinker: hsl(8, 22, 18), cowpie: hsl(6, 10, 20)
+  }[look] || (opts && opts.base) || hsl(210, 6, 30);
+  ctx.save(); ctx.beginPath(); ctx.arc(c, c, R - 5, 0, TAU); ctx.clip();
+  ctx.fillStyle = base; ctx.fillRect(0, 0, size, size);
+  const b = { x0: 0, y0: 0, w: size, h: size, cx: c, cy: c };
+  const mm = size / 10;
+  if (mode === "aph" || mode === "por") {
+    speckle(ctx, rng, b, 1.4, 1.2, 0.28, 0.4);
+    if (mode === "por") crystals(ctx, rng, b, (s && s.xtal.length) ? s.xtal : ["plag", "hbl"], mm * 2.4, { plag: 7, hbl: 4, oliv: 6 });
+  } else if (mode === "glass") {
+    const g = ctx.createLinearGradient(0, 0, size, size); g.addColorStop(0, "rgba(255,255,255,0.12)"); g.addColorStop(1, "rgba(0,0,0,0.25)");
+    ctx.fillStyle = g; ctx.fillRect(0, 0, size, size);
+    if (look !== "pumice") glassSheen(ctx, rng, b, 3, 0.2);
+  } else if (mode === "pyro") {
+    ctx.fillStyle = "rgba(0,0,0,0.15)"; ctx.fillRect(0, 0, size, size);
+    const n = look === "ash" ? 120 : 70;
+    for (let i = 0; i < n; i++) {
+      const x = rng() * size, y = rng() * size, r = mm * (look === "ash" ? 0.15 + rng() * 0.6 : 0.3 + rng() * 1.6);
+      ctx.beginPath(); const k = 4 + Math.floor(rng() * 3);
+      for (let j = 0; j < k; j++) { const t = j / k * TAU + rng(), rr = r * (0.5 + rng() * 0.6); j ? ctx.lineTo(x + Math.cos(t) * rr, y + Math.sin(t) * rr) : ctx.moveTo(x + Math.cos(t) * rr, y + Math.sin(t) * rr); }
+      ctx.closePath();
+      const kind = rng();
+      ctx.fillStyle = kind < 0.35 ? hsl(30, 5, 30 + rng() * 40) : kind < 0.7 ? hsl(25, 10, 15 + rng() * 20) : "rgba(220,225,215,0.75)";
+      ctx.fill();
+    }
+    if (look === "ash") for (let i = 0; i < 14; i++) { const x = rng() * size, y = rng() * size, r = mm * 0.6; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 0.8); ctx.strokeStyle = "rgba(235,240,240,0.85)"; ctx.lineWidth = 1.4; ctx.stroke(); }
+  } else if (mode === "net") {
+    const sp = mm * 3;
+    for (let y = -sp, r = 0; y < size + sp; y += sp * 0.87, r++)
+      for (let x = -sp + (r % 2) * sp / 2; x < size + sp; x += sp) {
+        ctx.beginPath();
+        for (let j = 0; j < 6; j++) { const t = j / 6 * TAU + Math.PI / 6, rr = sp * 0.55 * (0.85 + rng() * 0.3); j ? ctx.lineTo(x + Math.cos(t) * rr, y + Math.sin(t) * rr) : ctx.moveTo(x + Math.cos(t) * rr, y + Math.sin(t) * rr); }
+        ctx.closePath(); ctx.strokeStyle = hsl(42, 58, 58, 0.95); ctx.lineWidth = 1.6; ctx.stroke();
+      }
+  }
+  const ves = s ? s.ves : (opts && opts.ves) || 0;
+  if (ves >= 0.08 && mode !== "net") {
+    if (look === "pumice") vesicles(ctx, rng, b, 0.55, mm * 0.7, { stretch: 3, angle: -0.3, spread: 0.2, inner: "rgba(70,62,50,0.8)", edge: "rgba(120,110,95,0.6)", rim: "rgba(255,255,255,0.7)" });
+    else vesicles(ctx, rng, b, Math.min(0.45, ves), mm * (look === "scoria" ? 1.6 : 0.9), { spread: 3, stretch: look === "ribbon" ? 2.2 : 1 });
+  }
+  ctx.restore();
+  // rim
+  ctx.beginPath(); ctx.arc(c, c, R - 3, 0, TAU); ctx.strokeStyle = "#2A2F33"; ctx.lineWidth = 6; ctx.stroke();
+  ctx.beginPath(); ctx.arc(c, c, R - 6.5, 0, TAU); ctx.strokeStyle = "rgba(255,255,255,0.25)"; ctx.lineWidth = 1; ctx.stroke();
+  if (!opts || !opts.noScale) {
+    const x0 = c - mm / 2, y0 = size - 24;
+    ctx.fillStyle = "rgba(255,255,255,0.9)"; ctx.fillRect(x0 - 8, y0 - 4, mm + 16, 18);
+    ctx.fillStyle = "#1B1F23"; ctx.fillRect(x0, y0, mm, 3);
+    ctx.font = "500 9px 'IBM Plex Mono', monospace"; ctx.textBaseline = "top"; ctx.fillText("1 mm", x0 + mm / 2 - 11, y0 + 4);
+  }
+}
+
+/* ---------------- UI ---------------- */
+const $ = id => document.getElementById(id);
+let cur = 0;
+
+function buildNotebook() {
+  const nb = $("notebook");
+  FIELDS.forEach(f => {
+    const row = document.createElement("div"); row.className = "field";
+    const lab = document.createElement("label"); lab.htmlFor = "nb-" + f.key;
+    lab.innerHTML = f.label + (f.hint ? `<small>${f.hint}</small>` : "");
+    const sel = document.createElement("select"); sel.id = "nb-" + f.key; sel.dataset.key = f.key;
+    sel.innerHTML = `<option value="">Choose…</option>` + f.opts.map(o => `<option value="${o}">${o}</option>`).join("");
+    sel.addEventListener("change", () => {
+      const id = SAMPLES[cur].id;
+      answers[id] = answers[id] || {};
+      if (sel.value) answers[id][f.key] = sel.value; else delete answers[id][f.key];
+      save(); sel.classList.toggle("filled", !!sel.value); refreshStatus();
+    });
+    row.append(lab, sel); nb.append(row);
+  });
+}
+
+function show(i) {
+  cur = (i + SAMPLES.length) % SAMPLES.length;
+  const s = SAMPLES[cur];
+  drawSpecimen($("specimen"), s, 720, 460, true);
+  $("photo-label").textContent = s.id;
+  drawLens($("lens"), s, 180, LENS[s.id]);
+  $("lens-text").textContent = s.lens;
+  $("tag-id").textContent = s.id;
+  $("tag-where").textContent = s.where;
+  $("tag-notes").textContent = s.notes;
+  $("tag-si").textContent = s.si.toFixed(1) + "%";
+  $("tag-float").textContent = s.float;
+  $("tag-size").textContent = s.look === "ash" ? "Grains too small to measure on the grid. Use the hand lens scale." :
+    s.look === "lapilli" ? "Measure the largest fragment on the grid." : "Measure the longest side on the grid. Check the scale label.";
+  const a = answers[s.id] || {};
+  FIELDS.forEach(f => { const sel = $("nb-" + f.key); sel.value = a[f.key] || ""; sel.classList.toggle("filled", !!sel.value); });
+  document.querySelectorAll(".tray-item").forEach((el, k) => el.setAttribute("aria-current", k === cur ? "true" : "false"));
+  try { localStorage.setItem(KEY + "-cur", String(cur)); } catch (e) {}
+}
+
+function buildTray() {
+  const tray = $("tray");
+  SAMPLES.forEach((s, i) => {
+    const b = document.createElement("button"); b.className = "tray-item"; b.type = "button"; b.setAttribute("aria-label", "Open specimen " + s.id);
+    const cv = document.createElement("canvas"); cv.style.aspectRatio = "720 / 460";
+    const sp = document.createElement("span"); sp.innerHTML = `${s.id}<i class="dot" id="dot-${i}"></i>`;
+    b.append(cv, sp); tray.append(b);
+    b.addEventListener("click", () => { show(i); $("specimen").scrollIntoView({ behavior: "smooth", block: "nearest" }); });
+    drawSpecimen(cv, s, 180, 115, false);
+  });
+}
+
+function refreshStatus() {
+  let done = 0;
+  SAMPLES.forEach((s, i) => {
+    const n = filledCount(s.id), d = $("dot-" + i);
+    if (d) d.className = "dot" + (n === FIELDS.length ? " done" : n ? " part" : "");
+    if (n === FIELDS.length) done++;
+  });
+  $("progress").innerHTML = `Specimens identified: <b>${done}</b> of ${SAMPLES.length}`;
+}
+
+function buildSheet() {
+  const t = $("sheet");
+  let html = "<thead><tr><th>Specimen</th>" + FIELDS.map(f => `<th>${f.label}</th>`).join("") + "</tr></thead><tbody>";
+  SAMPLES.forEach((s, i) => {
+    const a = answers[s.id] || {};
+    html += `<tr><td><button class="linkish" type="button" data-open="${i}">${s.id}</button></td>` + FIELDS.map(f => a[f.key] ? `<td>${a[f.key]}</td>` : `<td class="empty">—</td>`).join("") + "</tr>";
+  });
+  t.innerHTML = html + "</tbody>";
+  t.querySelectorAll("[data-open]").forEach(btn => btn.addEventListener("click", () => { setView("bench"); show(+btn.dataset.open); }));
+}
+
+function setView(v) {
+  ["bench", "guide", "sheet"].forEach(k => { $("view-" + k).hidden = k !== v; $("tab-" + k).setAttribute("aria-selected", String(k === v)); });
+  if (v === "sheet") buildSheet();
+  if (v === "guide") buildGuide();
+}
+document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => setView(t.dataset.view)));
+$("prev").addEventListener("click", () => show(cur - 1));
+$("next").addEventListener("click", () => show(cur + 1));
+
+function restoreClear() {
+  const area = $("clear-area");
+  area.innerHTML = `<button class="btn" id="clear-btn" type="button">Clear my answers</button>`;
+  $("clear-btn").addEventListener("click", function handler() {
+    area.innerHTML = `<span>Erase all 15 rows?</span><button class="btn primary" type="button" id="clear-yes">Erase</button><button class="btn" type="button" id="clear-no">Keep</button>`;
+    $("clear-yes").addEventListener("click", () => { answers = {}; save(); buildSheet(); refreshStatus(); show(cur); restoreClear(); });
+    $("clear-no").addEventListener("click", restoreClear);
+  });
+}
+
+/* ---------------- guide ---------------- */
+let guideBuilt = false;
+const TEXTURES = [
+  { name: "Aphanitic", mode: "aph", base: hsl(205, 6, 40), text: "Crystals too small to see, even with the hand lens. The rock looks evenly fine-grained. Lava cooled quickly." },
+  { name: "Porphyritic", mode: "por", base: hsl(205, 6, 44), text: "Large crystals you can see (phenocrysts) sitting in a fine-grained background. Cooling happened in two stages." },
+  { name: "Glassy", mode: "glass", base: hsl(220, 12, 10), text: "No crystals or grains at all. Smooth like glass. Lava cooled so fast that crystals could not form." },
+  { name: "Pyroclastic", mode: "pyro", base: hsl(30, 5, 45), text: "Made of broken fragments of rock, crystal, and glass that were blasted out and then piled up." }
+];
+const MATERIALS = {
+  lava: [
+    ["pahoehoe", "Pahoehoe", 26, "Smooth, often shiny surface with rope-like folds. A coherent piece of a runny basalt flow."],
+    ["aa", "A'a", 28, "Very rough, jagged, spiny surface. A solid piece from a basalt flow."],
+    ["clinker", "A'a clinker", 11, "Loose, spiny, fist-sized rubble that breaks off the top and front of a moving a'a flow."],
+    ["blocklava", "Block lava", 30, "Angular blocks with smooth, flat faces from thick, sticky lava (andesite or rhyolite). Obsidian flows are block lava."]
+  ],
+  tephra: [
+    ["ash", "Ash", 9, "Powder-sized pieces smaller than 2 mm."],
+    ["lapilli", "Lapilli", 2.8, "Solid, gravel-sized fragments 2–64 mm across."],
+    ["pumice", "Pumice", 4.6, "Pale, frothy, glassy, and felsic. So full of holes that it floats."],
+    ["scoria", "Scoria", 3.6, "Dark, frothy mafic rock with large holes. Usually sinks. Makes up cinder cones."],
+    ["reticulite", "Reticulite", 5.2, "Golden-brown open net of glass threads. The lightest rock known. Mafic, from tall lava fountains."],
+    ["agglutinate", "Agglutinate (spatter)", 20, "Blobs of liquid spatter that landed hot and welded together."],
+    ["volblock", "Volcanic block", 45, "Larger than 64 mm and angular. It was already solid when it was thrown out."],
+    ["ribbon", "Ribbon bomb", 24, "Larger than 64 mm. A long, flat, twisted strip of stretched lava."],
+    ["fusiform", "Fusiform (spindle) bomb", 16, "Larger than 64 mm. Football-shaped with twisted ends. Shaped by spinning in flight."],
+    ["breadcrust", "Bread-crust bomb", 18, "Larger than 64 mm. Glassy crust cracked open as the gassy inside kept expanding."],
+    ["cowpie", "Cow-pie bomb", 32, "Larger than 64 mm. Landed while still liquid and splatted flat."],
+    ["spherical", "Spherical bomb", 14, "Larger than 64 mm. A rounded ball, shaped by surface tension in flight."]
+  ]
+};
+function buildGuide() {
+  if (guideBuilt) return; guideBuilt = true;
+  const tc = $("tex-cards");
+  TEXTURES.forEach(t => {
+    const card = document.createElement("div"); card.className = "card";
+    const cv = document.createElement("canvas"); cv.className = "lensmini";
+    card.append(cv);
+    card.insertAdjacentHTML("beforeend", `<h3>${t.name}</h3><p>${t.text}</p>`);
+    tc.append(card);
+    drawLens(cv, null, 96, t.mode, { base: t.base, noScale: true });
+  });
+  const mk = (list, host) => list.forEach(([look, name, len, text], i) => {
+    const card = document.createElement("div"); card.className = "card";
+    const cv = document.createElement("canvas"); cv.style.aspectRatio = "720 / 460";
+    card.append(cv); card.insertAdjacentHTML("beforeend", `<h3>${name}</h3><p>${text}</p>`);
+    host.append(card);
+    const fake = { look, len, seed: 500 + i * 13 + len, ves: look === "pumice" ? 0.7 : look === "scoria" ? 0.4 : look === "lapilli" ? 0.03 : look === "blocklava" || look === "volblock" ? 0 : 0.15, xtal: look === "blocklava" || look === "volblock" ? ["plag", "hbl"] : [] };
+    drawSpecimen(cv, fake, 240, 153, false);
+  });
+  mk(MATERIALS.lava, $("lava-cards"));
+  mk(MATERIALS.tephra, $("tephra-cards"));
+}
+
+/* ---------------- boot ---------------- */
+buildNotebook();
+buildTray();
+restoreClear();
+let start = 0;
+try { start = parseInt(localStorage.getItem(KEY + "-cur") || "0", 10) || 0; } catch (e) {}
+show(start);
+refreshStatus();
+const h = (location.hash || "").replace("#", "");
+if (h === "guide" || h === "sheet") setView(h);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => show(cur));
+})();
+</script>

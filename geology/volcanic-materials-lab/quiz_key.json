@@ -1,0 +1,28 @@
+{
+ "fields": [
+  ["t1","Texture 1 (grain size)",["aphanitic","porphyritic","glassy","pyroclastic"]],
+  ["t2","Texture 2 (holes)",["vesicular","none"]],
+  ["comp","Composition",["felsic","intermediate","mafic","ultramafic"]],
+  ["name","Rock name",["rhyolite","andesite","basalt"]],
+  ["origin","Origin",["lava flow","pyroclastic (tephra)"]],
+  ["size","Tephra size",["< 2 mm","2–64 mm","> 64 mm","N/A (lava flow)"]],
+  ["material","Volcanic material",["pahoehoe","a'a","a'a clinker","block lava","ash","lapilli","pumice","scoria","reticulite","agglutinate (spatter)","volcanic block","ribbon bomb","fusiform (spindle) bomb","bread-crust bomb","cow-pie bomb","spherical bomb"]]
+ ],
+ "key": {
+  "VM-01": ["aphanitic","vesicular","mafic","basalt","pyroclastic (tephra)","2–64 mm","scoria"],
+  "VM-02": ["aphanitic","vesicular","mafic","basalt","lava flow","N/A (lava flow)","pahoehoe"],
+  "VM-03": ["glassy","vesicular","felsic","rhyolite","pyroclastic (tephra)","2–64 mm","pumice"],
+  "VM-04": ["porphyritic","none","intermediate","andesite","lava flow","N/A (lava flow)","block lava"],
+  "VM-05": ["aphanitic","vesicular","mafic","basalt","pyroclastic (tephra)","> 64 mm","ribbon bomb"],
+  "VM-06": ["pyroclastic","none","intermediate","andesite","pyroclastic (tephra)","< 2 mm","ash"],
+  "VM-07": ["glassy","none","felsic","rhyolite","lava flow","N/A (lava flow)","block lava"],
+  "VM-08": ["aphanitic","vesicular","mafic","basalt","lava flow","N/A (lava flow)","a'a"],
+  "VM-09": ["porphyritic","vesicular","intermediate","andesite","pyroclastic (tephra)","> 64 mm","bread-crust bomb"],
+  "VM-10": ["pyroclastic","none","mafic","basalt","pyroclastic (tephra)","2–64 mm","lapilli"],
+  "VM-11": ["glassy","vesicular","mafic","basalt","pyroclastic (tephra)","2–64 mm","reticulite"],
+  "VM-12": ["porphyritic","vesicular","mafic","basalt","pyroclastic (tephra)","> 64 mm","fusiform (spindle) bomb"],
+  "VM-13": ["aphanitic","vesicular","mafic","basalt","lava flow","N/A (lava flow)","a'a clinker"],
+  "VM-14": ["aphanitic","vesicular","mafic","basalt","pyroclastic (tephra)","> 64 mm","cow-pie bomb"],
+  "VM-15": ["porphyritic","none","intermediate","andesite","pyroclastic (tephra)","> 64 mm","volcanic block"]
+ }
+}
