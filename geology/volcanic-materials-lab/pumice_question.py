@@ -33,7 +33,6 @@ CARD = f"""<p><strong>Rock identification: real sample</strong></p>
 <tr><th {TH}>Collected from</th><td {TD}>Loose fragments from a thick, pale layer that covers hills and valleys downwind of a volcano.</td></tr>
 <tr><th {TH}>How it got there</th><td {TD}>It fell out of the sky from a tall eruption column. The layer gets thinner the farther you go from the volcano.</td></tr>
 <tr><th {TH}>SiO₂ (silica)</th><td {TD}><strong>71.5%</strong></td></tr>
-<tr><th {TH}>Float test</th><td {TD}>Floats</td></tr>
 <tr><th {TH}>Size</th><td {TD}>Measure the longest side of your sample with a ruler.</td></tr>
 </tbody></table>"""
 
