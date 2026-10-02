@@ -635,6 +635,15 @@ function drawLook(ctx, look, len, ppc, rng, s) {
   const ves = s ? s.ves : 0.15, xt = s ? s.xtal : [];
   const xsize = ppc * 0.28;
   switch (look) {
+    case "blockpair": {
+      // Guide picture: andesite block lava beside an obsidian block from an obsidian flow.
+      const half = { look: "blocklava", len: len * 0.66, seed: 0, ves: 0, xtal: ["plag", "hbl"] };
+      ctx.save(); ctx.translate(-W * 0.23, -6); drawLook(ctx, "blocklava", len * 0.66, ppc, rng, half); ctx.restore();
+      ctx.save(); ctx.translate(W * 0.23, -4); drawLook(ctx, "obsidian", len * 0.58, ppc, rng, null); ctx.restore();
+      ctx.font = "600 34px 'IBM Plex Mono', monospace"; ctx.fillStyle = "#1B1F23"; ctx.textAlign = "center";
+      ctx.fillText("andesite", W * 0.27, H - 22); ctx.fillText("obsidian", W * 0.73, H - 22); ctx.textAlign = "start";
+      break;
+    }
     case "scoria": {
       const pts = blob(rng, cx, cy, L / 2, L * 0.37, { rough: 0.13, jag: 0.025, rot: -0.2 });
       rock(ctx, pts, true, hsl(8, 14, 17), b => {
@@ -1063,7 +1072,7 @@ const MATERIALS = {
     ["pahoehoe", "Pahoehoe", 26, "Smooth, often shiny surface with rope-like folds. A coherent piece of a runny basalt flow."],
     ["aa", "A'a", 28, "Very rough, jagged, spiny surface. A solid piece from a basalt flow."],
     ["clinker", "A'a clinker", 11, "Loose, spiny, fist-sized rubble that breaks off the top and front of a moving a'a flow."],
-    ["blocklava", "Block lava", 30, "Angular blocks with smooth, flat faces from thick, sticky lava (andesite or rhyolite). Obsidian flows are block lava."]
+    ["blockpair", "Block lava", 30, "Angular blocks with smooth, flat faces from thick, sticky lava (andesite or rhyolite). Obsidian flows are block lava too: shiny black glass blocks."]
   ],
   tephra: [
     ["ash", "Ash", 9, "Powder-sized pieces smaller than 2 mm."],
