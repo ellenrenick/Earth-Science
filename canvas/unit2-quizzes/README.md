@@ -23,3 +23,7 @@ Multiple choice is auto-graded (1 point each). Q14 is split into 14a and 14b (2 
 | --- | --- |
 | Unit 2 Review & Intervention: Cosmic Clues – How Earth Began | 13884096 |
 | Unit 2 Enrichment & Extension: Cosmic Clues – Going Deeper | 13884097 |
+
+## Module
+
+`python3 module.py` creates the unpublished sandbox module **Unit 2: Cosmic Clues: How Earth Began (HS-ESS1-6)** (module ID 1637316). It sits right after the old "Unit 2: History of Earth" module and holds all four items, in teaching order, under these headers: Practice Test Day → Review or Extension → CSA Day.
