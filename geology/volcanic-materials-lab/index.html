@@ -83,12 +83,22 @@ section.view { padding-top: 24px; }
 .chem strong { font-size: 1.35rem; font-weight: 500; }
 
 .notebook { border-top: 2px dashed var(--line); padding-top: 14px; display: grid; gap: 10px; }
-.field { display: grid; grid-template-columns: 9.5em minmax(0, 1fr); gap: 8px; align-items: center; }
+.field { display: grid; grid-template-columns: 9.5em minmax(0, 1fr) 1.6em; gap: 8px; align-items: center; }
+.mark { font-weight: 700; font-size: 1.05rem; text-align: center; }
+.mark.ok { color: var(--accent); }
+.mark.no { color: var(--hot); }
+.field select.right { border-color: var(--accent); background: var(--accent-soft); }
+.field select.wrong { border-color: var(--hot); background: var(--hot-soft); }
+.check-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding-top: 4px; }
+.check-msg { font-weight: 700; }
+.sheet td.ok { color: var(--accent); font-weight: 700; }
+.sheet td.no { color: var(--hot); text-decoration: line-through; }
+.sheet td.score { font-family: var(--f-mono); white-space: nowrap; }
 .field label { font-weight: 700; font-size: 0.92rem; }
 .field label small { display: block; font-weight: 400; color: var(--muted); font-size: 0.78rem; }
 .field select { width: 100%; padding: 7px 8px; border-radius: 5px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); }
 .field select.filled { border-color: var(--accent); background: var(--accent-soft); }
-@media (max-width: 420px) { .field { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+@media (max-width: 420px) { .field { grid-template-columns: minmax(0, 1fr) 1.6em; gap: 2px 8px; } .field label { grid-column: 1 / -1; } }
 
 .tray { margin-top: 28px; }
 .tray-grid { margin-top: 10px; display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 10px; }
@@ -311,6 +321,7 @@ tr:last-child td { border-bottom: 0; }
         <h2>My Lab Sheet</h2>
         <p class="muted">Copy each row into the matching question in the Canvas quiz. Your answers are saved only in this browser on this device.</p>
       </div>
+      <button class="btn primary" id="check-all" type="button">Check all my answers</button>
       <div class="confirm" id="clear-area">
         <button class="btn" id="clear-btn" type="button">Clear my answers</button>
       </div>
@@ -406,6 +417,11 @@ const LENS = {
   "VM-07": "glass", "VM-08": "aph", "VM-09": "por", "VM-10": "pyro", "VM-11": "net", "VM-12": "por",
   "VM-13": "aph", "VM-14": "aph", "VM-15": "por"
 };
+
+/* ---------------- answer key ---------------- */
+// Order of each row matches FIELDS. Encoded so it is not readable at a glance.
+const ANSWER_KEY = JSON.parse(atob("eyJWTS0wMSI6WyJhcGhhbml0aWMiLCJ2ZXNpY3VsYXIiLCJtYWZpYyIsImJhc2FsdCIsInB5cm9jbGFzdGljICh0ZXBocmEpIiwiMlx1MjAxMzY0IG1tIiwic2NvcmlhIl0sIlZNLTAyIjpbImFwaGFuaXRpYyIsInZlc2ljdWxhciIsIm1hZmljIiwiYmFzYWx0IiwibGF2YSBmbG93IiwiTi9BIChsYXZhIGZsb3cpIiwicGFob2Vob2UiXSwiVk0tMDMiOlsiZ2xhc3N5IiwidmVzaWN1bGFyIiwiZmVsc2ljIiwicmh5b2xpdGUiLCJweXJvY2xhc3RpYyAodGVwaHJhKSIsIjJcdTIwMTM2NCBtbSIsInB1bWljZSJdLCJWTS0wNCI6WyJwb3JwaHlyaXRpYyIsIm5vbmUiLCJpbnRlcm1lZGlhdGUiLCJhbmRlc2l0ZSIsImxhdmEgZmxvdyIsIk4vQSAobGF2YSBmbG93KSIsImJsb2NrIGxhdmEiXSwiVk0tMDUiOlsiYXBoYW5pdGljIiwidmVzaWN1bGFyIiwibWFmaWMiLCJiYXNhbHQiLCJweXJvY2xhc3RpYyAodGVwaHJhKSIsIj4gNjQgbW0iLCJyaWJib24gYm9tYiJdLCJWTS0wNiI6WyJweXJvY2xhc3RpYyIsIm5vbmUiLCJpbnRlcm1lZGlhdGUiLCJhbmRlc2l0ZSIsInB5cm9jbGFzdGljICh0ZXBocmEpIiwiPCAyIG1tIiwiYXNoIl0sIlZNLTA3IjpbImdsYXNzeSIsIm5vbmUiLCJmZWxzaWMiLCJyaHlvbGl0ZSIsImxhdmEgZmxvdyIsIk4vQSAobGF2YSBmbG93KSIsImJsb2NrIGxhdmEiXSwiVk0tMDgiOlsiYXBoYW5pdGljIiwidmVzaWN1bGFyIiwibWFmaWMiLCJiYXNhbHQiLCJsYXZhIGZsb3ciLCJOL0EgKGxhdmEgZmxvdykiLCJhJ2EiXSwiVk0tMDkiOlsicG9ycGh5cml0aWMiLCJ2ZXNpY3VsYXIiLCJpbnRlcm1lZGlhdGUiLCJhbmRlc2l0ZSIsInB5cm9jbGFzdGljICh0ZXBocmEpIiwiPiA2NCBtbSIsImJyZWFkLWNydXN0IGJvbWIiXSwiVk0tMTAiOlsicHlyb2NsYXN0aWMiLCJub25lIiwibWFmaWMiLCJiYXNhbHQiLCJweXJvY2xhc3RpYyAodGVwaHJhKSIsIjJcdTIwMTM2NCBtbSIsImxhcGlsbGkiXSwiVk0tMTEiOlsiZ2xhc3N5IiwidmVzaWN1bGFyIiwibWFmaWMiLCJiYXNhbHQiLCJweXJvY2xhc3RpYyAodGVwaHJhKSIsIjJcdTIwMTM2NCBtbSIsInJldGljdWxpdGUiXSwiVk0tMTIiOlsicG9ycGh5cml0aWMiLCJ2ZXNpY3VsYXIiLCJtYWZpYyIsImJhc2FsdCIsInB5cm9jbGFzdGljICh0ZXBocmEpIiwiPiA2NCBtbSIsImZ1c2lmb3JtIChzcGluZGxlKSBib21iIl0sIlZNLTEzIjpbImFwaGFuaXRpYyIsInZlc2ljdWxhciIsIm1hZmljIiwiYmFzYWx0IiwibGF2YSBmbG93IiwiTi9BIChsYXZhIGZsb3cpIiwiYSdhIGNsaW5rZXIiXSwiVk0tMTQiOlsiYXBoYW5pdGljIiwidmVzaWN1bGFyIiwibWFmaWMiLCJiYXNhbHQiLCJweXJvY2xhc3RpYyAodGVwaHJhKSIsIj4gNjQgbW0iLCJjb3ctcGllIGJvbWIiXSwiVk0tMTUiOlsicG9ycGh5cml0aWMiLCJub25lIiwiaW50ZXJtZWRpYXRlIiwiYW5kZXNpdGUiLCJweXJvY2xhc3RpYyAodGVwaHJhKSIsIj4gNjQgbW0iLCJ2b2xjYW5pYyBibG9jayJdfQ=="));
+function isRight(id, f, i) { const a = answers[id] || {}; return a[f.key] === ANSWER_KEY[id][i]; }
 
 /* ---------------- storage ---------------- */
 const KEY = "vm-lab-answers-v1";
@@ -877,10 +893,37 @@ function buildNotebook() {
       const id = SAMPLES[cur].id;
       answers[id] = answers[id] || {};
       if (sel.value) answers[id][f.key] = sel.value; else delete answers[id][f.key];
-      save(); sel.classList.toggle("filled", !!sel.value); refreshStatus();
+      save(); clearMark(f.key); sel.classList.toggle("filled", !!sel.value); refreshStatus();
     });
-    row.append(lab, sel); nb.append(row);
+    const mk = document.createElement("span"); mk.className = "mark"; mk.id = "mk-" + f.key; mk.setAttribute("aria-live", "polite");
+    row.append(lab, sel, mk); nb.append(row);
   });
+  const cr = document.createElement("div"); cr.className = "check-row";
+  cr.innerHTML = `<button class="btn primary" type="button" id="check-one">Check my answers</button><span class="check-msg" id="check-msg" aria-live="polite"></span>`;
+  nb.append(cr);
+  $("check-one").addEventListener("click", checkCurrent);
+}
+function clearMark(key) {
+  const sel = $("nb-" + key), mk = $("mk-" + key);
+  sel.classList.remove("right", "wrong"); mk.textContent = ""; mk.className = "mark"; mk.removeAttribute("title");
+  $("check-msg").textContent = "";
+}
+function checkCurrent() {
+  const id = SAMPLES[cur].id;
+  let right = 0, blank = 0;
+  FIELDS.forEach((f, i) => {
+    const sel = $("nb-" + f.key), mk = $("mk-" + f.key);
+    clearMark(f.key);
+    if (!sel.value) { blank++; return; }
+    const ok = isRight(id, f, i);
+    if (ok) right++;
+    sel.classList.add(ok ? "right" : "wrong");
+    mk.textContent = ok ? "✓" : "✗"; mk.className = "mark " + (ok ? "ok" : "no");
+    mk.title = ok ? "Correct" : "Not correct yet";
+  });
+  const msg = right === FIELDS.length ? `All ${FIELDS.length} correct. Nice work!` :
+    `${right} of ${FIELDS.length} correct.` + (blank ? ` ${blank} still blank.` : "") + (right + blank < FIELDS.length ? " Use the ID Guide to rethink the ✗ items." : "");
+  $("check-msg").textContent = msg;
 }
 
 function show(i) {
@@ -898,7 +941,7 @@ function show(i) {
   $("tag-size").textContent = s.look === "ash" ? "Grains too small to measure on the grid. Use the hand lens scale." :
     s.look === "lapilli" ? "Measure the largest fragment on the grid." : "Measure the longest side on the grid. Check the scale label.";
   const a = answers[s.id] || {};
-  FIELDS.forEach(f => { const sel = $("nb-" + f.key); sel.value = a[f.key] || ""; sel.classList.toggle("filled", !!sel.value); });
+  FIELDS.forEach(f => { const sel = $("nb-" + f.key); sel.value = a[f.key] || ""; clearMark(f.key); sel.classList.toggle("filled", !!sel.value); });
   document.querySelectorAll(".tray-item").forEach((el, k) => el.setAttribute("aria-current", k === cur ? "true" : "false"));
   try { localStorage.setItem(KEY + "-cur", String(cur)); } catch (e) {}
 }
@@ -925,17 +968,28 @@ function refreshStatus() {
   $("progress").innerHTML = `Specimens identified: <b>${done}</b> of ${SAMPLES.length}`;
 }
 
+let sheetChecked = false;
 function buildSheet() {
   const t = $("sheet");
-  let html = "<thead><tr><th>Specimen</th>" + FIELDS.map(f => `<th>${f.label}</th>`).join("") + "</tr></thead><tbody>";
+  let total = 0;
+  let html = "<thead><tr><th>Specimen</th>" + FIELDS.map(f => `<th>${f.label}</th>`).join("") + (sheetChecked ? "<th>Correct</th>" : "") + "</tr></thead><tbody>";
   SAMPLES.forEach((s, i) => {
     const a = answers[s.id] || {};
-    html += `<tr><td><button class="linkish" type="button" data-open="${i}">${s.id}</button></td>` + FIELDS.map(f => a[f.key] ? `<td>${a[f.key]}</td>` : `<td class="empty">—</td>`).join("") + "</tr>";
+    let right = 0;
+    html += `<tr><td><button class="linkish" type="button" data-open="${i}">${s.id}</button></td>` + FIELDS.map((f, k) => {
+      if (!a[f.key]) return `<td class="empty">—</td>`;
+      if (!sheetChecked) return `<td>${a[f.key]}</td>`;
+      const ok = isRight(s.id, f, k); if (ok) right++;
+      return `<td class="${ok ? "ok" : "no"}">${ok ? "✓ " : "✗ "}${a[f.key]}</td>`;
+    }).join("") + (sheetChecked ? `<td class="score">${right} / ${FIELDS.length}</td>` : "") + "</tr>";
+    total += right;
   });
+  if (sheetChecked) html += `<tr><td colspan="${FIELDS.length + 1}"><strong>Total</strong></td><td class="score"><strong>${total} / ${FIELDS.length * SAMPLES.length}</strong></td></tr>`;
   t.innerHTML = html + "</tbody>";
   t.querySelectorAll("[data-open]").forEach(btn => btn.addEventListener("click", () => { setView("bench"); show(+btn.dataset.open); }));
 }
 
+$("check-all").addEventListener("click", () => { sheetChecked = true; buildSheet(); });
 function setView(v) {
   ["bench", "guide", "sheet"].forEach(k => { $("view-" + k).hidden = k !== v; $("tab-" + k).setAttribute("aria-selected", String(k === v)); });
   if (v === "sheet") buildSheet();
