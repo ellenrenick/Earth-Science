@@ -4,7 +4,7 @@ Usage: python3 pumice_question.py COURSE_ID [QUIZ_ID]
 Students hold a real pumice sample; the card gives only what they cannot observe themselves.
 Same 7 dropdowns as the Volcanic Materials ID Lab, with no ID guide.
 """
-import html, json, os, sys, uuid, urllib.request
+import html, json, os, re, sys, uuid, urllib.request
 
 COURSE = sys.argv[1]
 HOST = "https://kernhigh.instructure.com"
@@ -38,6 +38,23 @@ CARD = f"""<p><strong>Rock identification: real sample</strong></p>
 </tbody></table>"""
 
 
+def reference():
+    """Names and descriptions from the ID Guide cards in index.html (text only, no pictures)."""
+    page = open(os.path.join(os.path.dirname(__file__), "index.html"), encoding="utf-8").read()
+    tex = re.findall(r'\{ name: "([^"]+)", mode: "\w+", base: [^,]+, [^,]+, [^)]+\), text: "([^"]+)" \}', page)
+    mats = re.search(r"const MATERIALS = \{(.*?)\n\};", page, re.S).group(1)
+    lava = re.findall(r'\["\w+", "([^"]+)", [\d.]+, "([^"]+)"\]', mats.split("tephra:")[0])
+    teph = re.findall(r'\["\w+", "([^"]+)", [\d.]+, "([^"]+)"\]', mats.split("tephra:")[1])
+    assert len(tex) == 4 and len(lava) == 4 and len(teph) == 12, (len(tex), len(lava), len(teph))
+
+    def table(title, rows):
+        body = "".join(f"<tr><td {TD}><strong>{html.escape(n)}</strong></td><td {TD}>{html.escape(d)}</td></tr>" for n, d in rows)
+        return (f'<p style="margin-bottom:4px"><strong>{title}</strong></p>'
+                f'<table style="border-collapse:collapse;border:1px solid #d3d8d8;max-width:640px;width:100%"><tbody>{body}</tbody></table>')
+    return ("<p><strong>Reference</strong></p>" + table("Textures", tex)
+            + table("Lava flow materials", lava) + table("Pyroclastic materials (tephra)", teph))
+
+
 def item(pos):
     blanks, scoring, lines, working = [], [], [], []
     for (key, label, opts), ans in zip(FIELDS, KEY):
@@ -50,10 +67,10 @@ def item(pos):
         working.append(f"<p>{label}: `{html.escape(ans)}`</p>")
     return {"item": {"position": pos, "points_possible": 7, "entry_type": "Item", "entry": {
         "title": "Volcanic material ID: pumice (real sample)",
-        "item_body": CARD + "".join(lines),
+        "item_body": CARD + reference() + "<p><strong>Your answers</strong></p>" + "".join(lines),
         "interaction_type_slug": "rich-fill-blank",
         "interaction_data": {"blanks": blanks},
-        "scoring_data": {"value": scoring, "working_item_body": CARD + "".join(working)},
+        "scoring_data": {"value": scoring, "working_item_body": CARD + reference() + "<p><strong>Your answers</strong></p>" + "".join(working)},
         "scoring_algorithm": "MultipleMethods",
         "properties": {"shuffle_rules": {"blanks": {"children": {str(i): {"children": None} for i in range(len(blanks))}}}},
         "calculator_type": "none"}}}
@@ -67,5 +84,6 @@ if __name__ == "__main__":
             "instructions": "<p>Chapter 4: Volcanism &amp; Extrusive Rocks.</p>"}})
         quiz_id = q["id"]
         print("quiz", quiz_id)
+    # Canvas ignores body edits via PATCH, so to change the question: run this, then delete the old item.
     r = call("POST", f"/api/quiz/v1/courses/{COURSE}/quizzes/{quiz_id}/items", item(1))
     print("item", r.get("id"))
