@@ -9,3 +9,5 @@ Replaces the external profharwood.x10host.com lab used by "LAB Volcanic Material
   Created in course 342801 as quiz/assignment 13884035, unpublished, in Unit 1.4.
 
 If you change a specimen in `index.html`, update `quiz_key.json` and the quiz to match.
+- `pumice_question.py`: real-sample pumice ID question (specimen card + the same 7 dropdowns, no ID guide), 7 pts.
+  Created in "Ch 4 Quiz" (quiz 13884669, Quiz group, unpublished, Unit 1.4). Tephra size key assumes a sample under 6.4 cm.
