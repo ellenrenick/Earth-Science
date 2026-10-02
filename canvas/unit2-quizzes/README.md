@@ -27,3 +27,9 @@ Multiple choice is auto-graded (1 point each). Q14 is split into 14a and 14b (2 
 ## Module
 
 `python3 module.py` creates the unpublished sandbox module **Unit 2: Cosmic Clues: How Earth Began (HS-ESS1-6)** (module ID 1637316). It sits right after the old "Unit 2: History of Earth" module and holds all four items, in teaching order, under these headers: Practice Test Day → Review or Extension → CSA Day.
+
+## Outcomes
+
+`python3 outcomes.py` creates the sandbox outcome group **HS-ESS1-6 · Unit 2: Cosmic Clues: How Earth Began** (group ID 137891). It holds one outcome for each learning target, LT 2.1–2.6 (outcome IDs 35193–35198). The target wording comes from the tracker's Start Here tab, and the 0–4 rating scale matches the Unit 3 outcomes (mastery = 3).
+
+Question-to-target map (the same for both quizzes): 1–3 → 2.1 · 4–7 → 2.2 · 8–10 → 2.3 · 11–13 → 2.4 · 14a, 14b, 15 → 2.5 · 16 → 2.6.
