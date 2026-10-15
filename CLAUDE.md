@@ -34,6 +34,16 @@ HS-ESS1-6 is no longer a priority standard and has no learning targets. Unit 1 h
 - Pacing workbook: Google Sheet "Earth_Science_11_Linked_Workbook 27-28" in Drive.
 - Student tracker: https://docs.google.com/spreadsheets/d/1ty_hrPJrr_2B4cEqbKjp3PH8mPPoaC75iabXXnJgc3A/edit (Earth_Science_11_Learning_Target_Tracker 27-28)
 
+## CFA student notice
+
+Every CFA (Canvas New Quiz, "Unit N CFA N.N") must start its `instructions` with this boxed notice, above the "Learning target" text. Add it to any new CFA at build time (sandbox first). Set it through `PATCH /api/quiz/v1/courses/:course_id/quizzes/:assignment_id` with `{"quiz":{"instructions": ...}}`.
+
+```html
+<div style="border:2px solid #333;padding:10px;margin-bottom:12px;"><p><strong>Please do this CFA from memory.</strong> Don't use your notes, the textbook, the internet, a friend, or AI. Cheating doesn't help you learn.</p><p>A CFA is practice. It shows you (and me) what you still need to review. It is open to make up any time.</p><p>The CFA is just an assignment credit, not an assessment, so it does not affect your grade if you do poorly. There is no pressure to get a perfect score.</p><p>If you look things up to get a good grade here, it will show up on the CSA (the test) and you will do poorly. This is practice to help you.</p></div>
+```
+
+Already applied to all Unit 3-5 CFAs in the sandbox (300209) and the Unit 3 CFAs in the live course (342899).
+
 ## Course facts
 
 - Calendar: Semester 1 = 83 instructional days + 3 final exam days; Semester 2 = 91 instructional days + 3 final exam days. 50-minute periods.
