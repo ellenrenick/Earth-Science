@@ -34,6 +34,23 @@ HS-ESS1-6 is no longer a priority standard and has no learning targets. Unit 1 h
 - Pacing workbook: Google Sheet "Earth_Science_11_Linked_Workbook 27-28" in Drive.
 - Student tracker: https://docs.google.com/spreadsheets/d/1ty_hrPJrr_2B4cEqbKjp3PH8mPPoaC75iabXXnJgc3A/edit (Earth_Science_11_Learning_Target_Tracker 27-28)
 
+## CFA and CSA quiz rules
+
+- Every CFA and every CSA must be a New Quiz (Canvas assignment with `external_tool` / `is_quiz_lti_assignment`), never a classic quiz.
+- Every CFA and CSA must have these New Quiz settings: shuffle questions on, shuffle answers on, and hide results on with every option under it off. Set them through `PATCH /api/quiz/v1/courses/:course_id/quizzes/:assignment_id` by updating `quiz_settings` (keep the other existing settings):
+
+```json
+{"shuffle_answers": true, "shuffle_questions": true,
+ "result_view_settings": {"display_items": false, "display_item_feedback": false, "display_item_response": false,
+  "display_points_awarded": false, "result_view_restricted": true, "display_points_possible": false,
+  "display_item_correct_answer": false, "display_item_response_qualifier": "always",
+  "display_item_response_correctness": false, "display_item_response_correctness_qualifier": "always"}}
+```
+
+- CFAs also get the student notice below. Build in the sandbox first.
+
+Already applied to all Unit 3-5 CFAs and CSAs in the sandbox and the Unit 2-3 CSAs and Unit 3 CFAs in the live course. The Unit 2 CSA in the sandbox (13884022) and the "OLD" Unit 2 CSA in live (13886968) are classic quizzes kept only as old copies.
+
 ## CFA student notice
 
 Every CFA (Canvas New Quiz, "Unit N CFA N.N") must start its `instructions` with this boxed notice, above the "Learning target" text. Add it to any new CFA at build time (sandbox first). Set it through `PATCH /api/quiz/v1/courses/:course_id/quizzes/:assignment_id` with `{"quiz":{"instructions": ...}}`.
