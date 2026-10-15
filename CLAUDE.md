@@ -17,6 +17,14 @@ Put new or changed content in the sandbox (300209) first. Copy it to the live co
 - Scope & sequence and pacing guide (Claude doc): https://claude.ai/code/artifact/5dddd44c-a6ef-433e-9f4a-a45f72d6f681
 - Learning target tracker (Google Sheet): https://docs.google.com/spreadsheets/d/1bT-0pG0hJ7boL1GWlVwfmMCdrXrNXiqqotcTODayBqc/edit
 
+## Unit-building rules
+
+- Days per unit are based on the unit's complexity and how many supporting standards it must also address (a unit with no supporting standards needs fewer days than one with several).
+- Canvas modules: one assignment per lesson, with everything for that lesson on that single assignment. No extra pages.
+- Every assignment, CFA, and CSA is worth 4 points.
+- All CFAs and CSAs are built in New Quizzes (not Classic).
+- All rubrics use a 4-point scale with the scoring bands: Not yet meeting (0.9), Approaching (1.8), Proficient (2.7), Mastered (3.5).
+
 ## 2027-28 revision (planning only)
 
 The table below is the 2026-27 course and stays the source of truth for the live Canvas course (342899) and its sandbox until the 2027-28 build starts. The 2027-28 plan changes Units 1 to 4 and leaves Units 0 and 5 to 12 as they are:
