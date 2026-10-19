@@ -60,3 +60,9 @@ HS-ESS1-6 is no longer a priority standard and has no learning targets. Unit 1 h
 | 12 | A Planet Changed by Humans | HS-ESS3-6 | HS-ESS3-3 |
 
 Units 0-5 are Semester 1; Units 6-12 are Semester 2. Learning targets are numbered by unit (1.1, 1.2, ...); the full list is on the tracker's Start Here tab.
+
+## Lesson plan format
+
+When asked for a one-sentence lesson plan, use this structure (Norman Eng, normaneng.org):
+
+"Students will be able to [outcome X] by [method Y] so that [they will be helped in Z way]."
