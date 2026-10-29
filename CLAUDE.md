@@ -60,3 +60,42 @@ HS-ESS1-6 is no longer a priority standard and has no learning targets. Unit 1 h
 | 12 | A Planet Changed by Humans | HS-ESS3-6 | HS-ESS3-3 |
 
 Units 0-5 are Semester 1; Units 6-12 are Semester 2. Learning targets are numbered by unit (1.1, 1.2, ...); the full list is on the tracker's Start Here tab.
+
+## Unit build rules (apply to every unit created from here on)
+
+Standard set from the approved Unit 4 materials (Unit 4 printables doc, Unit 4 student notebook, Unit 4 lesson decks in the sandbox). Match them unless the teacher says otherwise.
+
+### What every unit includes
+
+- **CSA** built from the unit's learning targets (LTs) and the priority standard. Unit 4's CSA is the model: one lesson day plus a Canvas CSA assignment.
+- **CFA per LT**, added where appropriate (skip LTs that are taught and checked inside a lesson, such as a mid-unit check day or a review day). Each CFA has a matching Review (Mastery Path) page that opens for students who score below 3.
+- **Phenomenon and driving question** that frame the whole unit (Unit 4: "Why is the seafloor so much younger than the continents?"). Students answer it on the cover page at the end.
+- **Cohesive lessons** that each build toward the driving question: one focus question per lesson, one LT per lesson where possible, a mid-unit check/reteach day, an argument-writing day, a review day, and a CSA day.
+- **Pacing**: use the days suggested in the linked workbook unless the teacher says otherwise. The 2026-27 workbook is "Earth_Science_11_Linked_Workbook"; the 2027-28 workbook is "Earth_Science_11_Linked_Workbook 27-28".
+
+### Slide deck for every lesson
+
+- One deck per lesson, named `UnitN-LessonNN-Title-With-Hyphens`, kept in the unit's Drive folder.
+- Slide order: (1) title slide with standard, lesson number "LESSON X OF Y", title, focus question, "Have ready", and notebook pages; (2) the **approved notebook set-up slide** (lesson title, focus question, Part 1 to Part N with a "Glue in:" or "Draw/Copy/Write" line for each, DO NOW label, and the two page numbers); (3) the **LT slide**: all of the unit's LTs listed with today's LT marked "◀ TODAY" (highlight it), plus the day's activity list; then Do Now, activity slides, reading, and the CFA slide.
+- Every lesson deck has the notebook set-up slide and the LT slide, with no exceptions, including review and CSA days.
+- Student-facing wording is "Students will be able to ... so that ..." on the teacher plan, and plain "I can ..." on the LT slide.
+
+### Printables and student notebook
+
+- One printables document per unit, titled `Unit N Printables: <Unit title> (glue-ins)`, in day order, with a table up front listing day, printable number and name, use, and copies.
+- Everything students glue in is a numbered half-sheet (cut on the dashed line, glued into the matching "Glue in" box on that day's notebook page). Each half-sheet header reads `UNIT N · DAY D · GLUE IN · <WHAT THE STUDENT DOES> — <number>. <name>` (full-page lab sheets and cut-and-sort cards use LAB SHEET / CUT AND SORT in the same header pattern).
+- Print on white paper, black ink only. Use fill-in tables, blank lines for writing, and drawing boxes. Give vocabulary charts a picture column.
+- Standard printables: unit cover page with the driving question and a "Day X answer (use at least 4 vocabulary words)" box; learning-target self-rating strip (1-4, one column per check-in day); I notice / I wonder; vocabulary chart; reading questions (4 per reading, with textbook module, lesson, and page numbers); evidence chart; CER plan with evidence bank; peer feedback checklist; review log; reflection.
+- The student notebook is numbered by page, two pages per lesson (Unit 4 lesson 2 = pages 62-63). Each lesson deck's notebook slide must match the notebook's pages for that day.
+- Teacher key for printables is a separate document ("Printables Teacher Key").
+- List anything the teacher must supply (maps, cutouts, station cards) at the top of the printables doc.
+
+### Teacher doc and linking
+
+- Every lesson has a teacher doc. In Canvas it is a page named `TEACHER: Unit N Lesson X` in the module "Unit N TEACHER PAGES (keep unpublished)".
+- Link everything in the linked workbook for easy reference: for each lesson day, the slide deck, teacher doc, printable, notebook pages, Canvas lesson page, CFA, and Review page; for the unit, the printables doc, key, CSA, and unit Canvas module.
+
+### Canvas structure (copied from Unit 4)
+
+- Module "Unit N: <Title> (<priority standard>)" with a SubHeader per lesson, then the lesson assignment, then that lesson's CFA and Review (Mastery Path) items, then an optional Extension, then the CSA.
+- Build in the sandbox (300209) first. Copy to the live course (342899) only after teacher approval. Keep teacher pages unpublished.
