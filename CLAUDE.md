@@ -125,7 +125,7 @@ Workbook: "Earth_Science_11_Linked_Workbook" (https://docs.google.com/spreadshee
 
 For a new unit, fill the header and the day table from the scope and sequence, then put these links on each lesson-day row, one per line: Slides, Teacher plan (Doc), Printables, Printables teacher key (Doc or PDF), and Student notebook, with the notebook pages in Notes. Add any lab or data file used that day as its own line. Put no Canvas links in the workbook; Canvas items are listed in the unit's Canvas module and the teacher plan may name them in text.
 
-Known gap: the Unit 4 tab links only slides, printables, and the key. It has no teacher plan Docs yet, so a new unit should go beyond Unit 4 here.
+Unit 4 tab status: each day row (51-65) links Slides, Teacher plan (Google Doc), Unit 4 printables, and Printables teacher key (Google Doc). The printables link still points to the older Google Doc. The approved printables, notebook, and key PDFs have not been uploaded to Drive yet, so the notebook has no link and the printables link needs to be replaced once the PDF is in Drive.
 
 ### Canvas structure (copied from Unit 4)
 
