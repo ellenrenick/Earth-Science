@@ -93,7 +93,21 @@ Standard set from the approved Unit 4 materials (Unit 4 printables doc, Unit 4 s
 ### Teacher doc and linking
 
 - Every lesson has a teacher doc. In Canvas it is a page named `TEACHER: Unit N Lesson X` in the module "Unit N TEACHER PAGES (keep unpublished)".
-- Link everything in the linked workbook for easy reference: for each lesson day, the slide deck, teacher doc, printable, notebook pages, Canvas lesson page, CFA, and Review page; for the unit, the printables doc, key, CSA, and unit Canvas module.
+- Link everything in the linked workbook for easy reference (structure below).
+
+### Linked workbook structure
+
+Workbook: "Earth_Science_11_Linked_Workbook" (https://docs.google.com/spreadsheets/d/1pcYqGzlFqlPEeNnoStDOYtBg2SLFOu063WIfj77oA7A). Tabs: Master, Standards Map, Learning Targets, then one tab per unit (U0 to U12, e.g. "U4 Clues in the Crust"). The 27-28 copy has the same layout.
+
+- **Master**: pacing summary with one row per unit and an "Open U# ..." link to that unit's tab. Unit tabs link back with "< Back to Master" in A2. Start day, end day, and day count come from the unit tab, so never type them on Master.
+- **Unit tab header** (rows 1-20, label in column A, value in column C): Semester, Weeks, Course days, Number of days (these four are formulas off the day table), Priority standard (linked to the NGSS page), Supporting standard(s), SEP / CCC, Anchoring phenomenon, Driving question, Key concepts, Learning targets (all of them in one cell), Vocabulary, Summative assessment, Textbook sections (Inspire Earth Science, by day with module, lesson, and pages), Hands-on labs, Gizmo, Alternate Gizmo (both linked to ExploreLearning).
+- **Day table** (header in row 21, one row per course day from row 22; columns A to H): Course day, Unit day (`=ROW()-21`), Lesson focus, Standard, Textbook reading, Date, Resources / links, Notes. Yellow cells are the teacher's to fill (dates, resources, notes).
+- **Resources / links cell** (column G): one line per resource, each line a separate link. Unit 4's pattern is `Slides`, `Unit 4 printables (glue-ins)`, `Printables teacher key (PDF)`. Unit 3's pattern is `Slides`, `Teacher doc`, `Student doc`, plus extras for that day. Two-day lessons point both rows at the same deck.
+- The sandbox build reads "Course day numbers (blue) come from the pacing plan; change them here if you move a lesson." Move days in the unit tab only.
+
+For a new unit, fill the header and the day table from the scope and sequence, then put these links on each lesson-day row, one per line: Slides, Teacher doc, Printables (unit doc), Printables teacher key, and the notebook pages in Notes. Add the Canvas lesson page, CFA, and Review page links in Notes or on extra lines in the Resources cell, since the workbook has no Canvas column. Add any lab or data file used that day as its own line.
+
+Known gap: the Unit 4 tab links only slides, printables, and the key. It has no Teacher doc or Canvas links yet, so a new unit should go beyond Unit 4 here.
 
 ### Canvas structure (copied from Unit 4)
 
