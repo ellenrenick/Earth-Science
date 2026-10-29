@@ -76,19 +76,36 @@ Standard set from the approved Unit 4 materials (Unit 4 printables doc, Unit 4 s
 ### Slide deck for every lesson
 
 - One deck per lesson, named `UnitN-LessonNN-Title-With-Hyphens`, kept in the unit's Drive folder.
-- Slide order: (1) title slide with standard, lesson number "LESSON X OF Y", title, focus question, "Have ready", and notebook pages; (2) the **approved notebook set-up slide** (lesson title, focus question, Part 1 to Part N with a "Glue in:" or "Draw/Copy/Write" line for each, DO NOW label, and the two page numbers); (3) the **LT slide**: all of the unit's LTs listed with today's LT marked "◀ TODAY" (highlight it), plus the day's activity list; then Do Now, activity slides, reading, and the CFA slide.
+- Slide order: (1) title slide with standard, lesson number "LESSON X OF Y", title, focus question, "Have ready", and notebook pages; (2) the **approved notebook set-up slide**: the lesson title, focus question, and the work blocks in the same order as that lesson's spread in the approved student notebook PDF, each with its "Glue in:" or draw/copy/write line, a DO NOW label, and the two notebook page numbers (build the notebook first, then copy the set-up slide from it); (3) the **LT slide**: all of the unit's LTs listed with their `ESS1-5.1` style labels and today's LT marked "◀ TODAY" (highlight it), plus the day's activity list; then Do Now, activity slides, reading, and the CFA slide.
 - Every lesson deck has the notebook set-up slide and the LT slide, with no exceptions, including review and CSA days.
 - Student-facing wording is "Students will be able to ... so that ..." on the teacher plan, and plain "I can ..." on the LT slide.
 
-### Printables and student notebook
+### Printables, student notebook, and teacher key (approved Unit 4 set)
 
-- One printables document per unit, titled `Unit N Printables: <Unit title> (glue-ins)`, in day order, with a table up front listing day, printable number and name, use, and copies.
-- Everything students glue in is a numbered half-sheet (cut on the dashed line, glued into the matching "Glue in" box on that day's notebook page). Each half-sheet header reads `UNIT N · DAY D · GLUE IN · <WHAT THE STUDENT DOES> — <number>. <name>` (full-page lab sheets and cut-and-sort cards use LAB SHEET / CUT AND SORT in the same header pattern).
-- Print on white paper, black ink only. Use fill-in tables, blank lines for writing, and drawing boxes. Give vocabulary charts a picture column.
-- Standard printables: unit cover page with the driving question and a "Day X answer (use at least 4 vocabulary words)" box; learning-target self-rating strip (1-4, one column per check-in day); I notice / I wonder; vocabulary chart; reading questions (4 per reading, with textbook module, lesson, and page numbers); evidence chart; CER plan with evidence bank; peer feedback checklist; review log; reflection.
-- The student notebook is numbered by page, two pages per lesson (Unit 4 lesson 2 = pages 62-63). Each lesson deck's notebook slide must match the notebook's pages for that day.
-- Teacher key for printables is a separate document ("Printables Teacher Key").
-- List anything the teacher must supply (maps, cutouts, station cards) at the top of the printables doc.
+The approved Unit 4 set is three PDFs: `Unit4_Printables.pdf`, `Unit4_Student_Notebook.pdf`, and `Unit4_Printables_Teacher_Key.pdf`. These supersede the older "Unit 4 Printables: Clues in the Crust (glue-ins)" Google Doc, which is day-numbered and no longer the model. Every new unit gets the same three files, built the same way (`UnitN_Printables.pdf`, `UnitN_Student_Notebook.pdf`, `UnitN_Printables_Teacher_Key.pdf`). Organize by lesson, not course day. Use learning target labels `ESS1-5.1` style (standard plus target number) on all student-facing pieces.
+
+**Printables PDF**
+- Page 1: title "Unit N Printables: <Unit title>", a short note (every table students only copy or fill in is printed here so they do not spend class time drawing it; cut each piece on the dashed line and glue it into the matching "Glue in" box on that lesson's notebook page; print on white paper, black ink only; answers are in the teacher key), then an index table with columns Lesson, Printable, Use, Copies. Close with a note that lists everything to print and the data sources, and says the CSA lesson needs nothing glued in.
+- Use column wording: "Glue in · write on it", "Glue in · color it", "Glue in · reference", "Glue in · extension only", "Lab sheet (not glued in)", "Cut and sort (not glued in)", "Cut apart (not glued in)", "Reference (not glued in)". Copies: "1 per student", "1 per pair", "1 set per class", "1 set per station".
+- Every printable is a dashed-border box with a small grey header line `UNIT N · LESSON L · <GLUE IN | LAB SHEET | CUT AND SORT | STATION n CARDS ...> · <WHAT STUDENT DOES or COPIES>` followed by a bold display-font title, a one-line instruction, then the table or cards. No printable numbers.
+- Everything students need is in this one file: glue-ins, lab sheets, maps, cutouts (the Unit 4 Pangaea puzzle is a 4-per-page cut-apart sheet), evidence cards, and the review stations. The teacher does not have to supply anything.
+- Real data and maps carry a source line (Unit 4: Müller et al. 2008 seafloor age; Bird 2003 plate boundaries).
+- Standard glue-ins: learning-target strip (rows ESS1-5.1 to .6, one rating column per check-in lesson, 1 to 4 scale); vocabulary chart (Word, What it means, Picture); seafloor age map with color key; evidence chart; Normal | Reversed key; data table plus plotting grid; boundary chart; lab data table; evidence cards; peer feedback checklist (Check, Yes / Not yet, Note from my partner, What I will revise).
+- Review day (Lesson 10) is five stations: one sign sheet plus one card or sheet per station, each station with a cut-and-sort, cut-and-match, cut-and-order, or fill-in task tied to a learning target.
+
+**Student notebook PDF**
+- One left page and one right page per lesson, labeled LEFT PAGE and RIGHT PAGE in the top right. A lesson with a textbook reading gets a second spread ("PART 2"; Unit 4 lessons 2, 3, 6, 9 work this way). The CSA lesson has a single REFLECTION PAGE. Unit 4 is 29 pages.
+- Each page: grey header `UNIT N · LESSON L [· PART n]`, Name / Period / Date line, bold display-font title, "(continued)" on right pages.
+- Left page: bold **Focus question**, then "Warm-up" on two lines, then the lesson's work blocks. Right page: more work blocks, then an "Exit ticket" with a one-line prompt or sentence frame.
+- Work blocks are a handwriting-style heading plus one of: a bordered glue-in box with a small grey instruction (`Glue in: <printable name>. <what to do>`), a bordered draw or sketch box with grey instructions, a small table, or ruled lines. Reading pages say "Copy each question from the slide, then answer it in a complete sentence." and use SketchNotes.
+- Lesson 1 left page holds the learning-target and vocabulary glue-ins; the notebook tells students when they will re-rate (Lessons 5, 10, 11). The Lesson 11 page asks which target improved most since Lesson 1, what helped, and what they will do to keep it strong.
+- Black and white only, nothing to color on the notebook page itself.
+
+**Teacher key PDF**
+- Title "Unit N Printables Teacher Key" and one intro paragraph: answers for the printables, reading answers are sample answers to check against the textbook module, plus any data caveats (Unit 4: the seafloor age map is real data and the "200 million years" fact is true for the open ocean, with one small exception).
+- Then one bold paragraph per printable or notebook item in lesson order, each labeled with its lesson, with full answers. Tables for matching data (Unit 4: each earthquake and volcano with its boundary type). End with the review stations key. Name any exception to discuss (Mauna Loa hot spot).
+
+**Reading questions** are printed on the lesson slide and copied by students into the notebook. They are not a separate printable. The key gives sample answers.
 
 ### Teacher doc and linking
 
@@ -102,10 +119,10 @@ Workbook: "Earth_Science_11_Linked_Workbook" (https://docs.google.com/spreadshee
 - **Master**: pacing summary with one row per unit and an "Open U# ..." link to that unit's tab. Unit tabs link back with "< Back to Master" in A2. Start day, end day, and day count come from the unit tab, so never type them on Master.
 - **Unit tab header** (rows 1-20, label in column A, value in column C): Semester, Weeks, Course days, Number of days (these four are formulas off the day table), Priority standard (linked to the NGSS page), Supporting standard(s), SEP / CCC, Anchoring phenomenon, Driving question, Key concepts, Learning targets (all of them in one cell), Vocabulary, Summative assessment, Textbook sections (Inspire Earth Science, by day with module, lesson, and pages), Hands-on labs, Gizmo, Alternate Gizmo (both linked to ExploreLearning).
 - **Day table** (header in row 21, one row per course day from row 22; columns A to H): Course day, Unit day (`=ROW()-21`), Lesson focus, Standard, Textbook reading, Date, Resources / links, Notes. Yellow cells are the teacher's to fill (dates, resources, notes).
-- **Resources / links cell** (column G): one line per resource, each line a separate link. Unit 4's pattern is `Slides`, `Unit 4 printables (glue-ins)`, `Printables teacher key (PDF)`. Unit 3's pattern is `Slides`, `Teacher doc`, `Student doc`, plus extras for that day. Two-day lessons point both rows at the same deck.
+- **Resources / links cell** (column G): one line per resource, each line a separate link. Unit 4's pattern is `Slides`, `Unit 4 printables`, `Printables teacher key (PDF)`, plus `Student notebook (PDF)`. Unit 3's pattern is `Slides`, `Teacher doc`, `Student doc`, plus extras for that day. Two-day lessons point both rows at the same deck.
 - The sandbox build reads "Course day numbers (blue) come from the pacing plan; change them here if you move a lesson." Move days in the unit tab only.
 
-For a new unit, fill the header and the day table from the scope and sequence, then put these links on each lesson-day row, one per line: Slides, Teacher doc, Printables (unit doc), Printables teacher key, and the notebook pages in Notes. Add the Canvas lesson page, CFA, and Review page links in Notes or on extra lines in the Resources cell, since the workbook has no Canvas column. Add any lab or data file used that day as its own line.
+For a new unit, fill the header and the day table from the scope and sequence, then put these links on each lesson-day row, one per line: Slides, Teacher doc, Printables PDF, Printables teacher key PDF, Student notebook PDF, and the notebook pages in Notes. Add the Canvas lesson page, CFA, and Review page links in Notes or on extra lines in the Resources cell, since the workbook has no Canvas column. Add any lab or data file used that day as its own line.
 
 Known gap: the Unit 4 tab links only slides, printables, and the key. It has no Teacher doc or Canvas links yet, so a new unit should go beyond Unit 4 here.
 
