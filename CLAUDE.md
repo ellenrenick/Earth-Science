@@ -71,7 +71,7 @@ Standard set from the approved Unit 4 materials (Unit 4 printables doc, Unit 4 s
 - **CFA per LT**, added where appropriate (skip LTs that are taught and checked inside a lesson, such as a mid-unit check day or a review day). Each CFA has a matching Review (Mastery Path) page that opens for students who score below 3.
 - **Phenomenon and driving question** that frame the whole unit (Unit 4: "Why is the seafloor so much younger than the continents?"). Students answer it on the cover page at the end.
 - **Cohesive lessons** that each build toward the driving question: one focus question per lesson, one LT per lesson where possible, a mid-unit check/reteach day, an argument-writing day, a review day, and a CSA day.
-- **Pacing**: use the days suggested in the linked workbook unless the teacher says otherwise. The 2026-27 workbook is "Earth_Science_11_Linked_Workbook"; the 2027-28 workbook is "Earth_Science_11_Linked_Workbook 27-28".
+- **Pacing**: use the suggested pacing in the linked workbook (the Course day and Unit day columns on the unit tab, and the unit's course-day range). Do not use the pacing that has actually happened in class: it is not accurate, so ignore Canvas dates, Drive modified dates, and how far past decks or lessons went. Change the days only if the teacher says to. The 2026-27 workbook is "Earth_Science_11_Linked_Workbook"; the 2027-28 workbook is "Earth_Science_11_Linked_Workbook 27-28".
 
 ### Slide deck for every lesson
 
