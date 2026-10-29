@@ -131,3 +131,11 @@ Unit 4 tab status: each day row (51-65) links, one per line, Slides, Teacher pla
 
 - Module "Unit N: <Title> (<priority standard>)" with a SubHeader per lesson, then the lesson assignment, then that lesson's CFA and Review (Mastery Path) items, then an optional Extension, then the CSA.
 - Build in the sandbox (300209) first. Copy to the live course (342899) only after teacher approval. Keep teacher pages unpublished.
+
+## Unit 6 build status (Interconnected Earth, HS-ESS2-2; days 87-98)
+
+- Built in the sandbox (300209), all unpublished: module "Unit 6: Interconnected Earth (HS-ESS2-2)" and "Unit 6 TEACHER PAGES (keep unpublished)", 10 lessons, 5 CFAs with Reviews and Mastery Path rules (score below 0.75), extension, CSA (12 items plus 2 essays). Not copied to live (342899); wait for teacher approval.
+- Unit 6 Drive folder holds 10 decks, 10 teacher plan Docs, and `Unit6-Printables-Teacher-Key`. The three PDFs (`Unit6_Printables.pdf`, `Unit6_Student_Notebook.pdf`, `Unit6_Printables_Teacher_Key.pdf`) must be uploaded by the teacher and then linked in the U6 tab.
+- Notebook page numbers are placeholders starting at page 1 until the teacher gives the first Unit 6 page; update deck title slides, deck notebook slides, plans, and workbook notes.
+- HS-ESS2-7 lessons (6, 7) have no learning target or CFA; they are assessed in the CSA (Q11, Q12, Q14). CFAs ESS2-2.4 and 2.5 are both taken on Day 97.
+- Unit 6 is in the planner starting Jan 4, 2027.
