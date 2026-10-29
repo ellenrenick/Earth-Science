@@ -34,6 +34,18 @@ HS-ESS1-6 is no longer a priority standard and has no learning targets. Unit 1 h
 - Pacing workbook: Google Sheet "Earth_Science_11_Linked_Workbook 27-28" in Drive.
 - Student tracker: https://docs.google.com/spreadsheets/d/1ty_hrPJrr_2B4cEqbKjp3PH8mPPoaC75iabXXnJgc3A/edit (Earth_Science_11_Learning_Target_Tracker 27-28)
 
+## Linked workbook
+
+Pacing workbook (Google Sheet "Earth_Science_11_Linked_Workbook", ID 1pcYqGzlFqlPEeNnoStDOYtBg2SLFOu063WIfj77oA7A). Each unit has a tab with a daily plan; column G, "Resources / links", holds the day's materials.
+
+Whenever you create a unit's materials (slides, teacher docs, student docs, printables, PDFs, videos), link them into that unit's tab in the same task:
+
+- Put one rich-text link per line in column G of every course day the lesson covers. Multi-day lessons get the same links on each day.
+- Use short labels: Slides, Teacher doc, Student doc, then any extras (printables, answer key, video).
+- Link only current versions. Skip files titled OLD, UNEDITED COPY, or duplicate .pptx copies.
+- Match lessons to days using the "Lesson focus" column. If a day has no matching lesson, leave it empty and tell the teacher.
+- Linked so far: Units 3, 4, 5 (Unit 4 and 5 have slides only; Unit 4 also has printables).
+
 ## Course facts
 
 - Calendar: Semester 1 = 83 instructional days + 3 final exam days; Semester 2 = 91 instructional days + 3 final exam days. 50-minute periods.
