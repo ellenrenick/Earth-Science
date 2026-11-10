@@ -1,0 +1,508 @@
+<title>Evidence Warm-Up</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap">
+<style>
+/* Layout: one centered column with a progress strip; question, then feedback or a hands-on reteach directly beneath it. Teacher view is a wider table layout behind a button. */
+:root{
+  --bg:#eef4f3; --surface:#ffffff; --ink:#12303a; --muted:#4b6670; --line:#cbdadc;
+  --accent:#0b6e7f; --accent-ink:#ffffff; --gold:#f0b429; --gold-bg:#fff3cf;
+  --good:#1d7a46; --good-bg:#e2f4e8; --bad:#a8431a; --bad-bg:#fbeae2; --focus:#1a5fd0;
+  --ocean:#34495a; --cont:#c9a66b; --mantle:#e08a4a; --water:#bfe3ee;
+  --font-display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif; --font-body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c1d24; --surface:#13303a; --ink:#e6f1f3; --muted:#9db6bd; --line:#27494f;
+  --accent:#49b8cc; --accent-ink:#06222a; --gold:#f0b429; --gold-bg:#3b3214;
+  --good:#6fd193; --good-bg:#12382a; --bad:#ffa58f; --bad-bg:#432019; --focus:#7ab0ff;
+  --ocean:#6b8aa0; --cont:#b39057; --mantle:#c26d32; --water:#1d4b5c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1d24; --surface:#13303a; --ink:#e6f1f3; --muted:#9db6bd; --line:#27494f;
+  --accent:#49b8cc; --accent-ink:#06222a; --gold:#f0b429; --gold-bg:#3b3214;
+  --good:#6fd193; --good-bg:#12382a; --bad:#ffa58f; --bad-bg:#432019; --focus:#7ab0ff;
+  --ocean:#6b8aa0; --cont:#b39057; --mantle:#c26d32; --water:#1d4b5c; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.5;padding-block:20px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+.wrap.wide{max-width:1100px}
+h1,h2,h3{font-family:var(--font-display);line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:2rem;font-weight:800} h2{font-size:1.3rem;font-weight:600} h3{font-size:1.05rem;font-weight:600}
+p{margin:0}
+.eyebrow{font-size:.8rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.target{background:var(--gold-bg);border-left:4px solid var(--gold);border-radius:4px;padding:12px 14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+label.field{display:flex;flex-direction:column;gap:6px;font-weight:700}
+input[type=text]{font:inherit;padding:12px;border:2px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%}
+fieldset{border:0;padding:0;margin:0;min-width:0}
+legend{font-weight:700;padding:0;margin-bottom:8px}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pills input{position:absolute;opacity:0;width:1px;height:1px}
+.pills label{min-width:64px;padding:10px 16px;text-align:center;border:2px solid var(--line);border-radius:8px;cursor:pointer;background:var(--bg);font-weight:700;user-select:none}
+.pills input:checked+label{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.pills input:focus-visible+label{outline:3px solid var(--focus);outline-offset:2px}
+button{font:inherit;font-weight:700;padding:12px 20px;border-radius:8px;border:2px solid var(--accent);background:var(--accent);color:var(--accent-ink);cursor:pointer}
+button.ghost{background:transparent;color:var(--accent)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.err{color:var(--bad);font-weight:700;min-height:1.4em}
+.progress{display:flex;gap:6px}
+.progress span{flex:1;height:8px;border-radius:4px;background:var(--line)}
+.progress span.cur{background:var(--gold)} .progress span.ok{background:var(--good)} .progress span.miss{background:var(--bad)}
+.ref{font-size:.85rem;color:var(--muted);font-weight:700}
+.choices{display:flex;flex-direction:column;gap:10px}
+.choice{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;padding:12px 14px;border:2px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font-weight:400}
+.choice .mark{flex:none;width:22px;height:22px;border:2px solid var(--muted);border-radius:50%;margin-top:1px;display:grid;place-items:center;font-size:.8rem;font-weight:700}
+.choice[aria-pressed="true"]{border-color:var(--accent)}
+.choice[aria-pressed="true"] .mark{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.choice.locked{cursor:default}
+.choice.right{border-color:var(--good);background:var(--good-bg)}
+.choice.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.choice.out{opacity:.55}
+.fb{border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;border:2px solid}
+.fb.good{background:var(--good-bg);border-color:var(--good)} .fb.bad{background:var(--bad-bg);border-color:var(--bad)}
+.fb .head{font-family:var(--font-display);font-weight:800;font-size:1.15rem}
+.fb.good .head{color:var(--good)} .fb.bad .head{color:var(--bad)}
+.keyidea{font-weight:700}
+.big{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.score{font-family:var(--font-display);font-size:4.5rem;font-weight:800;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+.score small{font-size:1.4rem;color:var(--muted);font-weight:600}
+.levels{display:grid;gap:6px}
+.level{display:flex;gap:10px;padding:8px 12px;border-radius:8px;border:1px solid var(--line)}
+.level b{flex:none;width:2.4em;font-variant-numeric:tabular-nums}
+.level.you{border:2px solid var(--accent);background:var(--surface);font-weight:700}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:.95rem}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+td.num,th.num{text-align:right}
+.scroll{overflow-x:auto;max-width:100%}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.grid2>*{min-width:0}
+.bar{display:flex;align-items:center;gap:10px}
+.bar i{display:block;height:14px;border-radius:3px;background:var(--accent)}
+.s4{background:var(--good-bg)} .s1{background:var(--bad-bg)}
+.status{font-size:.95rem;color:var(--muted)} .status.bad{color:var(--bad);font-weight:700}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.react{border:2px solid var(--accent)}
+.rhead{color:var(--accent)}
+.step,.sortrow{display:flex;flex-direction:column;gap:8px;padding:12px 0 4px;border-top:1px solid var(--line)}
+.stepq,.sorttext{margin:0}
+.stepopts,.sortbtns{display:flex;flex-wrap:wrap;gap:8px}
+.opt{background:var(--bg);color:var(--ink);border:2px solid var(--line);font-weight:400;padding:10px 14px;text-align:left}
+.opt.ok{border-color:var(--good);background:var(--good-bg)} .opt.x{border-color:var(--bad);background:var(--bad-bg)}
+.stepfb{margin:0;min-height:1.2em;font-size:.95rem}
+.stepfb.good{color:var(--good);font-weight:700} .stepfb.bad{color:var(--bad);font-weight:700}
+.viz{display:flex;flex-direction:column;gap:12px;padding:4px 0 12px}
+.viz svg{width:100%;height:auto;max-width:100%}
+.rdone{border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:10px}
+.sortbtns{flex-wrap:wrap}
+.sortbtns .opt{flex:1 1 130px;min-width:0;text-align:center;padding:8px 6px}
+.sortrow{gap:6px;padding-top:10px}
+.wts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.wts div{border:2px solid var(--line);border-radius:8px;padding:10px;text-align:center}
+.wts b{display:block;font-family:var(--font-display);font-size:1.5rem}
+@media (prefers-reduced-motion:no-preference){.fb{animation:rise .25s ease-out}@keyframes rise{from{opacity:0;transform:translateY(6px)}}}
+</style>
+
+<div class="wrap" id="app"></div>
+
+<script>
+(function () {
+  "use strict";
+  var TARGET = "ESS1-5.6";
+  var TEACHER = "Renick", PERIODS = [1, 2];
+  var SHEET_ID = "10zDJWI4CafbAvZKdWqsQBy9T1RbpcbDjq0WkETfzRaQ", SHEET_SERVER = "Google Sheets";
+  var SHEET_URL = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/edit";
+
+  /* Score of record = questions right on the FIRST try, mapped to the 4-point scale. */
+  var LEVELS = [
+    { s: 4, name: "Mastered", d: "You got all 3 right on the first try." },
+    { s: 3, name: "Proficient", d: "2 of 3 right on the first try. This meets the class goal." },
+    { s: 2, name: "Approaching", d: "1 of 3 right on the first try. Review the notes below." },
+    { s: 1, name: "Not yet meeting", d: "0 of 3 right on the first try. Ask for help and review the notes below." }
+  ];
+  function levelFor(c) { return LEVELS[3 - Math.max(0, Math.min(3, c))]; }
+
+  var ITEMS = [
+    { skill: "Strong and weak evidence", ref: "Lesson 9: the evidence bank",
+      text: "Which is the strongest piece of evidence for the claim that the seafloor is young?",
+      key: "Strong evidence is data or observations that anyone can check. Here, seafloor rock gets older with distance from the ridge, and none is older than about 200 million years.",
+      choices: [
+        { t: "Seafloor rock gets older with distance from the ridge, and none is older than about 200 million years.", ok: true },
+        { t: "I think the ocean looks young.", why: "That is an opinion. Strong evidence is data or observations that anyone can check." },
+        { t: "My textbook has a picture of the ocean.", why: "A picture of the ocean does not show how old the rock is. Strong evidence has to show or measure the age." },
+        { t: "Oceans are very big.", why: "That is true, but size does not tell you how old the seafloor is. Evidence has to connect to the claim." }
+      ],
+      reteach: [ { sort: { prompt: "Sort each statement. Is it strong evidence (data or observations) or weak evidence (opinions or guesses)?", buckets: ["Strong evidence", "Weak evidence"],
+        cards: [
+          { t: "Seafloor rock is 0 years old at the ridge and gets older with distance.", b: 0, why: "Strong. It is data about rock ages that anyone can check." },
+          { t: "I think the ocean just looks newer.", b: 1, why: "Weak. It is an opinion, not data." },
+          { t: "Magnetic stripes are a mirror image on both sides of the ridge.", b: 0, why: "Strong. It is an observation from the seafloor." },
+          { t: "My uncle says the seafloor is young.", b: 1, why: "Weak. It is someone's word, not data." },
+          { t: "Continental rock is up to about 4 billion years old.", b: 0, why: "Strong. It is a measured age." },
+          { t: "It is obvious, so trust me.", b: 1, why: "Weak. It gives no data." }
+        ] } }, { steps: [
+        { q: "Which kind of evidence can anyone check by measuring or observing?", o: ["Data and observations", "Opinions and guesses"], right: "Data and observations. That is what makes evidence strong.", hints: { 1: "An opinion cannot be measured. Anyone can disagree with it." } }
+      ] } ] },
+
+    { skill: "Reasoning connects evidence to the claim", ref: "Lesson 9: claim, evidence, reasoning",
+      text: "Claim: The seafloor is young. Evidence: No seafloor rock is older than about 200 million years. Which sentence is the reasoning that connects them?",
+      key: "Reasoning explains WHY the evidence supports the claim, using science ideas. New crust forms at ridges and old, dense crust sinks at trenches, so the seafloor is always being replaced.",
+      choices: [
+        { t: "New crust forms at ridges and old, dense crust sinks at trenches, so the seafloor is always being replaced.", ok: true },
+        { t: "The seafloor is young.", why: "That is the claim again. Reasoning explains why the evidence supports the claim." },
+        { t: "Seafloor rock at the ridge is 0 years old.", why: "That is another piece of evidence (data). Reasoning explains how evidence supports the claim." },
+        { t: "I really like studying rocks.", why: "That does not connect to the claim. Reasoning uses science ideas, like ridges, trenches, and density, to link the evidence to the claim." }
+      ],
+      reteach: [ { sort: { prompt: "Sort each sentence into the part of the argument it belongs to.", buckets: ["Claim", "Evidence", "Reasoning"],
+        cards: [
+          { t: "The seafloor is young and the continents are old.", b: 0, why: "Claim. It answers the question." },
+          { t: "Seafloor rock is 0 years old at the ridge and gets older with distance.", b: 1, why: "Evidence. It is data." },
+          { t: "New crust forms at ridges and old, dense crust sinks at trenches.", b: 2, why: "Reasoning. It explains why the data support the claim." },
+          { t: "Continental rock is up to about 4 billion years old.", b: 1, why: "Evidence. It is a measured age." },
+          { t: "Continental crust is too buoyant to sink, so it stays.", b: 2, why: "Reasoning. It explains why continents last." }
+        ] } }, { steps: [
+        { q: "What does reasoning do in an argument?", o: ["It explains why the evidence supports the claim", "It repeats the claim", "It lists more numbers"], right: "Right. Reasoning links the evidence to the claim.", hints: { 1: "Repeating the claim does not explain anything.", 2: "More numbers are more evidence. Reasoning explains how the evidence supports the claim." } }
+      ] } ] },
+
+    { skill: "What makes a strong argument", ref: "Lesson 9: draft and revise",
+      text: "Which argument is the strongest?",
+      key: "A strong argument has a claim, more than one piece of strong evidence, and reasoning that connects them. Opinions and off-topic facts do not count as evidence.",
+      choices: [
+        { t: "The seafloor is young and the continents are old. Seafloor rock is 0 years old at the ridge and none is older than 200 million years, while continental rock is up to 4 billion years old. This is because old, dense ocean crust sinks at trenches, but continental crust is too buoyant to sink.", ok: true },
+        { t: "The continents are old because they are bigger and I think they look older.", why: "This uses opinions and size, not data, and it has no science reasoning." },
+        { t: "The seafloor is young. It is obvious, so I do not need any evidence.", why: "A claim with no evidence is not an argument. Arguments need data." },
+        { t: "The seafloor is young because no seafloor rock is older than 200 million years.", why: "This has a claim and one piece of evidence, but it does not explain why. A strong argument also has reasoning and more than one piece of evidence." }
+      ],
+      reteach: [ { viz: "build" }, { steps: [
+        { q: "What did your strongest argument have?", o: ["A claim, two or more pieces of data, and reasoning", "Only a claim", "One opinion"], right: "Right. That is a complete, strong argument.", hints: { 1: "A claim alone has nothing to back it up.", 2: "An opinion is weak evidence. Use data." } }
+      ] } ] }
+  ];
+
+  var app = document.getElementById("app");
+  var db = null, userCap = null, dl = null, canEdit = false;
+  var S = { who: { name: "", period: "" }, i: 0, order: [], sel: [], tries: 0, out: [], firstOk: [], finalOk: [], tryCount: [], saved: "idle", fbHtml: "", state: "answer", locked: false, draft: null };
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+  function kids(node, fn) { Array.prototype.forEach.call(node.children, fn); }
+
+  /* ---------- start ---------- */
+  function viewStart(err) {
+    var saved = {}; try { saved = JSON.parse(lsGet("ess155who") || "{}"); } catch (e) {}
+    var w = S.draft || (S.who.name ? S.who : saved);
+    app.className = "wrap";
+    app.innerHTML =
+      '<div class="topbar"><span class="eyebrow">Unit 4 · Warm-up</span>' + (canEdit ? '<button class="ghost" id="tbtn">Teacher data</button>' : "") + "</div>" +
+      "<h1>Young Seafloor, Old Continents</h1>" +
+      '<div class="target"><b>Learning target ' + TARGET + ':</b> I can argue from evidence why seafloor rocks are young and continental rocks are old.</div>' +
+      "<p>Answer 3 questions from memory. If you miss one, you get a quick hands-on activity to work it out, then a second try.</p>" +
+      '<form class="card" id="f" novalidate>' +
+      '<label class="field" for="nm">First and last name<input type="text" id="nm" autocomplete="off" value="' + esc(w.name || "") + '"></label>' +
+      '<fieldset><legend>My period</legend><div class="pills">' + PERIODS.map(function (p) {
+        return '<input type="radio" name="period" id="p_' + p + '" value="' + p + '"' + (String(w.period) === String(p) ? " checked" : "") + '><label for="p_' + p + '">' + p + "</label>"; }).join("") + "</div></fieldset>" +
+      '<div class="err" id="err" role="alert">' + esc(err || "") + '</div><div class="row"><button type="submit">Start</button></div></form>';
+    document.getElementById("f").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var name = document.getElementById("nm").value.trim();
+      var p = (document.querySelector("input[name=period]:checked") || {}).value;
+      function fail(msg) { S.draft = { name: name, period: p || null }; viewStart(msg); }
+      if (name.length < 3 || name.indexOf(" ") < 0) return fail("Type your first and last name.");
+      if (!p) return fail("Pick your period.");
+      S.draft = null; S.who = { name: name, period: p }; lsSet("ess155who", JSON.stringify(S.who));
+      S.i = 0; S.firstOk = []; S.finalOk = []; S.tryCount = []; S.saved = "idle";
+      S.order = ITEMS.map(function (it) { return shuffle(it.choices.map(function (_, k) { return k; })); });
+      beginQ();
+    });
+    var tb = document.getElementById("tbtn"); if (tb) tb.addEventListener("click", viewTeacher);
+  }
+
+  /* ---------- questions ---------- */
+  function beginQ() { S.sel = []; S.tries = 0; S.out = []; S.fbHtml = ""; S.locked = false; S.state = "answer"; viewQ(); }
+  function progressHtml() {
+    return '<div class="progress" aria-label="Question ' + (S.i + 1) + " of " + ITEMS.length + '">' + ITEMS.map(function (_, k) {
+      return '<span class="' + (k < S.i ? (S.firstOk[k] ? "ok" : "miss") : k === S.i ? "cur" : "") + '"></span>'; }).join("") + "</div>";
+  }
+  function viewQ() {
+    var it = ITEMS[S.i];
+    app.className = "wrap";
+    var html = '<div class="topbar"><span class="eyebrow">Question ' + (S.i + 1) + " of " + ITEMS.length + '</span><span class="status">' + esc(S.who.name) + "</span></div>" + progressHtml();
+    html += '<div class="card"><span class="ref">Think back to: ' + esc(it.ref) + "</span><h2>" + esc(it.text) + '</h2><div class="choices" role="group" aria-label="Answer choices">';
+    S.order[S.i].forEach(function (ci) {
+      var c = it.choices[ci], pressed = S.sel.indexOf(ci) >= 0, cls = "choice", mark = "";
+      if (S.locked) {
+        cls += " locked";
+        if (pressed && c.ok) { cls += " right"; mark = "✓"; }
+        else if (pressed && !c.ok) { cls += " wrong"; mark = "✗"; }
+        else if (S.state === "reveal" && c.ok) { cls += " right"; mark = "✓"; }
+        else cls += " out";
+      } else if (S.out.indexOf(ci) >= 0) cls += " out";
+      html += '<button type="button" class="' + cls + '" data-ci="' + ci + '" aria-pressed="' + pressed + '"' + ((S.locked || S.out.indexOf(ci) >= 0) ? " disabled" : "") + '><span class="mark" aria-hidden="true">' + (mark || (pressed ? "✓" : "")) + "</span><span>" + esc(c.t) + "</span></button>";
+    });
+    html += "</div>" + (S.state === "answer" ? '<div class="row"><button type="button" id="chk" disabled>Check my answer</button></div>' : "") + "</div>" + S.fbHtml + (S.state === "react" ? '<div class="card react" id="react"></div>' : "");
+    app.innerHTML = html;
+    if (S.state === "react") mountReteach(it);
+    app.querySelectorAll(".choice:not(.locked)").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var ci = +b.getAttribute("data-ci"); S.sel = [ci];
+        app.querySelectorAll(".choice").forEach(function (x) { var on = S.sel.indexOf(+x.getAttribute("data-ci")) >= 0; x.setAttribute("aria-pressed", on); x.querySelector(".mark").textContent = on ? "✓" : ""; });
+        document.getElementById("chk").disabled = false;
+      });
+    });
+    var chk = document.getElementById("chk"); if (chk) chk.addEventListener("click", check);
+    var nx = document.getElementById("nx"); if (nx) nx.addEventListener("click", next);
+    if (S.fbHtml) { var f = app.querySelector(".fb"); if (f) f.scrollIntoView({ block: "nearest", behavior: "smooth" }); }
+  }
+  function check() {
+    var it = ITEMS[S.i], correct = !!it.choices[S.sel[0]].ok;
+    S.tries++; if (S.tries === 1) S.firstOk[S.i] = correct;
+    S.finalOk[S.i] = correct; S.tryCount[S.i] = S.tries; S.locked = true;
+    if (correct) {
+      S.state = "done";
+      S.fbHtml = '<div class="fb good" role="status"><div class="head">' + (S.tries === 1 ? "Correct" : "Correct this time") + '</div><p class="keyidea">' + esc(it.key) + '</p><div class="row"><button type="button" id="nx">' + nextLabel() + "</button></div></div>";
+    } else if (S.tries === 1) { S.state = "react"; S.fbHtml = ""; }
+    else {
+      S.state = "reveal";
+      S.fbHtml = '<div class="fb bad" role="status"><div class="head">Still not it. The answer is marked in green.</div><p class="keyidea">' + esc(it.key) + '</p><div class="row"><button type="button" id="nx">' + nextLabel() + "</button></div></div>";
+    }
+    viewQ();
+  }
+  function nextLabel() { return S.i === ITEMS.length - 1 ? "See my results" : "Next question"; }
+  function retry() {
+    var it = ITEMS[S.i];
+    S.sel.forEach(function (ci) { if (!it.choices[ci].ok) S.out.push(ci); });
+    S.sel = []; S.locked = false; S.state = "answer"; S.fbHtml = ""; viewQ();
+    var f = app.querySelector(".choice:not(.out)"); if (f) f.focus();
+  }
+  function next() { if (S.i === ITEMS.length - 1) return viewResults(); S.i++; beginQ(); window.scrollTo(0, 0); }
+
+  /* ---------- hands-on reteach ---------- */
+  function mountReteach(it) {
+    var host = document.getElementById("react"), queue = [];
+    host.innerHTML = '<h3 class="rhead">Not quite. Let’s work it out.</h3>';
+    it.reteach.forEach(function (r) {
+      if (r.viz) queue.push(function (n) { var box = el("div", "viz"); host.appendChild(box); VIZ[r.viz](box, n); });
+      if (r.sort) queue.push(function (n) { runSort(host, r.sort, n); });
+      if (r.steps) queue.push(function (n) { runSteps(host, r.steps, n); });
+    });
+    function go(i) { if (i >= queue.length) return finish(); queue[i](function () { go(i + 1); }); }
+    function finish() {
+      var why = S.sel.filter(function (ci) { return !it.choices[ci].ok && it.choices[ci].why; }).map(function (ci) { return it.choices[ci].why; });
+      var d = el("div", "rdone", '<p class="keyidea">' + esc(it.key) + "</p>" + (why.length ? "<p>About the answer you picked: " + esc(why[0]) + "</p>" : "") + '<div class="row"><button type="button" id="rt2">Try the question again</button></div>');
+      host.appendChild(d); document.getElementById("rt2").addEventListener("click", retry);
+      d.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
+    go(0);
+  }
+  /* guided steps: o[0] is the right option; buttons are shuffled on screen */
+  function runSteps(host, steps, done) {
+    var box = el("div", "steps"); host.appendChild(box);
+    function show(i) {
+      if (i >= steps.length) return done();
+      var st = steps[i], d = el("div", "step"), opts = el("div", "stepopts"), fb = el("p", "stepfb");
+      fb.setAttribute("aria-live", "polite");
+      d.appendChild(el("p", "stepq", "<b>" + (i + 1) + ".</b> " + esc(st.q)));
+      shuffle(st.o.map(function (_, k) { return k; })).forEach(function (k) {
+        var b = el("button", "opt"); b.type = "button"; b.textContent = st.o[k];
+        b.addEventListener("click", function () {
+          if (k === 0) { kids(opts, function (x) { x.disabled = true; }); b.classList.add("ok"); fb.className = "stepfb good"; fb.textContent = st.right; show(i + 1); }
+          else { b.classList.add("x"); b.disabled = true; fb.className = "stepfb bad"; fb.textContent = (st.hints && st.hints[k]) || "Not quite. Try another."; }
+        });
+        opts.appendChild(b);
+      });
+      d.appendChild(opts); d.appendChild(fb); box.appendChild(d);
+    }
+    show(0);
+  }
+  /* sort: each card goes into one of two buckets, with feedback on every card */
+  function runSort(host, cfg, done) {
+    var box = el("div", "sortbox"), left = cfg.cards.length; host.appendChild(box);
+    box.appendChild(el("p", "stepq", esc(cfg.prompt)));
+    shuffle(cfg.cards).forEach(function (c) {
+      var row = el("div", "sortrow"), btns = el("div", "sortbtns"), fb = el("p", "stepfb");
+      fb.setAttribute("aria-live", "polite");
+      cfg.buckets.forEach(function (name, bi) {
+        var b = el("button", "opt"); b.type = "button"; b.textContent = name;
+        b.addEventListener("click", function () {
+          if (bi === c.b) { kids(btns, function (x) { x.disabled = true; }); b.classList.add("ok"); fb.className = "stepfb good"; fb.textContent = c.why; left--; if (left === 0) done(); }
+          else { b.classList.add("x"); b.disabled = true; fb.className = "stepfb bad"; fb.textContent = "Not that one. Try the other."; }
+        });
+        btns.appendChild(b);
+      });
+      row.appendChild(el("p", "sorttext", "<b>" + esc(c.t) + "</b>")); row.appendChild(btns); row.appendChild(fb); box.appendChild(row);
+    });
+  }
+  var VIZ = {};
+  /* build an argument from sentence cards; a live checklist shows what it still needs */
+  VIZ.build = function (box, done) {
+    var cards = [
+      { t: "I claim that the seafloor is young and the continents are old.", k: "claim" },
+      { t: "Seafloor rock is 0 years old at the ridge and gets older with distance.", k: "data" },
+      { t: "I think the ocean just looks newer.", k: "opinion" },
+      { t: "Continental rock is up to about 4 billion years old.", k: "data" },
+      { t: "The ocean is very big.", k: "off" },
+      { t: "New crust forms at ridges and old, dense crust sinks at trenches. Continental crust is too buoyant to sink.", k: "reason" }
+    ], on = {}, fired = false;
+    box.innerHTML = '<p class="stepq">Build an argument. Tap the sentences you want in it. The checklist shows what your argument still needs.</p><div class="choices bc"></div><div class="card bl" style="padding:12px"></div>';
+    var list = box.querySelector(".bc"), bl = box.querySelector(".bl");
+    function count(k) { return cards.filter(function (c, i) { return on[i] && c.k === k; }).length; }
+    function draw() {
+      var chk = [
+        ["Has a claim", count("claim") === 1],
+        ["Has two or more pieces of data", count("data") >= 2],
+        ["Has reasoning that explains why", count("reason") === 1],
+        ["Leaves out opinions and off-topic facts", count("opinion") + count("off") === 0 && Object.keys(on).some(function (i) { return on[i]; })]
+      ];
+      bl.innerHTML = chk.map(function (c) { return "<div>" + (c[1] ? "✓ " : "○ ") + esc(c[0]) + "</div>"; }).join("");
+      var all = chk.every(function (c) { return c[1]; });
+      if (all) { bl.insertAdjacentHTML("beforeend", '<p class="stepfb good">That is a strong argument.</p>'); if (!fired) { fired = true; done(); } }
+    }
+    cards.forEach(function (c, i) {
+      var b = el("button", "choice"); b.type = "button"; b.setAttribute("aria-pressed", "false");
+      b.innerHTML = '<span class="mark" aria-hidden="true"></span><span>' + esc(c.t) + "</span>";
+      b.addEventListener("click", function () { on[i] = !on[i]; b.setAttribute("aria-pressed", on[i] ? "true" : "false"); b.querySelector(".mark").textContent = on[i] ? "✓" : ""; draw(); });
+      list.appendChild(b);
+    });
+    draw();
+  };
+
+  /* ---------- results and saving ---------- */
+  function record() {
+    var raw = S.firstOk.filter(Boolean).length;
+    return { target: TARGET, nq: ITEMS.length, name: S.who.name, teacher: TEACHER, period: Number(S.who.period), score4: levelFor(raw).s, firstTryCorrect: raw,
+      firstTry: S.firstOk.map(function (b) { return b ? 1 : 0; }), finalCorrect: S.finalOk.filter(Boolean).length, tries: S.tryCount.slice(), ts: Date.now() };
+  }
+  function viewResults() {
+    var rec = record(), lv = levelFor(rec.firstTryCorrect), missed = [];
+    app.className = "wrap";
+    ITEMS.forEach(function (it, k) { if (!S.firstOk[k]) missed.push(k); });
+    var html = '<div class="topbar"><span class="eyebrow">Results · ' + esc(S.who.name) + '</span></div><h1>Your score</h1>' +
+      '<div class="card"><div class="big"><div class="score">' + rec.score4 + "<small> / 4</small></div><div><h2>" + lv.name + "</h2><p>" + lv.d + "</p></div></div>" +
+      '<div class="levels">' + LEVELS.slice().reverse().map(function (l) { return '<div class="level' + (l.s === rec.score4 ? " you" : "") + '"><b>' + l.s + "</b><span>" + l.name + "</span></div>"; }).join("") + "</div></div>";
+    html += missed.length
+      ? '<div class="card"><h2>Review before you move on</h2><ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:10px">' + missed.map(function (k) { return "<li><b>" + esc(ITEMS[k].skill) + ".</b> " + esc(ITEMS[k].key) + "</li>"; }).join("") + "</ul></div>"
+      : '<div class="card"><p class="keyidea">Remember: a strong argument has a claim, more than one piece of strong evidence, and reasoning that connects them.</p></div>';
+    html += '<div class="card" id="sv"></div><div class="row"><button type="button" class="ghost" id="again">Start over</button></div>';
+    app.innerHTML = html;
+    document.getElementById("again").addEventListener("click", function () { S.who = { name: "", period: "" }; viewStart(); });
+    if (S.saved === "idle") save(rec); else saveStatus(rec);
+  }
+  function saveStatus(rec) {
+    var box = document.getElementById("sv"); if (!box) return;
+    if (S.saved === "ok") box.innerHTML = '<p class="status">Your score was sent to your teacher. You can close this page.</p>';
+    else if (S.saved === "saving") box.innerHTML = '<p class="status">Sending your score…</p>';
+    else {
+      var txt = [rec.target, rec.name, rec.teacher, "Period " + rec.period, "Score " + rec.score4 + "/4", "First try " + rec.firstTryCorrect + "/" + ITEMS.length].join(" | ");
+      box.innerHTML = '<p class="status bad">Your score could not be sent automatically. Show this screen to your teacher, or copy the line below and turn it in.</p><input type="text" readonly id="cp" value="' + esc(txt) + '"><div class="row"><button type="button" id="cpb">Copy</button><button type="button" class="ghost" id="rs">Try sending again</button></div>';
+      document.getElementById("cpb").addEventListener("click", function () { document.getElementById("cp").select(); try { navigator.clipboard.writeText(txt).catch(function () {}); } catch (e) {} });
+      document.getElementById("rs").addEventListener("click", function () { save(rec); });
+    }
+  }
+  function save(rec) {
+    S.saved = "saving"; saveStatus(rec);
+    if (!db || !userCap) { S.saved = "fail"; return saveStatus(rec); }
+    var t = setTimeout(function () { if (S.saved === "saving") { S.saved = "fail"; saveStatus(rec); } }, 12000);
+    userCap.id().then(function (id) {
+      if (!id) throw new Error("no id");
+      var ref = db.doc("responses/" + id);
+      return ref.get().then(function (snap) { var old = snap.exists && snap.data() && snap.data().attempts ? snap.data().attempts : []; return ref.set({ attempts: old.concat([rec]) }); });
+    }).then(function () { clearTimeout(t); S.saved = "ok"; saveStatus(rec); }).catch(function () { clearTimeout(t); S.saved = "fail"; saveStatus(rec); });
+  }
+
+  /* ---------- teacher data ---------- */
+  var T = { rows: [], period: "All" };
+  function viewTeacher() {
+    app.className = "wrap wide";
+    app.innerHTML = '<div class="topbar"><h1>Teacher data</h1><div class="row"><button class="ghost" id="rf">Refresh</button><button class="ghost" id="bk">Back to warm-up</button></div></div><p class="status" id="ld">Loading responses…</p>';
+    document.getElementById("bk").addEventListener("click", function () { viewStart(); });
+    document.getElementById("rf").addEventListener("click", viewTeacher);
+    if (!db) { document.getElementById("ld").textContent = "Saved data is not available in this view. Open the page signed in to claude.ai with the account that owns it."; return; }
+    load();
+  }
+  function load() {
+    var ld = document.getElementById("ld"); if (!ld) return;
+    db.collection("responses").get().then(function (snap) {
+      T.rows = []; snap.docs.forEach(function (d) { var x = d.data(); (x && x.attempts || []).forEach(function (a) { var c = {}; Object.keys(a).forEach(function (k) { c[k] = a[k]; }); c._uid = d.id; T.rows.push(c); }); });
+      renderTeacher();
+    }).catch(function (e) { ld.className = "status bad"; ld.textContent = "Could not load responses (" + (e && e.code ? e.code : "error") + "). Choose Refresh to try again."; });
+  }
+  function sheetRows() {
+    var cur = T.rows.filter(function (r) { return r.nq === ITEMS.length; }).sort(function (a, b) { return a.ts - b.ts; }), seen = {};
+    return cur.map(function (r) {
+      var k = r._uid || r.name, ft = r.firstTry || []; seen[k] = (seen[k] || 0) + 1;
+      var row = [new Date(r.ts).toLocaleString("sv-SE", { timeZone: "America/Los_Angeles" }).slice(0, 16), TARGET, r.teacher, r.period, r.name, seen[k], r.score4, r.firstTryCorrect, ITEMS.length];
+      for (var i = 0; i < 3; i++) row.push(ft[i] === undefined ? "" : ft[i]);
+      row.push(r.finalCorrect, r._uid || ""); return row;
+    });
+  }
+  function sendToSheet(btn, out) {
+    var mine = sheetRows(); out.className = "status"; out.textContent = "Sending to Google Sheet…"; btn.disabled = true;
+    var usable = window.claude && claude.use ? claude.use("mcp") : Promise.resolve(null);
+    usable.then(function (mcp) {
+      if (!mcp) throw { code: "unavailable", message: "Google Sheets is not available in this view." };
+      return mcp.callTool(SHEET_SERVER, "get_values", { spreadsheetId: SHEET_ID, range: "Scores!A2:N" }).then(function (res) {
+        var old = (res.payload && res.payload.values) || [];
+        var all = old.filter(function (r) { return r[1] && r[1] !== TARGET; }).concat(mine);
+        all.sort(function (a, b) { return String(a[1]).localeCompare(String(b[1])); });
+        var blanks = Math.max(0, old.length - all.length); for (var i = 0; i < blanks; i++) all.push([]);
+        all = all.map(function (r) { r = r.slice(); while (r.length < 14) r.push(""); return r; });
+        if (!all.length) return 0;
+        return mcp.callTool(SHEET_SERVER, "update_values", { spreadsheetId: SHEET_ID, range: "Scores!A2:N" + (all.length + 1), values: all }).then(function () { return mine.length; });
+      });
+    }).then(function (n) { out.className = "status"; out.innerHTML = "Sent " + n + " rows for " + esc(TARGET) + ' to the sheet. <a href="' + SHEET_URL + '" target="_blank" rel="noopener">Open the sheet</a>'; })
+      .catch(function (e) { sheetFail(out, e); }).then(function () { btn.disabled = false; });
+  }
+  function sheetFail(out, e) {
+    var c = e && e.code ? e.code : "error", m = e && e.message ? e.message : "", t;
+    if (c === "server_not_connected" || c === "server_not_found") t = "Google Sheets is not connected for your account. Add it in claude.ai Settings, then Connectors, and try again.";
+    else if (c === "needs_reauth") t = "Reconnect Google Sheets in claude.ai Settings, then Connectors, and try again.";
+    else if (c === "approval_required") t = "Google Sheets needs your approval. Choose Send to Google Sheet again and allow it.";
+    else if (c === "not_in_manifest") t = "This page is not allowed to use Google Sheets for you. Turn it on in this page's Permissions menu.";
+    else if (c === "blocked_by_policy") t = "Your organization blocks this connection.";
+    else if (c === "tool_error") t = "Google Sheets reported a problem. Check that the sheet is shared with your Google account with edit access. " + m;
+    else t = "Could not reach Google Sheets (" + c + (m ? ": " + m : "") + "). Try again in a minute.";
+    out.className = "status bad"; out.textContent = t;
+  }
+  function renderTeacher() {
+    var cur = T.rows.filter(function (r) { return r.nq === ITEMS.length; }), hiddenN = T.rows.length - cur.length;
+    var sorted = cur.slice().sort(function (a, b) { return a.ts - b.ts; }), seen = {};
+    sorted.forEach(function (r) { var k = r._uid || String(r.name).trim().toLowerCase(); seen[k] = (seen[k] || 0) + 1; r._attempt = seen[k]; });
+    var firsts = sorted.filter(function (r) { return r._attempt === 1; });
+    var shown = firsts.filter(function (r) { return T.period === "All" || String(r.period) === String(T.period); });
+    function avg(a) { return a.length ? a.reduce(function (s, r) { return s + r.score4; }, 0) / a.length : null; }
+    function f2(x) { return x === null ? "–" : x.toFixed(2); }
+    function pct(n, d) { return d ? Math.round(100 * n / d) + "%" : "–"; }
+    var html = '<div class="topbar"><div class="pills">' + ["All"].concat(PERIODS).map(function (p) { return '<input type="radio" name="fp" id="fp_' + p + '" value="' + p + '"' + (String(T.period) === String(p) ? " checked" : "") + '><label for="fp_' + p + '">' + (p === "All" ? "All periods" : "P" + p) + "</label>"; }).join("") +
+      '</div><div class="row"><button id="cc">Copy CSV</button><button class="ghost" id="dc">Download CSV</button><button class="ghost" id="sh">Send to Google Sheet</button></div></div>' +
+      '<p class="status" id="shs" aria-live="polite"></p><p class="status">' + shown.length + " students shown (first attempt per student). " + (cur.length - firsts.length) + " repeat attempts are in the table but not in the averages." + (hiddenN ? " " + hiddenN + " rows from an earlier version are hidden." : "") + ' <a href="' + SHEET_URL + '" target="_blank" rel="noopener">Open the sheet</a></p>';
+    var dist = LEVELS.map(function (l) { return shown.filter(function (r) { return r.score4 === l.s; }).length; }), mx = Math.max.apply(null, dist.concat([1]));
+    html += '<div class="grid2"><div class="card"><h3>Scores on the 4-point scale</h3>' + LEVELS.map(function (l, k) { return '<div class="bar"><span style="width:10.5em">' + l.s + " " + l.name + '</span><i style="width:' + (dist[k] / mx * 40) + '%;min-width:' + (dist[k] ? 4 : 0) + 'px"></i><b>' + dist[k] + "</b></div>"; }).join("") +
+      '<p class="status">Average ' + f2(avg(shown)) + " · at 3 or above: " + pct(dist[0] + dist[1], shown.length) + "</p></div>" +
+      '<div class="card"><h3>Right on the first try, by question</h3>' + ITEMS.map(function (it, k) { var n = shown.filter(function (r) { return r.firstTry && r.firstTry[k] === 1; }).length, p = shown.length ? n / shown.length * 100 : 0;
+        return '<div class="bar"><span style="width:2.2em">Q' + (k + 1) + '</span><i style="width:' + (p * .4) + '%;min-width:' + (n ? 4 : 0) + 'px"></i><b>' + pct(n, shown.length) + '</b><span class="status">' + esc(it.skill) + "</span></div>"; }).join("") + "</div></div>";
+    var tbl = sorted.filter(function (r) { return T.period === "All" || String(r.period) === String(T.period); }).sort(function (a, b) { return a.period - b.period || String(a.name).localeCompare(String(b.name)) || a.ts - b.ts; });
+    html += '<div class="card"><h3>Students</h3><div class="scroll"><table><thead><tr><th class="num">Per</th><th>Name</th><th class="num">Attempt</th><th class="num">Score (4-pt)</th><th class="num">First-try right</th><th>First try by question</th></tr></thead><tbody>' +
+      (tbl.length ? tbl.map(function (r) { return '<tr><td class="num">' + r.period + "</td><td>" + esc(r.name) + '</td><td class="num">' + r._attempt + '</td><td class="num ' + (r.score4 >= 3 ? "s4" : r.score4 < 2 ? "s1" : "") + '"><b>' + r.score4 + '</b></td><td class="num">' + r.firstTryCorrect + "/" + ITEMS.length + "</td><td>" + (r.firstTry || []).map(function (v) { return v ? "✓" : "✗"; }).join(" ") + "</td></tr>"; }).join("") : '<tr><td colspan="6">No responses yet.</td></tr>') + "</tbody></table></div></div>";
+    app.innerHTML = '<div class="topbar"><h1>Teacher data</h1><div class="row"><button class="ghost" id="rf">Refresh</button><button class="ghost" id="bk">Back to warm-up</button></div></div>' + html;
+    function csv() {
+      var head = ["target", "period", "name", "attempt", "score_4pt", "first_try_correct"].concat(ITEMS.map(function (_, k) { return "q" + (k + 1) + "_first_try"; }), ["final_correct", "timestamp"]);
+      return [head.join(",")].concat(tbl.map(function (r) { return [r.target, r.period, '"' + String(r.name).replace(/"/g, '""') + '"', r._attempt, r.score4, r.firstTryCorrect].concat(r.firstTry || [], [r.finalCorrect, new Date(r.ts).toISOString()]).join(","); })).join("\n");
+    }
+    document.getElementById("bk").addEventListener("click", function () { viewStart(); });
+    document.getElementById("rf").addEventListener("click", viewTeacher);
+    document.getElementById("cc").addEventListener("click", function () { var b = document.getElementById("cc"); try { navigator.clipboard.writeText(csv()).then(function () { b.textContent = "Copied"; }).catch(function () { b.textContent = "Copy blocked: use Download"; }); } catch (e) { b.textContent = "Copy blocked: use Download"; } });
+    document.getElementById("dc").addEventListener("click", function () { if (!dl) { document.getElementById("dc").textContent = "Download not available"; return; } dl.save({ filename: TARGET + "-warmup-scores.csv", data: csv() }).catch(function () {}); });
+    document.getElementById("sh").addEventListener("click", function () { sendToSheet(document.getElementById("sh"), document.getElementById("shs")); });
+    document.querySelectorAll("#app input[name=fp]").forEach(function (i) { i.addEventListener("change", function () { T.period = i.value; renderTeacher(); }); });
+  }
+
+  viewStart();
+  if (window.claude && claude.use) {
+    claude.use("db").then(function (d) { db = d; }).catch(function () {});
+    claude.use("downloads").then(function (d) { dl = d; }).catch(function () {});
+    claude.use("user").then(function (u) { userCap = u; if (u) return u.canEdit(); }).then(function (ce) { if (ce) { canEdit = true; if (document.getElementById("f")) viewStart(); } }).catch(function () {});
+  }
+})();
+</script>
