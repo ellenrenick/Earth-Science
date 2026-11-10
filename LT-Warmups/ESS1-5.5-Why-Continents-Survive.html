@@ -500,7 +500,7 @@ td.num,th.num{text-align:right}
   if (window.claude && claude.use) {
     claude.use("db").then(function (d) { db = d; }).catch(function () {});
     claude.use("downloads").then(function (d) { dl = d; }).catch(function () {});
-    claude.use("user").then(function (u) { userCap = u; if (u) return u.canEdit(); }).then(function (ce) { if (ce) { canEdit = true; if (document.getElementById("f")) viewStart(); } }).catch(function () {});
+    claude.use("user").then(function (u) { userCap = u; if (u) return u.isOwner(); }).then(function (ce) { if (ce) { canEdit = true; if (document.getElementById("f")) viewStart(); } }).catch(function () {});
   }
 })();
 </script>
