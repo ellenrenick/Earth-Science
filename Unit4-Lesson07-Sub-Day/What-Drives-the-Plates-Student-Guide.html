@@ -1,0 +1,285 @@
+<title>What Drives the Plates</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap">
+<style>
+/* Layout: one centered column. A step bar sits on top (Start, Do Now, Learn, Model, Story, Finish); each step is one card with its own suggested time. */
+:root{
+  --bg:#eef4f3; --surface:#ffffff; --ink:#12303a; --muted:#4b6670; --line:#cbdadc;
+  --accent:#0b6e7f; --accent-ink:#ffffff; --gold:#f0b429; --gold-bg:#fff3cf;
+  --good:#1d7a46; --good-bg:#e2f4e8; --bad:#a8431a; --bad-bg:#fbeae2; --focus:#1a5fd0;
+  --ocean:#34495a; --plate2:#8a9aa6; --mantle:#e08a4a; --water:#bfe3ee;
+  --hot:#c4361d; --cool:#1f5fa8; --push:#0b6e7f; --pull:#9a6400;
+  --font-display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif; --font-body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c1d24; --surface:#13303a; --ink:#e6f1f3; --muted:#9db6bd; --line:#27494f;
+  --accent:#49b8cc; --accent-ink:#06222a; --gold:#f0b429; --gold-bg:#3b3214;
+  --good:#6fd193; --good-bg:#12382a; --bad:#ffa58f; --bad-bg:#432019; --focus:#7ab0ff;
+  --ocean:#6b8aa0; --plate2:#6f8190; --mantle:#c26d32; --water:#1d4b5c;
+  --hot:#ff8f78; --cool:#79b4ff; --push:#49b8cc; --pull:#f0b429; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1d24; --surface:#13303a; --ink:#e6f1f3; --muted:#9db6bd; --line:#27494f;
+  --accent:#49b8cc; --accent-ink:#06222a; --gold:#f0b429; --gold-bg:#3b3214;
+  --good:#6fd193; --good-bg:#12382a; --bad:#ffa58f; --bad-bg:#432019; --focus:#7ab0ff;
+  --ocean:#6b8aa0; --plate2:#6f8190; --mantle:#c26d32; --water:#1d4b5c;
+  --hot:#ff8f78; --cool:#79b4ff; --push:#49b8cc; --pull:#f0b429; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.5;padding-block:20px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:var(--font-display);line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:2rem;font-weight:800} h2{font-size:1.4rem;font-weight:600} h3{font-size:1.05rem;font-weight:600}
+p{margin:0}
+.eyebrow{font-size:.8rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.target{background:var(--gold-bg);border-left:4px solid var(--gold);border-radius:4px;padding:12px 14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.steps{display:flex;gap:6px;flex-wrap:wrap}
+.steps button{flex:1 1 90px;font-size:.9rem;padding:8px 6px;border-radius:8px;border:2px solid var(--line);background:var(--surface);color:var(--ink);font-weight:700;cursor:pointer}
+.steps button[aria-current="step"]{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+.steps button.done:not([aria-current="step"]){border-color:var(--good);background:var(--good-bg)}
+button{font:inherit;font-weight:700;padding:11px 18px;border-radius:8px;border:2px solid var(--accent);background:var(--accent);color:var(--accent-ink);cursor:pointer}
+button.ghost{background:transparent;color:var(--accent)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.time{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.clock{font:700 1.3rem var(--font-display);font-variant-numeric:tabular-nums;min-width:3.6em}
+.pill{display:inline-block;background:var(--gold-bg);border:1px solid var(--gold);border-radius:99px;padding:2px 12px;font-size:.9rem;font-weight:700}
+.status{font-size:.95rem;color:var(--muted)}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:2px solid var(--line);border-radius:8px;background:var(--bg);cursor:pointer}
+.chk input{margin-top:5px;accent-color:var(--accent);flex:none;width:18px;height:18px}
+.chk.on{border-color:var(--good);background:var(--good-bg)}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{background:var(--bg);color:var(--ink);border:2px solid var(--line);font-weight:400;padding:10px 14px;text-align:left}
+.opt.ok{border-color:var(--good);background:var(--good-bg)} .opt.x{border-color:var(--bad);background:var(--bad-bg)}
+.fb{margin:0;min-height:1.3em;font-size:.97rem}
+.fb.good{color:var(--good);font-weight:700} .fb.bad{color:var(--bad);font-weight:700}
+.q{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:12px}
+.reveal{border:2px solid var(--accent);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.bank{display:flex;flex-wrap:wrap;gap:6px}
+.bank span{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:2px 10px;font-weight:700;font-size:.9rem}
+.diagram svg{width:100%;height:auto;max-width:100%;display:block}
+.diagram{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--bg)}
+.lay{opacity:0}
+.lay.on{opacity:1}
+@media (prefers-reduced-motion:no-preference){.lay{transition:opacity .45s}.boxes{animation:belt 3s linear infinite}.flow{stroke-dasharray:10 8;animation:dash 1.2s linear infinite}@keyframes belt{from{transform:translateX(0)}to{transform:translateX(64px)}}@keyframes dash{to{stroke-dashoffset:-18}}}
+ol.say{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px}
+details{border:1px solid var(--line);border-radius:8px;padding:10px 14px}
+summary{cursor:pointer;font-weight:700}
+.big{font:800 2rem var(--font-display);color:var(--good)}
+.flowchart{display:flex;flex-direction:column;gap:6px}
+.flowchart div{border:2px solid var(--good);background:var(--good-bg);border-radius:8px;padding:8px 12px}
+.flowchart i{align-self:center;font-style:normal;color:var(--muted)}
+</style>
+
+<div class="wrap" id="app"></div>
+
+<script>
+(function () {
+  "use strict";
+  var app = document.getElementById("app");
+  var SECS = [
+    { id: "start", name: "Start", min: 0 }, { id: "donow", name: "Do Now", min: 5 }, { id: "learn", name: "Learn", min: 12 },
+    { id: "model", name: "Model", min: 20 }, { id: "story", name: "Story + exit", min: 8 }, { id: "finish", name: "Finish", min: 0 }
+  ];
+  var S = { sec: 0, done: {}, dn: [false, false], dnRev: false, learn: 0, learnOk: [], model: [], modelRev: false, story: [], storyShown: false, exitWrote: false, exitRev: false, fin: [false, false, false, false] };
+  var T = { left: 0, id: null, running: false };
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+
+  /* ---------- diagram: layers appear step by step ---------- */
+  function diagram() {
+    return '<svg viewBox="0 0 680 300" role="img" aria-label="Cross-section of the ocean floor from a mid-ocean ridge on the left to a trench on the right. Hot mantle rock rises under the ridge, spreads out, cools, and sinks near the trench. The ocean plate moves from the ridge toward the trench and its edge sinks.">' +
+      '<defs>' + ["hot", "cool", "ink", "push", "pull"].map(function (c) { var col = c === "ink" ? "var(--ink)" : "var(--" + c + ")"; return '<marker id="m_' + c + '" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto"><path d="M0 0 L14 7 L0 14z" fill="' + col + '"/></marker>'; }).join("") + '</defs>' +
+      '<rect x="0" y="110" width="680" height="190" fill="var(--mantle)" opacity=".55"/><rect x="0" y="72" width="470" height="38" fill="var(--water)"/>' +
+      '<polygon points="110,110 150,90 190,110" fill="var(--ocean)"/><polygon points="0,110 470,110 540,160 600,215 600,237 530,185 470,132 0,132" fill="var(--ocean)"/>' +
+      '<polygon points="470,56 680,56 680,156 540,156 470,106" fill="var(--plate2)"/>' +
+      '<g font-family="Atkinson Hyperlegible,Segoe UI,sans-serif" font-size="13" font-weight="700" fill="var(--ink)">' +
+      '<text x="108" y="84">Ridge</text><text x="398" y="102">Trench</text><text x="226" y="126" fill="#fff" font-size="12">Ocean plate</text><text x="560" y="86" fill="#fff">Another plate</text><text x="14" y="206">Mantle</text></g>' +
+      /* step 1 */
+      '<g class="lay" data-from="1"><circle cx="150" cy="268" r="14" fill="var(--hot)"/><path d="M150 252 V 142" stroke="var(--hot)" stroke-width="5" fill="none" marker-end="url(#m_hot)" class="flow"/><text x="162" y="214" font-size="13" font-weight="700" fill="var(--ink)">Hot rock rises</text><text x="8" y="292" font-size="12" fill="var(--ink)">Heat from inside Earth</text></g>' +
+      /* step 2 */
+      '<g class="lay" data-from="2"><path d="M150 148 H 425" stroke="var(--ink)" stroke-width="4" fill="none" marker-end="url(#m_ink)" class="flow"/><path d="M150 148 H 60" stroke="var(--ink)" stroke-width="4" fill="none" marker-end="url(#m_ink)" class="flow"/><text x="215" y="170" font-size="13" font-weight="700" fill="var(--ink)">Spreads out and cools</text></g>' +
+      /* step 3 */
+      '<g class="lay" data-from="3"><path d="M440 152 V 252" stroke="var(--cool)" stroke-width="5" fill="none" marker-end="url(#m_cool)" class="flow"/><text x="452" y="206" font-size="13" font-weight="700" fill="var(--ink)">Cool rock sinks</text><path d="M440 268 H 175" stroke="var(--ink)" stroke-width="3" fill="none" marker-end="url(#m_ink)" opacity=".7"/><text x="270" y="290" font-size="12" fill="var(--ink)">Returns along the bottom</text></g>' +
+      /* step 4 */
+      '<g class="lay" data-from="4"><path d="M200 50 H 340" stroke="var(--ink)" stroke-width="4" fill="none" marker-end="url(#m_ink)"/><text x="204" y="42" font-size="13" font-weight="700" fill="var(--ink)">Plate moves</text><g class="boxes"><rect x="200" y="94" width="15" height="15" fill="var(--ocean)" stroke="var(--ink)"/><rect x="262" y="94" width="15" height="15" fill="var(--ocean)" stroke="var(--ink)"/><rect x="324" y="94" width="15" height="15" fill="var(--ocean)" stroke="var(--ink)"/></g></g>' +
+      /* step 5 */
+      '<g class="lay" data-from="5"><path d="M170 80 H 250" stroke="var(--push)" stroke-width="4" fill="none" marker-end="url(#m_push)"/><text x="168" y="70" font-size="13" font-weight="700" fill="var(--push)">Ridge push</text><path d="M548 172 L 590 208" stroke="var(--pull)" stroke-width="5" fill="none" marker-end="url(#m_pull)"/><text x="606" y="186" font-size="13" font-weight="700" fill="var(--pull)">Slab pull</text></g>' +
+      /* ages (model compare) */
+      '<g class="lay" data-from="6"><path d="M150 22 V 86" stroke="var(--ink)" stroke-width="2"/><text x="40" y="16" font-size="13" font-weight="700" fill="var(--ink)">Youngest seafloor (0 years old)</text><path d="M462 22 V 106" stroke="var(--ink)" stroke-width="2"/><text x="670" y="16" text-anchor="end" font-size="13" font-weight="700" fill="var(--ink)">Oldest seafloor (about 200 million years)</text></g>' +
+      '</svg>';
+  }
+  function setLayers(box, n) { box.querySelectorAll(".lay").forEach(function (g) { g.classList.toggle("on", n >= +g.getAttribute("data-from")); }); }
+
+  /* ---------- timer ---------- */
+  function stopTimer() { if (T.id) clearInterval(T.id); T.id = null; T.running = false; }
+  function fmt(s) { return Math.floor(s / 60) + ":" + ("0" + (s % 60)).slice(-2); }
+  function timerHtml(min) {
+    return min ? '<div class="time"><span class="pill">Suggested time: ' + min + ' min</span><span class="clock" id="clk" aria-live="off">' + fmt(T.left || min * 60) + '</span><button type="button" class="ghost" id="tm">' + (T.running ? "Pause timer" : "Start timer") + "</button></div>" : "";
+  }
+  function bindTimer(min) {
+    var b = document.getElementById("tm"); if (!b) return;
+    if (!T.left) T.left = min * 60;
+    b.addEventListener("click", function () {
+      if (T.running) { stopTimer(); b.textContent = "Resume timer"; return; }
+      T.running = true; b.textContent = "Pause timer";
+      T.id = setInterval(function () { T.left = Math.max(0, T.left - 1); var c = document.getElementById("clk"); if (c) c.textContent = T.left ? fmt(T.left) : "Time! Wrap up this step."; if (!T.left) stopTimer(); }, 1000);
+    });
+  }
+  function go(i) { stopTimer(); T.left = 0; S.sec = i; render(); window.scrollTo(0, 0); }
+  function nav() {
+    return '<div class="steps" role="navigation" aria-label="Lesson steps">' + SECS.map(function (s, i) { return '<button type="button" data-go="' + i + '" class="' + (S.done[s.id] ? "done" : "") + '"' + (i === S.sec ? ' aria-current="step"' : "") + ">" + (S.done[s.id] ? "✓ " : "") + esc(s.name) + "</button>"; }).join("") + "</div>";
+  }
+  function header() {
+    return '<div class="top"><div><div class="eyebrow">Unit 4 · Lesson 7 · Day 60</div><h1>What Drives the Plates?</h1></div></div>';
+  }
+  function shell(inner, min) { app.innerHTML = header() + nav() + '<div class="card">' + (min ? timerHtml(min) : "") + inner + "</div>"; app.querySelectorAll("[data-go]").forEach(function (b) { b.addEventListener("click", function () { go(+b.getAttribute("data-go")); }); }); bindTimer(min); }
+  function checkBox(id, text, on, cb) {
+    var l = el("label", "chk" + (on ? " on" : "")); var i = el("input"); i.type = "checkbox"; i.id = id; i.checked = !!on; l.appendChild(i); l.appendChild(el("span", "", esc(text)));
+    i.addEventListener("change", function () { cb(i.checked); l.classList.toggle("on", i.checked); }); return l;
+  }
+  /* a one-question check; first option is the right one, buttons are shuffled */
+  function question(q, onOk) {
+    var d = el("div", "q"), opts = el("div", "opts"), fb = el("p", "fb"); fb.setAttribute("aria-live", "polite");
+    d.appendChild(el("p", "", "<b>" + esc(q.text) + "</b>"));
+    shuffle(q.o.map(function (_, k) { return k; })).forEach(function (k) {
+      var b = el("button", "opt"); b.type = "button"; b.textContent = q.o[k];
+      b.addEventListener("click", function () {
+        if (k === 0) { opts.querySelectorAll("button").forEach(function (x) { x.disabled = true; }); b.classList.add("ok"); fb.className = "fb good"; fb.textContent = q.right; onOk(); }
+        else { b.classList.add("x"); b.disabled = true; fb.className = "fb bad"; fb.textContent = (q.hints && q.hints[k]) || "Not quite. Try another."; }
+      });
+      opts.appendChild(b);
+    });
+    d.appendChild(opts); d.appendChild(fb); return d;
+  }
+  function nextBtn(label, i, enabled) { return '<div class="row"><button type="button" id="nx"' + (enabled ? "" : " disabled") + ">" + esc(label) + "</button></div>"; }
+  function bindNext(i, mark) { var n = document.getElementById("nx"); if (n) n.addEventListener("click", function () { if (mark) S.done[mark] = true; go(i); }); }
+
+  /* ---------- sections ---------- */
+  function secStart() {
+    shell('<div class="target"><b>Focus question:</b> How does mantle convection move the plates?<br><b>Learning target ESS1-5.3:</b> I can explain how seafloor spreading makes new crust at mid-ocean ridges.</div>' +
+      "<p>Your teacher is out today. This guide leads you through the whole lesson. Work on your own or with a partner, and keep your voice low. Your <b>notebook is your answer sheet</b>: the substitute will check it at the end.</p>" +
+      "<h2>Set up your notebook</h2><ol class='say'><li>Title the page <b>L7 What Drives the Plates</b> and add it to your table of contents.</li><li>You will use notebook <b>pages 78-79</b>.</li><li>Have ready: your Unit 3 notebook (mantle convection page), a pencil, and colored pencils.</li></ol>" +
+      "<h2>Today's plan (50 minutes)</h2><ol class='say'><li><b>Do Now</b> · 5 min</li><li><b>Learn</b> the convection model, step by step · 12 min</li><li><b>Model</b>: draw the seafloor conveyor belt in your notebook · 20 min</li><li><b>Story chart and exit ticket</b> · 8 min</li><li>Finish: show your notebook to the substitute · 5 min</li></ol>" +
+      '<details><summary>For the substitute</summary><p>Students are guided by this page, so you do not need to teach. Please keep students on task, help with logistics, and use the Finish step to check notebooks. Your teacher left a full sub plan with the answer key and attendance instructions.</p></details>' +
+      nextBtn("Start the Do Now", 1, true), 0);
+    bindNext(1, "start");
+  }
+  function secDoNow() {
+    shell("<h2>Do Now</h2><p>Open your <b>Unit 3 notebook</b> to the page on mantle convection. In your notebook, write <b>one sentence</b>:</p><p class='target'>Where does hot mantle rock rise? Where does cool mantle rock sink?</p>" +
+      '<div id="dn"></div><div id="dnr"></div><div id="dnn"></div>', 5);
+    var dn = document.getElementById("dn");
+    dn.appendChild(checkBox("dn0", "I wrote a sentence that says where hot rock rises.", S.dn[0], function (v) { S.dn[0] = v; upd(); }));
+    dn.appendChild(el("div")).style.height = "8px";
+    dn.appendChild(checkBox("dn1", "My sentence also says where cool rock sinks.", S.dn[1], function (v) { S.dn[1] = v; upd(); }));
+    var dnr = document.getElementById("dnr"), dnn = document.getElementById("dnn");
+    function upd() {
+      dnr.innerHTML = ""; dnn.innerHTML = "";
+      if (S.dn[0] && S.dn[1]) {
+        var b = el("button", "ghost", "Check my sentence"); b.type = "button"; dnr.appendChild(b);
+        if (S.dnRev) show(); else b.addEventListener("click", function () { S.dnRev = true; show(); });
+      }
+      function show() {
+        dnr.innerHTML = '<div class="reveal"><b>A good answer:</b><p>Hot mantle rock rises (it is less dense). It spreads out and cools. Then the cool rock, which is denser, sinks back down.</p><p class="status">If your sentence is missing something, add it now in a different color.</p></div>';
+        dnn.innerHTML = nextBtn("Next: learn the model", 2, true); bindNext(2, "donow");
+      }
+    }
+    upd();
+  }
+  var LEARN = [
+    { t: "Hot rock rises", x: "Heat from inside Earth warms the mantle rock at the bottom. Hot rock is less dense than cooler rock, so it rises. This is convection, just like in your Unit 3 lab. Where it rises under the ocean floor, you get a mid-ocean <b>ridge</b>.", q: { text: "Hot rock is less dense than cool rock. What does hot rock do?", o: ["It rises", "It sinks"], right: "Right. Hot, less dense rock rises.", hints: { 1: "Think of the Unit 3 lab: warm water rose." } } },
+    { t: "It spreads out and cools", x: "When the rising rock reaches the top of the mantle, it can't go any farther up. It spreads out sideways under the plate, and as it moves it cools.", q: { text: "As the rock spreads out near the surface, it...", o: ["cools down", "gets much hotter"], right: "Yes. Away from the heat, the rock cools.", hints: { 1: "The heat source is at the bottom. Farther from it, rock gets cooler." } } },
+    { t: "Cool rock sinks", x: "Cool rock is more dense than hot rock, so it sinks. Where the cool edge of a plate sinks into the mantle, you get a <b>trench</b>. The sinking rock then flows back along the bottom to be heated again, so the whole loop keeps going.", q: { text: "Cool rock is more dense. So cool rock...", o: ["sinks", "rises"], right: "Right. Cool, denser rock sinks.", hints: { 1: "Cool rock is the denser rock, and denser rock sinks." } } },
+    { t: "The plate rides along", x: "The ocean plate rides on the slowly moving mantle, like boxes on a very slow conveyor belt. The boxes are rock, the belt is the plate, and the end of the belt is where it goes down. (It is a helpful picture, not an exact one.)", q: { text: "Rock rides on the plate like boxes on a belt. Where does the belt end and go down?", o: ["At the trench", "At the ridge"], right: "Yes. The plate goes down at the trench.", hints: { 1: "The ridge is where new rock comes up, at the start of the belt." } } },
+    { t: "Ridge push and slab pull", x: "Two forces help move the plate. <b>Ridge push</b>: the high ridge pushes the plate away. <b>Slab pull</b>: the sinking edge of the plate pulls the rest of the plate along. Scientists think slab pull is the strongest of the forces.", q: { text: "Which force is the sinking edge pulling the rest of the plate along?", o: ["Slab pull", "Ridge push"], right: "Right. Slab pull.", hints: { 1: "Ridge push starts at the ridge. The sinking edge is at the trench." } } }
+  ];
+  function secLearn() {
+    var i = S.learn, st = LEARN[i], ok = !!S.learnOk[i];
+    shell("<h2>Learn: how convection moves the plates</h2><p class='status'>Step " + (i + 1) + " of " + LEARN.length + ". Watch the picture change, read, and answer the check question.</p>" +
+      '<div class="diagram" id="dg">' + diagram() + "</div><h3>" + (i + 1) + ". " + esc(st.t) + "</h3><p>" + st.x + '</p><div id="qq"></div><div class="status">Word bank: <span class="bank" style="display:inline-flex"><span>convection</span><span>ridge</span><span>trench</span><span>crust</span><span>mantle</span><span>sink</span><span>rise</span></span></div>' +
+      '<div class="row"><button type="button" class="ghost" id="pv"' + (i ? "" : " disabled") + '>Back</button><button type="button" id="nx"' + (ok ? "" : " disabled") + ">" + (i === LEARN.length - 1 ? "Next: draw the model" : "Next step") + "</button></div>", 12);
+    setLayers(document.getElementById("dg"), i + 1);
+    var qq = document.getElementById("qq");
+    if (ok) qq.innerHTML = '<p class="fb good">You answered this one correctly.</p>';
+    else qq.appendChild(question(st.q, function () { S.learnOk[i] = true; document.getElementById("nx").disabled = false; }));
+    document.getElementById("pv").addEventListener("click", function () { S.learn--; render(); });
+    document.getElementById("nx").addEventListener("click", function () { if (i === LEARN.length - 1) { S.done.learn = true; go(3); } else { S.learn++; render(); } });
+  }
+  var ITEMS = [
+    "Mantle drawn with convection arrows (rise, spread, sink, return).",
+    "A ridge where hot rock rises.",
+    "New crust forming at the ridge.",
+    "The plate moving across the ocean basin (arrows).",
+    "A trench where the old, cool plate sinks.",
+    "Ridge push labeled.",
+    "Slab pull labeled.",
+    "Youngest seafloor labeled at the ridge, and oldest seafloor labeled near the trench."
+  ];
+  function secModel() {
+    shell("<h2>Model: the seafloor conveyor belt</h2><p>In your notebook (page 78 or 79), draw one cross-section of the whole story, from the <b>ridge</b> on the left to the <b>trench</b> on the right. Use colored pencils. Use the Learn pictures to help.</p>" +
+      '<h3>Your drawing needs:</h3><div id="ml" style="display:flex;flex-direction:column;gap:8px"></div><div id="mr"></div><div id="mn"></div>', 20);
+    var ml = document.getElementById("ml");
+    ITEMS.forEach(function (t, k) { ml.appendChild(checkBox("mi" + k, t, S.model[k], function (v) { S.model[k] = v; upd(); })); });
+    var mr = document.getElementById("mr"), mn = document.getElementById("mn");
+    function upd() {
+      var all = ITEMS.every(function (_, k) { return S.model[k]; });
+      mr.innerHTML = ""; mn.innerHTML = "";
+      if (all) {
+        var b = el("button", "ghost", S.modelRev ? "Hide the model drawing" : "Compare with the model drawing"); b.type = "button"; mr.appendChild(b);
+        b.addEventListener("click", function () { S.modelRev = !S.modelRev; upd(); });
+        if (S.modelRev) { mr.appendChild(el("div", "reveal", "<b>Model drawing</b><div class='diagram' id='mg'>" + diagram() + "</div><p>Check your drawing against this one. Add or fix anything that is missing, in a different color pencil. Your drawing does not need to look exactly like this.</p>")); setLayers(document.getElementById("mg"), 6); mn.innerHTML = nextBtn("Next: story chart and exit ticket", 4, true); bindNext(4, "model"); }
+      } else mr.innerHTML = '<p class="status">Tick every box when your drawing has it. Then you can compare with the model drawing.</p>';
+    }
+    upd();
+  }
+  var STORY = [
+    { name: "Heat", o: ["Heat from inside Earth", "Wind in the atmosphere", "Light from the Sun"], right: "Heat inside Earth powers the whole story.", hints: { 1: "Wind is in the atmosphere, not in the mantle.", 2: "Sunlight does not reach the mantle." } },
+    { name: "Convection", o: ["Hot rock rises, spreads out, cools, and sinks", "The rock stays still", "Cool rock rises and hot rock sinks"], right: "That is convection.", hints: { 1: "The mantle moves very slowly, but it does move.", 2: "It is the other way around: hot rock rises." } },
+    { name: "Plates move", o: ["Plates ride the slowly moving mantle", "Plates stay locked in place", "Ocean waves push the plates"], right: "Yes, like boxes on a slow belt.", hints: { 1: "Plates move a few centimeters a year.", 2: "Waves only move water at the surface." } },
+    { name: "Ridge makes crust", o: ["Rising rock under the ocean forms new crust", "Sinking rock forms new crust"], right: "New crust forms where rock rises at the ridge.", hints: { 1: "Sinking happens at the trench. New crust forms at the ridge." } },
+    { name: "Trench destroys crust", o: ["The cool, dense plate sinks back into the mantle", "New crust forms at the trench"], right: "The old, cool plate sinks, so the crust is destroyed.", hints: { 1: "New crust forms at the ridge. The trench is where crust goes down." } }
+  ];
+  function secStory() {
+    shell("<h2>Story chart and exit ticket</h2><h3>1. The story of plate motion</h3><p>For each box in your notebook story chart, pick the best description. Then write it in your own words in the box.</p><div id='sq'></div><div id='sf'></div>", 8);
+    var sq = document.getElementById("sq"), sf = document.getElementById("sf");
+    STORY.forEach(function (s, k) { var q = question({ text: (k + 1) + ". " + s.name, o: s.o, right: s.right, hints: s.hints }, function () { S.story[k] = true; upd(); }); if (S.story[k]) { q.querySelectorAll("button").forEach(function (b, bi) { b.disabled = true; }); q.querySelector(".fb").className = "fb good"; q.querySelector(".fb").textContent = "Done."; } sq.appendChild(q); });
+    function upd() {
+      var all = STORY.every(function (_, k) { return S.story[k]; });
+      if (!all) { sf.innerHTML = ""; return; }
+      sf.innerHTML = '<div class="reveal"><b>The whole story</b><div class="flowchart">' + STORY.map(function (s, k) { return "<div><b>" + esc(s.name) + ":</b> " + esc(s.o[0]) + "</div>" + (k < STORY.length - 1 ? "<i>↓</i>" : ""); }).join("") + "</div></div>" +
+        "<h3>2. Exit ticket</h3><p>In your notebook, finish this sentence using the word <b>convection</b>:</p><p class='target'>Plates move because ______. This is why the ocean floor is ______.</p>" +
+        '<div class="bank"><span>convection</span><span>ridge</span><span>trench</span><span>crust</span><span>mantle</span><span>sink</span><span>rise</span></div><div id="ex"></div><div id="exn"></div>';
+      var ex = document.getElementById("ex"), exn = document.getElementById("exn");
+      ex.appendChild(checkBox("exw", "I wrote my exit ticket sentence in my notebook.", S.exitWrote, function (v) { S.exitWrote = v; ex2(); }));
+      function ex2() {
+        exn.innerHTML = "";
+        if (S.exitWrote) {
+          var b = el("button", "ghost", "Check my exit ticket"); b.type = "button"; exn.appendChild(b);
+          function show() { exn.innerHTML = '<div class="reveal"><b>A good answer:</b><p>Plates move because hot mantle rock rises and cool rock sinks (convection). This is why the ocean floor is <b>young</b>: it is made at ridges and destroyed at trenches.</p><p class="status">Fix your sentence if you need to.</p></div>' + nextBtn("Finish", 5, true); bindNext(5, "story"); }
+          if (S.exitRev) show(); else b.addEventListener("click", function () { S.exitRev = true; show(); });
+        }
+      }
+      ex2();
+    }
+    upd();
+  }
+  var FIN = ["Do Now: my one sentence about where hot rock rises and cool rock sinks.", "My cross-section drawing with the labels from the checklist.", "My story chart (5 boxes).", "My exit ticket sentence."];
+  function secFinish() {
+    shell("<h2>Finish</h2><p>Check your notebook (pages 78-79). Tick each one when it is done.</p><div id='fl' style='display:flex;flex-direction:column;gap:8px'></div><div id='fm'></div>");
+    var fl = document.getElementById("fl"), fm = document.getElementById("fm");
+    FIN.forEach(function (t, k) { fl.appendChild(checkBox("fi" + k, t, S.fin[k], function (v) { S.fin[k] = v; upd(); })); });
+    function upd() {
+      var all = S.fin.every(Boolean); fm.innerHTML = "";
+      if (all) { S.done.finish = true; fm.innerHTML = '<div class="reveal"><div class="big">All done!</div><p><b>Show your notebook to the substitute.</b> Then, if you have time, do one of these quietly:</p><ul><li>Read Module 13, Lesson 4: Causes of Plate Motions (textbook pp. 362-364). Write two facts about slab pull or ridge push.</li><li>Open the Plate Tectonics Gizmo from Canvas (optional).</li><li>Look back at your Day 51 guess about why the seafloor is young. Would you change it?</li></ul></div>'; }
+    }
+    upd();
+  }
+  function render() {
+    [secStart, secDoNow, secLearn, secModel, secStory, secFinish][S.sec]();
+  }
+  render();
+})();
+</script>
