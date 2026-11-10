@@ -1,333 +1,506 @@
 <title>Subduction Warm-Up</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap">
 <style>
-/* Layout: one centered column, one question per screen, reteach card appears under the answer. */
+/* Layout: one centered column with a progress strip; question, then feedback or a hands-on reteach directly beneath it. Teacher view is a wider table layout behind a button. */
 :root{
-  --bg:#eef4f4; --surface:#ffffff; --fg:#0f2f3a; --muted:#4d6670; --line:#c9d9dc;
-  --accent:#0b6e7f; --accent-fg:#ffffff; --gold:#f0b429; --gold-bg:#fff4d1;
-  --good:#1d7a46; --good-bg:#e2f4e8; --bad:#b3341f; --bad-bg:#fbe7e2;
-  --rock-ocean:#34495a; --rock-cont:#c9a66b; --mantle:#e08a4a; --water:#bfe3ee; --ink-on-rock:#ffffff;
-  --font-head:'Space Grotesk','Segoe UI',system-ui,sans-serif; --font-body:'Inter','Segoe UI',system-ui,sans-serif;
+  --bg:#eef4f3; --surface:#ffffff; --ink:#12303a; --muted:#4b6670; --line:#cbdadc;
+  --accent:#0b6e7f; --accent-ink:#ffffff; --gold:#f0b429; --gold-bg:#fff3cf;
+  --good:#1d7a46; --good-bg:#e2f4e8; --bad:#a8431a; --bad-bg:#fbeae2; --focus:#1a5fd0;
+  --ocean:#34495a; --cont:#c9a66b; --mantle:#e08a4a; --water:#bfe3ee;
+  --font-display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif; --font-body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0c1d24; --surface:#13303a; --fg:#e6f1f3; --muted:#9db6bd; --line:#27494f;
-  --accent:#49b8cc; --accent-fg:#06222a; --gold:#f0b429; --gold-bg:#3b3214;
-  --good:#6fd193; --good-bg:#12382a; --bad:#ff9d8a; --bad-bg:#432019;
-  --rock-ocean:#5c7a8f; --rock-cont:#b39057; --mantle:#c26d32; --water:#1d4b5c; color-scheme:dark}}
+  --bg:#0c1d24; --surface:#13303a; --ink:#e6f1f3; --muted:#9db6bd; --line:#27494f;
+  --accent:#49b8cc; --accent-ink:#06222a; --gold:#f0b429; --gold-bg:#3b3214;
+  --good:#6fd193; --good-bg:#12382a; --bad:#ffa58f; --bad-bg:#432019; --focus:#7ab0ff;
+  --ocean:#6b8aa0; --cont:#b39057; --mantle:#c26d32; --water:#1d4b5c; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0c1d24; --surface:#13303a; --fg:#e6f1f3; --muted:#9db6bd; --line:#27494f;
-  --accent:#49b8cc; --accent-fg:#06222a; --gold:#f0b429; --gold-bg:#3b3214;
-  --good:#6fd193; --good-bg:#12382a; --bad:#ff9d8a; --bad-bg:#432019;
-  --rock-ocean:#5c7a8f; --rock-cont:#b39057; --mantle:#c26d32; --water:#1d4b5c; color-scheme:dark}
+  --bg:#0c1d24; --surface:#13303a; --ink:#e6f1f3; --muted:#9db6bd; --line:#27494f;
+  --accent:#49b8cc; --accent-ink:#06222a; --gold:#f0b429; --gold-bg:#3b3214;
+  --good:#6fd193; --good-bg:#12382a; --bad:#ffa58f; --bad-bg:#432019; --focus:#7ab0ff;
+  --ocean:#6b8aa0; --cont:#b39057; --mantle:#c26d32; --water:#1d4b5c; color-scheme:dark}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--fg);font:16px/1.55 var(--font-body);padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
-.wrap{max-width:720px;margin:0 auto;display:grid;gap:16px}
-h1,h2,h3{font-family:var(--font-head);line-height:1.2;text-wrap:balance;margin:0}
-h1{font-size:1.7rem} h2{font-size:1.25rem} h3{font-size:1.05rem}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.5;padding-block:20px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+.wrap.wide{max-width:1100px}
+h1,h2,h3{font-family:var(--font-display);line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:2rem;font-weight:800} h2{font-size:1.3rem;font-weight:600} h3{font-size:1.05rem;font-weight:600}
 p{margin:0}
-.eyebrow{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600}
-.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;display:grid;gap:14px;min-width:0}
-.target{background:var(--gold-bg);border-left:4px solid var(--gold);padding:10px 14px;border-radius:4px;font-size:.95rem}
-label.field{display:grid;gap:4px;font-weight:500;font-size:.95rem}
-input[type=text]{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px 12px;width:100%}
-button{font:inherit;cursor:pointer;border-radius:6px}
-.btn{background:var(--accent);color:var(--accent-fg);border:0;padding:11px 18px;font-weight:600}
-.btn:disabled{opacity:.45;cursor:not-allowed}
-.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
-:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.eyebrow{font-size:.8rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.target{background:var(--gold-bg);border-left:4px solid var(--gold);border-radius:4px;padding:12px 14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+label.field{display:flex;flex-direction:column;gap:6px;font-weight:700}
+input[type=text]{font:inherit;padding:12px;border:2px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%}
+fieldset{border:0;padding:0;margin:0;min-width:0}
+legend{font-weight:700;padding:0;margin-bottom:8px}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pills input{position:absolute;opacity:0;width:1px;height:1px}
+.pills label{min-width:64px;padding:10px 16px;text-align:center;border:2px solid var(--line);border-radius:8px;cursor:pointer;background:var(--bg);font-weight:700;user-select:none}
+.pills input:checked+label{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.pills input:focus-visible+label{outline:3px solid var(--focus);outline-offset:2px}
+button{font:inherit;font-weight:700;padding:12px 20px;border-radius:8px;border:2px solid var(--accent);background:var(--accent);color:var(--accent-ink);cursor:pointer}
+button.ghost{background:transparent;color:var(--accent)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.err{color:var(--bad);font-weight:700;min-height:1.4em}
 .progress{display:flex;gap:6px}
 .progress span{flex:1;height:8px;border-radius:4px;background:var(--line)}
-.progress span.done{background:var(--accent)}
-.progress span.now{background:var(--gold)}
-.q{font-size:1.15rem;font-weight:600}
-.opts{display:grid;gap:10px;border:0;padding:0;margin:0;min-width:0}
-.opt{display:flex;gap:12px;align-items:flex-start;border:2px solid var(--line);border-radius:8px;padding:12px 14px;cursor:pointer;background:var(--bg)}
-.opt input{margin-top:4px;accent-color:var(--accent);flex:none}
-.opt.sel{border-color:var(--accent)}
-.opt.struck{opacity:.5;text-decoration:line-through;cursor:not-allowed}
-.opt.right{border-color:var(--good);background:var(--good-bg)}
-.opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
-.fb{border-radius:8px;padding:14px 16px;display:grid;gap:6px}
-.fb.good{background:var(--good-bg);border-left:4px solid var(--good)}
-.fb.bad{background:var(--bad-bg);border-left:4px solid var(--bad)}
-.fb strong{font-family:var(--font-head)}
-.reteach{border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:grid;gap:10px;background:var(--surface)}
-.reteach svg{width:100%;height:auto;max-width:100%}
-.actions{display:flex;gap:10px;flex-wrap:wrap}
-.score{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-.score b{font:700 3rem var(--font-head);font-variant-numeric:tabular-nums}
-.pill{display:inline-block;padding:3px 12px;border-radius:99px;font-weight:600;font-size:.9rem;background:var(--gold-bg);border:1px solid var(--gold)}
-.recap{display:grid;gap:8px}
-.recap div{display:flex;gap:10px;align-items:baseline}
-.tag{flex:none;font-size:.75rem;font-weight:600;border-radius:4px;padding:2px 8px;min-width:96px;text-align:center}
-.tag.first{background:var(--good-bg);color:var(--good)} .tag.second{background:var(--gold-bg);color:var(--fg)} .tag.miss{background:var(--bad-bg);color:var(--bad)}
-.line{font:.85rem/1.4 ui-monospace,Menlo,Consolas,monospace;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px 12px;word-break:break-word;user-select:all}
-.note{font-size:.88rem;color:var(--muted)}
-.scroller{overflow-x:auto}
-table{border-collapse:collapse;width:100%;font-size:.9rem;font-variant-numeric:tabular-nums}
-th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;white-space:nowrap}
-th{font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
-.bar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;min-width:80px}
-.bar i{display:block;height:100%;background:var(--accent)}
-.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-.stat{border:1px solid var(--line);border-radius:8px;padding:12px;display:grid;gap:2px}
-.stat b{font:700 1.6rem var(--font-head)}
-@media (prefers-reduced-motion:no-preference){.fb,.reteach{animation:rise .25s ease-out}@keyframes rise{from{opacity:0;transform:translateY(6px)}}}
+.progress span.cur{background:var(--gold)} .progress span.ok{background:var(--good)} .progress span.miss{background:var(--bad)}
+.ref{font-size:.85rem;color:var(--muted);font-weight:700}
+.choices{display:flex;flex-direction:column;gap:10px}
+.choice{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;padding:12px 14px;border:2px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font-weight:400}
+.choice .mark{flex:none;width:22px;height:22px;border:2px solid var(--muted);border-radius:50%;margin-top:1px;display:grid;place-items:center;font-size:.8rem;font-weight:700}
+.choice[aria-pressed="true"]{border-color:var(--accent)}
+.choice[aria-pressed="true"] .mark{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.choice.locked{cursor:default}
+.choice.right{border-color:var(--good);background:var(--good-bg)}
+.choice.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.choice.out{opacity:.55}
+.fb{border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;border:2px solid}
+.fb.good{background:var(--good-bg);border-color:var(--good)} .fb.bad{background:var(--bad-bg);border-color:var(--bad)}
+.fb .head{font-family:var(--font-display);font-weight:800;font-size:1.15rem}
+.fb.good .head{color:var(--good)} .fb.bad .head{color:var(--bad)}
+.keyidea{font-weight:700}
+.big{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.score{font-family:var(--font-display);font-size:4.5rem;font-weight:800;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+.score small{font-size:1.4rem;color:var(--muted);font-weight:600}
+.levels{display:grid;gap:6px}
+.level{display:flex;gap:10px;padding:8px 12px;border-radius:8px;border:1px solid var(--line)}
+.level b{flex:none;width:2.4em;font-variant-numeric:tabular-nums}
+.level.you{border:2px solid var(--accent);background:var(--surface);font-weight:700}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:.95rem}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+td.num,th.num{text-align:right}
+.scroll{overflow-x:auto;max-width:100%}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.grid2>*{min-width:0}
+.bar{display:flex;align-items:center;gap:10px}
+.bar i{display:block;height:14px;border-radius:3px;background:var(--accent)}
+.s4{background:var(--good-bg)} .s1{background:var(--bad-bg)}
+.status{font-size:.95rem;color:var(--muted)} .status.bad{color:var(--bad);font-weight:700}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.react{border:2px solid var(--accent)}
+.rhead{color:var(--accent)}
+.step,.sortrow{display:flex;flex-direction:column;gap:8px;padding:12px 0 4px;border-top:1px solid var(--line)}
+.stepq,.sorttext{margin:0}
+.stepopts,.sortbtns{display:flex;flex-wrap:wrap;gap:8px}
+.opt{background:var(--bg);color:var(--ink);border:2px solid var(--line);font-weight:400;padding:10px 14px;text-align:left}
+.opt.ok{border-color:var(--good);background:var(--good-bg)} .opt.x{border-color:var(--bad);background:var(--bad-bg)}
+.stepfb{margin:0;min-height:1.2em;font-size:.95rem}
+.stepfb.good{color:var(--good);font-weight:700} .stepfb.bad{color:var(--bad);font-weight:700}
+.viz{display:flex;flex-direction:column;gap:12px;padding:4px 0 12px}
+.viz svg{width:100%;height:auto;max-width:100%}
+.rdone{border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:10px}
+.sortbtns{flex-wrap:nowrap}
+.sortbtns .opt{flex:1 1 0;min-width:0;text-align:center;padding:8px 6px}
+.sortrow{gap:6px;padding-top:10px}
+.wts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.wts div{border:2px solid var(--line);border-radius:8px;padding:10px;text-align:center}
+.wts b{display:block;font-family:var(--font-display);font-size:1.5rem}
+@media (prefers-reduced-motion:no-preference){.fb{animation:rise .25s ease-out}@keyframes rise{from{opacity:0;transform:translateY(6px)}}}
 </style>
 
-<div class="wrap" id="app" aria-live="polite"></div>
+<div class="wrap" id="app"></div>
 
 <script>
-/* ---------- Content for this learning target (swap this block to make a warm-up for another target) ---------- */
-const LT = {
-  id: "4.5", code: "ESS1-5.5", title: "Subduction Warm-Up",
-  target: "I can explain why ocean crust sinks at subduction zones but less-dense continental crust survives."
-};
-/* Score of record = number answered correctly on the FIRST try, mapped to the 4-point scale. */
-const BANDS = [
-  {min:5, score:3.5, label:"Mastered",        say:"You can explain this clearly and use it in new situations."},
-  {min:4, score:2.7, label:"Proficient",      say:"You can explain it. Check the one idea you missed."},
-  {min:3, score:1.8, label:"Approaching",     say:"You have part of it. Review the reteach cards below, then ask your teacher for next steps."},
-  {min:0, score:0.9, label:"Not yet meeting", say:"This target needs more work. Read the reteach cards below, then talk with your teacher."}
-];
-const bandFor = n => BANDS.find(b => n >= b.min);
+(function () {
+  "use strict";
+  var TARGET = "ESS1-5.5";
+  var TEACHER = "Renick", PERIODS = [5, 7];
+  var SHEET_ID = "10zDJWI4CafbAvZKdWqsQBy9T1RbpcbDjq0WkETfzRaQ", SHEET_SERVER = "Google Sheets";
+  var SHEET_URL = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/edit";
 
-const DIAGRAM = "subduction", AGES = "ages";
-const ITEMS = [
- { id:"q1", text:"Which type of crust is denser?", correct:"ocean",
-   opts:[
-    {id:"cont", text:"Continental crust", fb:"Many people pick continental crust because continents are thick and look heavy. Thickness is not density. Density is how much mass is packed into each cubic centimeter."},
-    {id:"ocean", text:"Oceanic crust"},
-    {id:"same", text:"They have the same density", fb:"They are different rocks. Oceanic crust is dark basalt. Continental crust is lighter rock, like granite. Different rocks pack different amounts of mass into the same space."},
-    {id:"weather", text:"It depends on the weather", fb:"Weather happens at the surface and does not change the rock underneath. Density depends on what the rock is made of."}],
-   why:"Oceanic crust is dark basalt, about 3.0 g/cm³. Continental crust is lighter rock like granite, about 2.7 g/cm³.",
-   reteach:{title:"Compare the two crusts", body:"Density is mass in a given volume. Oceanic crust is about 3.0 g/cm³ and continental crust is about 2.7 g/cm³. When two materials meet, the denser one goes under, like the dark rock in the density lab.", fig:DIAGRAM}},
- { id:"q2", text:"What happens when dense oceanic crust meets less-dense continental crust at a convergent boundary?", correct:"oc-sinks",
-   opts:[
-    {id:"oc-sinks", text:"The oceanic crust sinks under the continental crust."},
-    {id:"cc-sinks", text:"The continental crust sinks under the oceanic crust.", fb:"You have it reversed. When two materials meet, the denser one goes under. Continental crust is the less dense one."},
-    {id:"both", text:"Both crusts sink equally.", fb:"They do not sink equally. The difference in density decides which one goes under."},
-    {id:"neither", text:"Neither crust moves.", fb:"The plates keep pushing together, so something has to give. The denser ocean plate bends down into the mantle, and a trench marks the spot."}],
-   why:"The dense oceanic plate sinks (subducts) under the lighter continental plate. A trench forms where it bends down.",
-   reteach:{title:"What happens at the collision", body:"At a convergent boundary the ocean plate is the denser plate, so it bends down and sinks into the mantle. This is subduction. A trench forms where the plate bends.", fig:DIAGRAM}},
- { id:"q3", text:"Why does continental crust usually NOT sink into the mantle at subduction zones?", correct:"buoyant",
-   opts:[
-    {id:"cold", text:"It is too cold.", fb:"Cold actually makes ocean crust denser, so it sinks more easily. Continental crust stays up because it is less dense, not because of its temperature."},
-    {id:"thin", text:"It is too thin.", fb:"It is the other way around. Continental crust is thicker than oceanic crust. Thickness is not the reason. Its lower density is."},
-    {id:"fast", text:"It is moving too fast.", fb:"Plates move only a few centimeters a year, and speed does not decide this. The continent stays high because it is less dense."},
-    {id:"buoyant", text:"It is less dense and too buoyant to sink."}],
-   why:"Continental crust is less dense (about 2.7 g/cm³) and too buoyant to be pulled down, so it stays at the surface.",
-   reteach:{title:"Why the continent stays on top", body:"Think of wood and dark rock in water. The less dense wood floats and the denser rock sinks. Continental crust is the wood. It is too buoyant to be pulled into the mantle.", fig:DIAGRAM}},
- { id:"q4", text:"True or false: The oldest rocks on Earth are found on the ocean floor.", correct:"f", fixed:true,
-   opts:[
-    {id:"t", text:"True", fb:"It is the opposite. The ocean floor is young because it keeps getting recycled. The oldest rocks are on the continents, nearly 4 billion years old."},
-    {id:"f", text:"False"}],
-   why:"The oldest rocks are on the continents (nearly 4 billion years old). Seafloor rock is much younger, under about 200 million years.",
-   reteach:{title:"Where the oldest rocks are", body:"Ocean crust is recycled at trenches, so seafloor rock is young. Continental crust is not recycled, so some continental rock is billions of years old.", fig:AGES}},
- { id:"q5", text:"No seafloor rock is older than about 200 million years. What is the best explanation?", correct:"recycled",
-   opts:[
-    {id:"water", text:"Ocean water dissolves old rock.", fb:"Water can wear away some rock at the surface, but it cannot remove whole plates of ocean crust. Recycling at trenches does."},
-    {id:"recycled", text:"Old ocean crust sinks back into the mantle at trenches, so it does not last."},
-    {id:"young-ocean", text:"The oceans are only 200 million years old.", fb:"The ocean water is billions of years old. It is the seafloor rock that is young, because it keeps getting replaced."},
-    {id:"continents", text:"Old ocean crust turns into continents.", fb:"Old ocean crust mostly sinks into the mantle at trenches. It does not pile up to make continents."}],
-   why:"Old, dense ocean crust sinks back into the mantle at trenches, so no seafloor rock lasts much longer than about 200 million years.",
-   reteach:{title:"Why the seafloor is young", body:"New ocean crust forms at ridges and old ocean crust sinks at trenches. The seafloor is always being recycled, so none of it gets very old.", fig:DIAGRAM}}
-];
+  /* Score of record = questions right on the FIRST try, mapped to the 4-point scale. */
+  var LEVELS = [
+    { s: 3.5, name: "Mastered", d: "You got all 3 right on the first try." },
+    { s: 2.7, name: "Proficient", d: "2 of 3 right on the first try. This meets the class goal." },
+    { s: 1.8, name: "Approaching", d: "1 of 3 right on the first try. Review the notes below." },
+    { s: 0.9, name: "Not yet meeting", d: "0 of 3 right on the first try. Ask for help and review the notes below." }
+  ];
+  function levelFor(c) { return LEVELS[3 - Math.max(0, Math.min(3, c))]; }
 
-/* ---------- Diagrams ---------- */
-function svgSubduction(){return `<svg viewBox="0 0 640 300" role="img" aria-label="Cross-section: the dense ocean plate bends down at a trench and sinks under the lighter continental plate into the mantle.">
- <rect x="0" y="110" width="640" height="190" fill="var(--mantle)" opacity=".75"/>
- <rect x="0" y="70" width="256" height="42" fill="var(--water)"/>
- <polygon points="0,110 240,110 520,260 520,284 240,134 0,134" fill="var(--rock-ocean)"/>
- <polygon points="255,45 640,45 640,170 360,170 300,140 255,118" fill="var(--rock-cont)"/>
- <polygon points="410,45 430,22 450,45" fill="var(--rock-cont)"/>
- <path d="M300 150 L440 228" stroke="var(--fg)" stroke-width="3" fill="none" marker-end="url(#ah)"/>
- <defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8z" fill="var(--fg)"/></marker></defs>
- <g font-family="Inter,system-ui,sans-serif" font-size="13" fill="var(--fg)">
-  <text x="12" y="96">Ocean water</text>
-  <text x="170" y="104" font-weight="600">Trench</text>
-  <text x="12" y="165" font-weight="600">Oceanic crust</text>
-  <text x="12" y="183">dark basalt, about 3.0 g/cm³</text>
-  <text x="12" y="201">MORE dense: it sinks</text>
-  <text x="270" y="82" fill="#1d1608" font-weight="600">Continental crust</text>
-  <text x="270" y="100" fill="#1d1608">lighter rock, about 2.7 g/cm³</text>
-  <text x="270" y="118" fill="#1d1608">LESS dense: too buoyant to sink</text>
-  <text x="456" y="214" font-weight="600">sinking plate</text>
-  <text x="12" y="284">Mantle</text>
-  <text x="455" y="14" font-size="12">volcano</text>
- </g></svg>`}
-function svgAges(){return `<svg viewBox="0 0 640 140" role="img" aria-label="Bar chart to scale: oldest continental rock is nearly 4 billion years old; oldest seafloor is about 0.2 billion years.">
- <g font-family="Inter,system-ui,sans-serif" font-size="13" fill="var(--fg)">
-  <text x="0" y="22" font-weight="600">Oldest continental rock</text>
-  <rect x="0" y="30" width="560" height="22" fill="var(--rock-cont)"/><text x="566" y="46">about 4 billion yr</text>
-  <text x="0" y="82" font-weight="600">Oldest seafloor rock</text>
-  <rect x="0" y="90" width="28" height="22" fill="var(--rock-ocean)"/><text x="36" y="106">about 0.2 billion yr (200 million)</text>
-  <text x="0" y="134" font-size="12" fill="var(--muted)">Bars drawn to the same scale.</text>
- </g></svg>`}
-const FIG = {subduction:svgSubduction, ages:svgAges};
+  var ITEMS = [
+    { skill: "Compare the two crusts", ref: "Lesson 7: the density lab",
+      text: "Which type of crust is denser?",
+      key: "Oceanic crust is dark basalt, about 3.0 g/cm³. Continental crust is lighter rock like granite, about 2.7 g/cm³. Oceanic crust is denser.",
+      choices: [
+        { t: "Oceanic crust", ok: true },
+        { t: "Continental crust", why: "Continents are thick, so they can seem heavier. But thickness is not density. Density is how much mass is packed into each cubic centimeter." },
+        { t: "They have the same density", why: "They are different rocks. Oceanic crust is dark basalt and continental crust is lighter rock like granite, so they pack different amounts of mass into the same space." },
+        { t: "It depends on the weather", why: "Weather happens at the surface and does not change the rock underneath. Density depends on what the rock is made of." }
+      ],
+      reteach: [ { viz: "weigh" }, { steps: [
+        { q: "Which sample weighed more?", o: ["Oceanic crust, 3.0 g", "Continental crust, 2.7 g"], right: "Oceanic crust. Same size, more mass.", hints: { 1: "Look at the scale again. The oceanic sample reads 3.0 g." } },
+        { q: "So which crust is denser?", o: ["Oceanic crust", "Continental crust", "They are the same"], right: "Oceanic crust is denser.", hints: { 1: "Continental crust weighed less in the same size sample.", 2: "The two samples had different weights." } },
+        { q: "Continental crust is thicker. Does thicker mean denser?", o: ["No. Density is mass in each cubic centimeter, not how thick it is", "Yes, thicker rock is always denser"], right: "Right. Thickness and density are different things.", hints: { 1: "Continents are thick, but they weighed less per cubic centimeter." } }
+      ] } ] },
 
-/* ---------- State ---------- */
-const $app = document.getElementById("app");
-const S = { screen:"start", name:"", period:"", i:0, rec:[], sel:null, phase:"answer", order:{}, saved:"", viewer:null, db:null, user:null, dl:null, isTeacher:false, rows:null, filter:"all" };
-try{ S.name = localStorage.getItem("wu_name")||""; S.period = localStorage.getItem("wu_period")||""; }catch(e){}
-const esc = s => String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const shuffle = a => { a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
-const header = (extra="") => `<div class="top"><div><div class="eyebrow">${LT.code} · Warm-up</div><h1>${esc(LT.title)}</h1></div>${extra}</div>`;
+    { skill: "Which plate sinks and why", ref: "Lesson 7: subduction",
+      text: "Oceanic crust and continental crust push together at a convergent boundary. What happens?",
+      key: "The denser oceanic plate sinks under the less dense continental plate. This is subduction, and a trench forms where the plate bends down.",
+      choices: [
+        { t: "The oceanic crust sinks under the continental crust because it is more dense.", ok: true },
+        { t: "The continental crust sinks under the oceanic crust because it is thicker and heavier.", why: "Continental crust is thicker, but it is less dense (about 2.7 g/cm³ versus 3.0). Density decides which plate goes under, not thickness." },
+        { t: "The oceanic crust sinks because it is moving faster.", why: "Plates move only a few centimeters a year, and speed does not decide this. Density does." },
+        { t: "Neither crust sinks. The plates just stop moving.", why: "The plates keep pushing together, so something has to give. The denser ocean plate bends down into the mantle." }
+      ],
+      reteach: [ { viz: "collide" }, { steps: [
+        { q: "Which plate went under?", o: ["The oceanic plate", "The continental plate"], right: "The oceanic plate went under.", hints: { 1: "Watch the dark plate again. It is the one that bends down." } },
+        { q: "Why did that plate go under?", o: ["It is more dense (about 3.0 g/cm³)", "It is thicker", "It is lighter than the other plate"], right: "It is more dense, so it sinks.", hints: { 1: "The continental plate is the thicker one, and it stayed on top.", 2: "A lighter plate would stay on top. The oceanic plate is the denser one." } },
+        { q: "What is the deep groove called where the plate bends down?", o: ["A trench", "A ridge", "A fault"], right: "A trench.", hints: { 1: "A ridge is where plates pull apart.", 2: "A fault is a crack where plates slide past each other." } }
+      ] } ] },
 
-/* ---------- Screens ---------- */
-function render(){
-  if(S.screen==="start") return renderStart();
-  if(S.screen==="quiz") return renderQuiz();
-  if(S.screen==="done") return renderDone();
-  if(S.screen==="teacher") return renderTeacher();
-}
-function renderStart(){
-  $app.innerHTML = `${header(S.isTeacher?'<button class="btn ghost" id="tview">Teacher results</button>':'')}
-  <div class="target"><strong>Learning target ${LT.code}:</strong> ${esc(LT.target)}</div>
-  <div class="card">
-    <p>Answer 5 questions. After each one you get feedback right away. If you miss one, you will see a quick reteach and get a second try. Your <strong>first try</strong> is what shows your teacher where to help, so answer on your own.</p>
-    <label class="field" for="nm">First name and last initial<input type="text" id="nm" autocomplete="off" value="${esc(S.name)}"></label>
-    <label class="field" for="pd">Class period<input type="text" id="pd" autocomplete="off" value="${esc(S.period)}" placeholder="Example: 3"></label>
-    <div class="actions"><button class="btn" id="go">Start warm-up</button></div>
-  </div>`;
-  const go = document.getElementById("go"), nm = document.getElementById("nm"), pd = document.getElementById("pd");
-  const check = () => go.disabled = !(nm.value.trim() && pd.value.trim());
-  nm.oninput = pd.oninput = check; check();
-  go.onclick = () => { S.name = nm.value.trim(); S.period = pd.value.trim(); try{localStorage.setItem("wu_name",S.name);localStorage.setItem("wu_period",S.period);}catch(e){}
-    S.screen="quiz"; S.i=0; S.rec=[]; S.saved=""; S.phase="answer"; S.sel=null; S.order={}; render(); };
-  const t = document.getElementById("tview"); if(t) t.onclick = openTeacher;
-}
-function optsFor(it){ if(!S.order[it.id]) S.order[it.id] = it.fixed ? it.opts.map(o=>o.id) : shuffle(it.opts).map(o=>o.id); return S.order[it.id].map(id=>it.opts.find(o=>o.id===id)); }
-function renderQuiz(){
-  const it = ITEMS[S.i], rec = S.rec[S.i] || (S.rec[S.i] = {id:it.id, first:null, second:null});
-  const tries = rec.first===null ? 0 : 1;
-  const locked = S.phase!=="answer";
-  const bars = ITEMS.map((_,k)=>`<span class="${k<S.i?'done':k===S.i?'now':''}"></span>`).join("");
-  const opts = optsFor(it).map(o=>{
-    const struck = rec.first && rec.first.choice===o.id && S.phase==="answer";
-    let cls = "opt"; if(struck) cls+=" struck"; else if(S.sel===o.id && !locked) cls+=" sel";
-    if(locked){ if(o.id===it.correct && S.phase!=="wrong1") cls+=" right"; else if((rec.second&&rec.second.choice===o.id)||(!rec.second&&rec.first&&rec.first.choice===o.id)) cls+=" wrong"; }
-    return `<label class="${cls}"><input type="radio" name="o" value="${o.id}" ${S.sel===o.id?'checked':''} ${(locked||struck)?'disabled':''}><span>${esc(o.text)}</span></label>`;}).join("");
-  let panel = "";
-  if(S.phase==="right1") panel = `<div class="fb good"><strong>Correct!</strong><p>${esc(it.why)}</p></div>`;
-  if(S.phase==="wrong1"){ const ch = it.opts.find(o=>o.id===rec.first.choice);
-    panel = `<div class="fb bad"><strong>Not quite.</strong><p>${esc(ch.fb)}</p></div>
-      <div class="reteach"><h3>Quick reteach: ${esc(it.reteach.title)}</h3><p>${esc(it.reteach.body)}</p>${FIG[it.reteach.fig]()}</div>`; }
-  if(S.phase==="right2") panel = `<div class="fb good"><strong>Yes, that's it.</strong><p>${esc(it.why)}</p></div>`;
-  if(S.phase==="wrong2") panel = `<div class="fb bad"><strong>The answer is: ${esc(it.opts.find(o=>o.id===it.correct).text)}</strong><p>${esc(it.why)}</p><p class="note">Bring this one to your teacher or a partner.</p></div>`;
-  const last = S.i===ITEMS.length-1;
-  let btn = "";
-  if(S.phase==="answer") btn = `<button class="btn" id="chk" ${S.sel?'':'disabled'}>${tries?'Check second try':'Check answer'}</button>`;
-  else if(S.phase==="wrong1") btn = `<button class="btn" id="retry">Try again</button>`;
-  else btn = `<button class="btn" id="next">${last?'See my score':'Next question'}</button>`;
-  $app.innerHTML = `${header(`<span class="note">Question ${S.i+1} of ${ITEMS.length}</span>`)}
-   <div class="progress" aria-hidden="true">${bars}</div>
-   <div class="card"><p class="q">${esc(it.text)}</p><fieldset class="opts"><legend class="note">Choose one answer</legend>${opts}</fieldset>${panel}<div class="actions">${btn}</div></div>`;
-  document.querySelectorAll('input[name=o]').forEach(r=>r.onchange=()=>{S.sel=r.value; render(); const c=document.querySelector('input[name=o]:checked'); if(c) c.focus();});
-  const chk = document.getElementById("chk");
-  if(chk) chk.onclick = () => { const ok = S.sel===it.correct;
-    if(!rec.first){ rec.first={choice:S.sel,correct:ok}; S.phase = ok?"right1":"wrong1"; }
-    else { rec.second={choice:S.sel,correct:ok}; S.phase = ok?"right2":"wrong2"; }
-    S.sel = rec.second||ok ? S.sel : null; render(); };
-  const rt = document.getElementById("retry"); if(rt) rt.onclick = () => { S.phase="answer"; S.sel=null; render(); };
-  const nx = document.getElementById("next"); if(nx) nx.onclick = () => { if(last){ S.screen="done"; finish(); } else { S.i++; S.phase="answer"; S.sel=null; } render(); window.scrollTo(0,0); };
-}
+    { skill: "Why continents are old and the seafloor is young", ref: "Lessons 1 and 7: the seafloor age mystery",
+      text: "No seafloor rock is older than about 200 million years, but some continental rock is nearly 4 billion years old. What explains the difference?",
+      key: "Old, dense ocean crust sinks back into the mantle at trenches, so the seafloor is always being recycled. Continental crust is too buoyant to sink, so it stays and its rock can last billions of years.",
+      choices: [
+        { t: "Ocean crust sinks back into the mantle at trenches, but continental crust is too buoyant to sink.", ok: true },
+        { t: "Ocean water slowly dissolves old seafloor rock.", why: "Water can wear away some rock at the surface, but it cannot remove whole plates of ocean crust. Recycling at trenches does." },
+        { t: "The oceans are only 200 million years old.", why: "The ocean water is billions of years old. It is the seafloor rock that is young, because it keeps getting replaced." },
+        { t: "Old ocean crust is pushed up and turns into continents.", why: "Old ocean crust mostly sinks into the mantle at trenches. It does not pile up to make continents." }
+      ],
+      reteach: [ { sort: { prompt: "Sort each clue. Does it describe the young seafloor, or the old continents?", buckets: ["Seafloor rock (under 200 million years)", "Continental rock (up to 4 billion years)"],
+        cards: [
+          { t: "Pulled down into the mantle at trenches", b: 0, why: "Yes. Ocean crust is subducted, so it does not last." },
+          { t: "Too buoyant to be pulled down", b: 1, why: "Yes. Continental crust stays at the surface." },
+          { t: "New crust forms at ridges and old crust is recycled", b: 0, why: "Yes. The seafloor is always being replaced, so none of it gets very old." },
+          { t: "Stays at the surface for billions of years", b: 1, why: "Yes. Nothing recycles it, so some rock is nearly 4 billion years old." }
+        ] } }, { steps: [
+        { q: "So why are continental rocks so much older than seafloor rocks?", o: ["Ocean crust gets recycled at trenches and continental crust does not", "Ocean water dissolves seafloor rock", "The oceans formed recently"], right: "Right. Recycling keeps the seafloor young.", hints: { 1: "Water cannot remove whole plates of crust.", 2: "The ocean water is billions of years old. The rock is what gets replaced." } }
+      ] } ] }
+  ];
 
-/* ---------- Scoring and saving ---------- */
-function summary(){
-  const first = S.rec.filter(r=>r.first&&r.first.correct).length;
-  const recovered = S.rec.filter(r=>r.first&&!r.first.correct&&r.second&&r.second.correct).length;
-  const b = bandFor(first);
-  return {first, recovered, score:b.score, band:b.label, say:b.say};
-}
-function resultLine(){
-  const s = summary();
-  const items = S.rec.map((r,k)=>`Q${k+1}${r.first.correct?"✓":(r.second&&r.second.correct?"~":"✗")}`).join(" ");
-  return `${LT.code} | ${S.name} | Period ${S.period} | Score ${s.score} (${s.band}) | ${s.first}/5 first try | ${items}`;
-}
-async function finish(){
-  const s = summary();
-  const rec = { lt:LT.code, name:S.name, period:S.period, score:s.score, band:s.band, firstTry:s.first, recovered:s.recovered,
-    items:S.rec.map((r,k)=>({q:ITEMS[k].id, first:r.first.choice, firstOk:r.first.correct, second:r.second?r.second.choice:null, secondOk:r.second?r.second.correct:null})),
-    at:new Date().toISOString() };
-  S.saved = "saving";
-  try{
-    if(!S.db || !S.viewer) throw new Error("no-db");
-    const ref = S.db.doc("results/"+S.viewer);
-    const snap = await ref.get(); const prev = snap.exists ? (snap.data().attempts||[]) : [];
-    await ref.set({ latest:rec, attempts:prev.concat([rec]).slice(-5), name:S.name, period:S.period, lt:LT.code });
-    S.saved = "ok";
-  }catch(e){ S.saved = "no"; }
-  if(S.screen==="done") renderDone();
-}
-function renderDone(){
-  const s = summary();
-  const recap = S.rec.map((r,k)=>{ const cls = r.first.correct?"first":(r.second&&r.second.correct?"second":"miss");
-    const lab = r.first.correct?"Right 1st try":(r.second&&r.second.correct?"Right 2nd try":"Needs review");
-    return `<div><span class="tag ${cls}">${lab}</span><span>${esc(ITEMS[k].text)}</span></div>`; }).join("");
-  const review = S.rec.map((r,k)=>r.first.correct?"":`<li><strong>${esc(ITEMS[k].reteach.title)}.</strong> ${esc(ITEMS[k].why)}</li>`).join("");
-  const savedMsg = S.saved==="ok" ? "Your score was sent to your teacher." : S.saved==="saving" ? "Sending your score…" :
-     "Your score could not be sent automatically. Copy the line below and paste it into the Canvas assignment.";
-  $app.innerHTML = `${header()}
-  <div class="card"><div class="score"><b>${s.score}</b><span>out of 4</span><span class="pill">${s.band}</span></div>
-   <p>${esc(s.say)}</p><p class="note">${s.first} of 5 right on the first try. ${s.recovered?`${s.recovered} more right after the reteach.`:""}</p></div>
-  <div class="card"><h2>Your answers</h2><div class="recap">${recap}</div></div>
-  ${review?`<div class="card"><h2>Ideas to review</h2><ul>${review}</ul></div>`:""}
-  <div class="card"><h2>Your result</h2><p class="note" id="svmsg">${savedMsg}</p><div class="line" id="rl">${esc(resultLine())}</div>
-   <div class="actions"><button class="btn ghost" id="cp">Copy result line</button><button class="btn ghost" id="again">Take it again</button></div><p class="note" id="cpm"></p></div>`;
-  document.getElementById("cp").onclick = async () => { const t = resultLine(); const m = document.getElementById("cpm");
-    try{ await navigator.clipboard.writeText(t); m.textContent="Copied."; }catch(e){ const r=document.createRange(); r.selectNodeContents(document.getElementById("rl")); const sel=getSelection(); sel.removeAllRanges(); sel.addRange(r); m.textContent="Press Ctrl+C (or hold and tap Copy) to copy the selected line."; } };
-  document.getElementById("again").onclick = () => { S.screen="start"; render(); };
-}
+  var app = document.getElementById("app");
+  var db = null, userCap = null, dl = null, canEdit = false;
+  var S = { who: { name: "", period: "" }, i: 0, order: [], sel: [], tries: 0, out: [], firstOk: [], finalOk: [], tryCount: [], saved: "idle", fbHtml: "", state: "answer", locked: false, draft: null };
 
-/* ---------- Teacher view (only for people who can edit the page) ---------- */
-async function openTeacher(){ S.screen="teacher"; S.rows=null; render(); await loadRows(); render(); }
-async function loadRows(){
-  try{ const snap = await S.db.collection("results").get(); S.rows = snap.docs.map(d=>d.data()).filter(d=>d&&d.latest); }
-  catch(e){ S.rows = []; S.err = "Could not read results."; }
-}
-function csv(rows){
-  const head = ["name","period","lt","score","band","first_try_correct","recovered_after_reteach","attempts","completed_at", ...ITEMS.flatMap(i=>[i.id+"_first_choice",i.id+"_first_correct"])];
-  const q = v => '"'+String(v??"").replace(/"/g,'""')+'"';
-  const lines = rows.map(r=>{ const l=r.latest; return [r.name,r.period,r.lt,l.score,l.band,l.firstTry,l.recovered,(r.attempts||[]).length,l.at,...ITEMS.flatMap(i=>{const x=(l.items||[]).find(z=>z.q===i.id)||{}; return [x.first,x.firstOk];})].map(q).join(","); });
-  return [head.map(q).join(","),...lines].join("\n");
-}
-function renderTeacher(){
-  const all = S.rows, periods = all ? [...new Set(all.map(r=>r.period))].sort() : [];
-  const rows = all ? all.filter(r=>S.filter==="all"||r.period===S.filter).sort((a,b)=>String(a.name).localeCompare(String(b.name))) : [];
-  const n = rows.length, avg = n ? (rows.reduce((s,r)=>s+r.latest.score,0)/n).toFixed(2) : "–";
-  const dist = BANDS.slice().reverse().map(b=>({b, c:rows.filter(r=>r.latest.score===b.score).length}));
-  const itemStats = ITEMS.map(it=>{ const xs = rows.map(r=>(r.latest.items||[]).find(z=>z.q===it.id)).filter(Boolean);
-    const ok = xs.filter(x=>x.firstOk).length; const wrong = {}; xs.filter(x=>!x.firstOk).forEach(x=>wrong[x.first]=(wrong[x.first]||0)+1);
-    const top = Object.entries(wrong).sort((a,b)=>b[1]-a[1])[0]; const topText = top ? it.opts.find(o=>o.id===top[0]).text+" ("+top[1]+")" : "–";
-    return {it, pct:xs.length?Math.round(100*ok/xs.length):0, has:xs.length, topText}; });
-  $app.innerHTML = `${header('<button class="btn ghost" id="back">Back to warm-up</button>')}
-  ${all===null?'<div class="card"><p>Loading results…</p></div>':`
-  <div class="card"><div class="actions"><label class="field" for="pf" style="min-width:160px">Period<select id="pf" style="font:inherit;padding:8px;border-radius:6px;background:var(--bg);color:var(--fg);border:1px solid var(--line)"><option value="all">All periods</option>${periods.map(p=>`<option ${S.filter===p?'selected':''}>${esc(p)}</option>`).join("")}</select></label>
-   <button class="btn ghost" id="rf">Refresh</button>${S.dl&&n?'<button class="btn" id="dl">Download CSV</button>':""}</div>
-   ${n?"":'<p class="note">No results yet. They appear here after students finish the warm-up while signed in to the page.</p>'}</div>
-  ${n?`<div class="grid2"><div class="stat"><span class="note">Students</span><b>${n}</b></div><div class="stat"><span class="note">Class average (of 4)</span><b>${avg}</b></div>
-   ${dist.map(d=>`<div class="stat"><span class="note">${d.b.label} (${d.b.score})</span><b>${d.c}</b></div>`).join("")}</div>
-  <div class="card"><h2>Which ideas to reteach</h2><p class="note">Share right on the first try, and the wrong answer students chose most.</p><div class="scroller"><table><thead><tr><th>Question</th><th>First-try correct</th><th></th><th>Most common wrong answer</th></tr></thead><tbody>
-   ${itemStats.map((s,k)=>`<tr><td>Q${k+1} · ${esc(s.it.text.slice(0,48))}…</td><td>${s.pct}%</td><td><div class="bar"><i style="width:${s.pct}%"></i></div></td><td>${esc(s.topText)}</td></tr>`).join("")}</tbody></table></div></div>
-  <div class="card"><h2>Scores</h2><div class="scroller"><table><thead><tr><th>Name</th><th>Period</th><th>Score</th><th>Band</th><th>1st try</th>${ITEMS.map((_,k)=>`<th>Q${k+1}</th>`).join("")}</tr></thead><tbody>
-   ${rows.map(r=>{const l=r.latest; return `<tr><td>${esc(r.name)}</td><td>${esc(r.period)}</td><td>${l.score}</td><td>${esc(l.band)}</td><td>${l.firstTry}/5</td>${ITEMS.map(it=>{const x=(l.items||[]).find(z=>z.q===it.id)||{}; return `<td>${x.firstOk?"✓":(x.secondOk?"~":"✗")}</td>`;}).join("")}</tr>`}).join("")}</tbody></table></div>
-   <p class="note">✓ right first try · ~ right after reteach · ✗ still missed. Score of record uses the first try: 5 = 3.5, 4 = 2.7, 3 = 1.8, 0 to 2 = 0.9.</p></div>`:""}`}`;
-  document.getElementById("back").onclick = () => { S.screen="start"; render(); };
-  const rf = document.getElementById("rf"); if(rf) rf.onclick = async () => { S.rows=null; render(); await loadRows(); render(); };
-  const pf = document.getElementById("pf"); if(pf) pf.onchange = () => { S.filter = pf.value; render(); };
-  const dl = document.getElementById("dl"); if(dl) dl.onclick = () => S.dl.save({filename:`warmup-${LT.code}-results.csv`, data:csv(rows)}).catch(()=>{});
-}
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+  function kids(node, fn) { Array.prototype.forEach.call(node.children, fn); }
 
-/* ---------- Boot: the page works on its own; capabilities light up extras ---------- */
-render();
-(async()=>{
-  try{ if(window.claude){
-    S.db = await claude.use("db"); S.user = await claude.use("user"); S.dl = await claude.use("downloads");
-    if(S.user){ S.viewer = await S.user.id(); S.isTeacher = !!(S.db && await S.user.canEdit()); }
-    if(S.screen==="start") render();
-  }}catch(e){}
+  /* ---------- start ---------- */
+  function viewStart(err) {
+    var saved = {}; try { saved = JSON.parse(lsGet("ess155who") || "{}"); } catch (e) {}
+    var w = S.draft || (S.who.name ? S.who : saved);
+    app.className = "wrap";
+    app.innerHTML =
+      '<div class="topbar"><span class="eyebrow">Unit 4 · Warm-up</span>' + (canEdit ? '<button class="ghost" id="tbtn">Teacher data</button>' : "") + "</div>" +
+      "<h1>Why Continents Survive</h1>" +
+      '<div class="target"><b>Learning target ' + TARGET + ':</b> I can explain why ocean crust sinks at subduction zones but less-dense continental crust survives.</div>' +
+      "<p>Answer 3 questions from memory. If you miss one, you get a quick hands-on activity to work it out, then a second try.</p>" +
+      '<form class="card" id="f" novalidate>' +
+      '<label class="field" for="nm">First and last name<input type="text" id="nm" autocomplete="off" value="' + esc(w.name || "") + '"></label>' +
+      '<fieldset><legend>My period</legend><div class="pills">' + PERIODS.map(function (p) {
+        return '<input type="radio" name="period" id="p_' + p + '" value="' + p + '"' + (String(w.period) === String(p) ? " checked" : "") + '><label for="p_' + p + '">' + p + "</label>"; }).join("") + "</div></fieldset>" +
+      '<div class="err" id="err" role="alert">' + esc(err || "") + '</div><div class="row"><button type="submit">Start</button></div></form>';
+    document.getElementById("f").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var name = document.getElementById("nm").value.trim();
+      var p = (document.querySelector("input[name=period]:checked") || {}).value;
+      function fail(msg) { S.draft = { name: name, period: p || null }; viewStart(msg); }
+      if (name.length < 3 || name.indexOf(" ") < 0) return fail("Type your first and last name.");
+      if (!p) return fail("Pick your period.");
+      S.draft = null; S.who = { name: name, period: p }; lsSet("ess155who", JSON.stringify(S.who));
+      S.i = 0; S.firstOk = []; S.finalOk = []; S.tryCount = []; S.saved = "idle";
+      S.order = ITEMS.map(function (it) { return shuffle(it.choices.map(function (_, k) { return k; })); });
+      beginQ();
+    });
+    var tb = document.getElementById("tbtn"); if (tb) tb.addEventListener("click", viewTeacher);
+  }
+
+  /* ---------- questions ---------- */
+  function beginQ() { S.sel = []; S.tries = 0; S.out = []; S.fbHtml = ""; S.locked = false; S.state = "answer"; viewQ(); }
+  function progressHtml() {
+    return '<div class="progress" aria-label="Question ' + (S.i + 1) + " of " + ITEMS.length + '">' + ITEMS.map(function (_, k) {
+      return '<span class="' + (k < S.i ? (S.firstOk[k] ? "ok" : "miss") : k === S.i ? "cur" : "") + '"></span>'; }).join("") + "</div>";
+  }
+  function viewQ() {
+    var it = ITEMS[S.i];
+    app.className = "wrap";
+    var html = '<div class="topbar"><span class="eyebrow">Question ' + (S.i + 1) + " of " + ITEMS.length + '</span><span class="status">' + esc(S.who.name) + "</span></div>" + progressHtml();
+    html += '<div class="card"><span class="ref">Think back to: ' + esc(it.ref) + "</span><h2>" + esc(it.text) + '</h2><div class="choices" role="group" aria-label="Answer choices">';
+    S.order[S.i].forEach(function (ci) {
+      var c = it.choices[ci], pressed = S.sel.indexOf(ci) >= 0, cls = "choice", mark = "";
+      if (S.locked) {
+        cls += " locked";
+        if (pressed && c.ok) { cls += " right"; mark = "✓"; }
+        else if (pressed && !c.ok) { cls += " wrong"; mark = "✗"; }
+        else if (S.state === "reveal" && c.ok) { cls += " right"; mark = "✓"; }
+        else cls += " out";
+      } else if (S.out.indexOf(ci) >= 0) cls += " out";
+      html += '<button type="button" class="' + cls + '" data-ci="' + ci + '" aria-pressed="' + pressed + '"' + ((S.locked || S.out.indexOf(ci) >= 0) ? " disabled" : "") + '><span class="mark" aria-hidden="true">' + (mark || (pressed ? "✓" : "")) + "</span><span>" + esc(c.t) + "</span></button>";
+    });
+    html += "</div>" + (S.state === "answer" ? '<div class="row"><button type="button" id="chk" disabled>Check my answer</button></div>' : "") + "</div>" + S.fbHtml + (S.state === "react" ? '<div class="card react" id="react"></div>' : "");
+    app.innerHTML = html;
+    if (S.state === "react") mountReteach(it);
+    app.querySelectorAll(".choice:not(.locked)").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var ci = +b.getAttribute("data-ci"); S.sel = [ci];
+        app.querySelectorAll(".choice").forEach(function (x) { var on = S.sel.indexOf(+x.getAttribute("data-ci")) >= 0; x.setAttribute("aria-pressed", on); x.querySelector(".mark").textContent = on ? "✓" : ""; });
+        document.getElementById("chk").disabled = false;
+      });
+    });
+    var chk = document.getElementById("chk"); if (chk) chk.addEventListener("click", check);
+    var nx = document.getElementById("nx"); if (nx) nx.addEventListener("click", next);
+    if (S.fbHtml) { var f = app.querySelector(".fb"); if (f) f.scrollIntoView({ block: "nearest", behavior: "smooth" }); }
+  }
+  function check() {
+    var it = ITEMS[S.i], correct = !!it.choices[S.sel[0]].ok;
+    S.tries++; if (S.tries === 1) S.firstOk[S.i] = correct;
+    S.finalOk[S.i] = correct; S.tryCount[S.i] = S.tries; S.locked = true;
+    if (correct) {
+      S.state = "done";
+      S.fbHtml = '<div class="fb good" role="status"><div class="head">' + (S.tries === 1 ? "Correct" : "Correct this time") + '</div><p class="keyidea">' + esc(it.key) + '</p><div class="row"><button type="button" id="nx">' + nextLabel() + "</button></div></div>";
+    } else if (S.tries === 1) { S.state = "react"; S.fbHtml = ""; }
+    else {
+      S.state = "reveal";
+      S.fbHtml = '<div class="fb bad" role="status"><div class="head">Still not it. The answer is marked in green.</div><p class="keyidea">' + esc(it.key) + '</p><div class="row"><button type="button" id="nx">' + nextLabel() + "</button></div></div>";
+    }
+    viewQ();
+  }
+  function nextLabel() { return S.i === ITEMS.length - 1 ? "See my results" : "Next question"; }
+  function retry() {
+    var it = ITEMS[S.i];
+    S.sel.forEach(function (ci) { if (!it.choices[ci].ok) S.out.push(ci); });
+    S.sel = []; S.locked = false; S.state = "answer"; S.fbHtml = ""; viewQ();
+    var f = app.querySelector(".choice:not(.out)"); if (f) f.focus();
+  }
+  function next() { if (S.i === ITEMS.length - 1) return viewResults(); S.i++; beginQ(); window.scrollTo(0, 0); }
+
+  /* ---------- hands-on reteach ---------- */
+  function mountReteach(it) {
+    var host = document.getElementById("react"), queue = [];
+    host.innerHTML = '<h3 class="rhead">Not quite. Let’s work it out.</h3>';
+    it.reteach.forEach(function (r) {
+      if (r.viz) queue.push(function (n) { var box = el("div", "viz"); host.appendChild(box); VIZ[r.viz](box, n); });
+      if (r.sort) queue.push(function (n) { runSort(host, r.sort, n); });
+      if (r.steps) queue.push(function (n) { runSteps(host, r.steps, n); });
+    });
+    function go(i) { if (i >= queue.length) return finish(); queue[i](function () { go(i + 1); }); }
+    function finish() {
+      var why = S.sel.filter(function (ci) { return !it.choices[ci].ok && it.choices[ci].why; }).map(function (ci) { return it.choices[ci].why; });
+      var d = el("div", "rdone", '<p class="keyidea">' + esc(it.key) + "</p>" + (why.length ? "<p>About the answer you picked: " + esc(why[0]) + "</p>" : "") + '<div class="row"><button type="button" id="rt2">Try the question again</button></div>');
+      host.appendChild(d); document.getElementById("rt2").addEventListener("click", retry);
+      d.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
+    go(0);
+  }
+  /* guided steps: o[0] is the right option; buttons are shuffled on screen */
+  function runSteps(host, steps, done) {
+    var box = el("div", "steps"); host.appendChild(box);
+    function show(i) {
+      if (i >= steps.length) return done();
+      var st = steps[i], d = el("div", "step"), opts = el("div", "stepopts"), fb = el("p", "stepfb");
+      fb.setAttribute("aria-live", "polite");
+      d.appendChild(el("p", "stepq", "<b>" + (i + 1) + ".</b> " + esc(st.q)));
+      shuffle(st.o.map(function (_, k) { return k; })).forEach(function (k) {
+        var b = el("button", "opt"); b.type = "button"; b.textContent = st.o[k];
+        b.addEventListener("click", function () {
+          if (k === 0) { kids(opts, function (x) { x.disabled = true; }); b.classList.add("ok"); fb.className = "stepfb good"; fb.textContent = st.right; show(i + 1); }
+          else { b.classList.add("x"); b.disabled = true; fb.className = "stepfb bad"; fb.textContent = (st.hints && st.hints[k]) || "Not quite. Try another."; }
+        });
+        opts.appendChild(b);
+      });
+      d.appendChild(opts); d.appendChild(fb); box.appendChild(d);
+    }
+    show(0);
+  }
+  /* sort: each card goes into one of two buckets, with feedback on every card */
+  function runSort(host, cfg, done) {
+    var box = el("div", "sortbox"), left = cfg.cards.length; host.appendChild(box);
+    box.appendChild(el("p", "stepq", esc(cfg.prompt)));
+    shuffle(cfg.cards).forEach(function (c) {
+      var row = el("div", "sortrow"), btns = el("div", "sortbtns"), fb = el("p", "stepfb");
+      fb.setAttribute("aria-live", "polite");
+      cfg.buckets.forEach(function (name, bi) {
+        var b = el("button", "opt"); b.type = "button"; b.textContent = name;
+        b.addEventListener("click", function () {
+          if (bi === c.b) { kids(btns, function (x) { x.disabled = true; }); b.classList.add("ok"); fb.className = "stepfb good"; fb.textContent = c.why; left--; if (left === 0) done(); }
+          else { b.classList.add("x"); b.disabled = true; fb.className = "stepfb bad"; fb.textContent = "Not that one. Try the other."; }
+        });
+        btns.appendChild(b);
+      });
+      row.appendChild(el("p", "sorttext", "<b>" + esc(c.t) + "</b>")); row.appendChild(btns); row.appendChild(fb); box.appendChild(row);
+    });
+  }
+  var VIZ = {};
+  /* weigh 1 cm³ of each crust */
+  VIZ.weigh = function (box, done) {
+    function cube(x, n, fill, label) {
+      var s = '<rect x="' + x + '" y="30" width="130" height="150" rx="6" fill="none" stroke="var(--ink)" stroke-width="2"/>';
+      for (var k = 0; k < 30; k++) { if (k >= n) continue; s += '<circle cx="' + (x + 25 + (k % 5) * 20) + '" cy="' + (55 + Math.floor(k / 5) * 20) + '" r="7" fill="' + fill + '"/>'; }
+      return s + '<text x="' + (x + 65) + '" y="204" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">' + label + "</text>";
+    }
+    box.innerHTML = '<p class="stepq">Each box holds 1 cubic centimeter of rock. Each dot is a bit of mass. Count how packed each one is, then weigh them.</p>' +
+      '<svg viewBox="0 0 400 215" role="img" aria-label="Two equal boxes of rock. The oceanic crust box has 30 dots. The continental crust box has 27 dots.">' + cube(30, 30, "var(--ocean)", "Oceanic crust") + cube(240, 27, "var(--cont)", "Continental crust") + "</svg>" +
+      '<div class="row"><button type="button" class="mk">Weigh them</button></div><div class="wts" hidden><div><span>Oceanic crust</span><b>3.0 g</b></div><div><span>Continental crust</span><b>2.7 g</b></div></div>';
+    box.querySelector(".mk").addEventListener("click", function () { box.querySelector(".wts").hidden = false; this.disabled = true; done(); });
+  };
+  /* push the plates together */
+  VIZ.collide = function (box, done) {
+    var st = 0, fired = false;
+    var msgs = ["The plates are apart.", "The plates touch.", "Pushing harder: the denser ocean plate starts to bend down.", "The ocean plate sinks under the continent. A trench forms where it bends."];
+    var slabTop = [[[0, 100], [250, 100]], [[0, 100], [300, 100]], [[0, 100], [290, 100], [360, 140]], [[0, 100], [280, 100], [400, 168], [520, 235]]];
+    function slab() {
+      var top = slabTop[st], bot = top.slice().reverse().map(function (p) { return [p[0], p[1] + 22]; });
+      return top.concat(bot).map(function (p) { return p.join(","); }).join(" ");
+    }
+    function svg() {
+      var cx = st === 0 ? 340 : 300;
+      return '<svg viewBox="0 0 640 260" role="img" aria-label="' + esc(msgs[st]) + '"><rect x="0" y="100" width="640" height="160" fill="var(--mantle)" opacity=".7"/><rect x="0" y="62" width="' + (st === 0 ? 250 : 300) + '" height="38" fill="var(--water)"/>' +
+        '<polygon points="' + cx + ",45 640,45 640,100 " + cx + ',100" fill="var(--cont)"/><polygon points="' + slab() + '" fill="var(--ocean)"/>' +
+        '<g font-size="13" font-weight="700" fill="var(--ink)"><text x="12" y="92">Ocean water</text><text x="12" y="140">Oceanic crust (denser)</text><text x="' + (cx + 12) + '" y="78" fill="#1d1608">Continental crust (less dense)</text><text x="12" y="250">Mantle</text>' +
+        (st >= 3 ? '<text x="196" y="92">Trench</text>' : "") + "</g></svg>";
+    }
+    box.innerHTML = '<p class="stepq">Push the plates together and watch which one goes under.</p><div class="sv"></div><p class="stepfb good mg" aria-live="polite"></p><div class="row"><button type="button" class="mk">Push the plates together</button><button type="button" class="ghost rs" hidden>Reset</button></div>';
+    var sv = box.querySelector(".sv"), mg = box.querySelector(".mg"), mk = box.querySelector(".mk"), rs = box.querySelector(".rs");
+    function draw() { sv.innerHTML = svg(); mg.textContent = msgs[st]; mk.disabled = st >= 3; rs.hidden = st === 0; }
+    mk.addEventListener("click", function () { st++; draw(); if (st >= 3 && !fired) { fired = true; done(); } });
+    rs.addEventListener("click", function () { st = 0; draw(); });
+    draw();
+  };
+
+  /* ---------- results and saving ---------- */
+  function record() {
+    var raw = S.firstOk.filter(Boolean).length;
+    return { target: TARGET, nq: ITEMS.length, name: S.who.name, teacher: TEACHER, period: Number(S.who.period), score4: levelFor(raw).s, firstTryCorrect: raw,
+      firstTry: S.firstOk.map(function (b) { return b ? 1 : 0; }), finalCorrect: S.finalOk.filter(Boolean).length, tries: S.tryCount.slice(), ts: Date.now() };
+  }
+  function viewResults() {
+    var rec = record(), lv = levelFor(rec.firstTryCorrect), missed = [];
+    app.className = "wrap";
+    ITEMS.forEach(function (it, k) { if (!S.firstOk[k]) missed.push(k); });
+    var html = '<div class="topbar"><span class="eyebrow">Results · ' + esc(S.who.name) + '</span></div><h1>Your score</h1>' +
+      '<div class="card"><div class="big"><div class="score">' + rec.score4.toFixed(1) + "<small> / 4</small></div><div><h2>" + lv.name + "</h2><p>" + lv.d + "</p></div></div>" +
+      '<div class="levels">' + LEVELS.slice().reverse().map(function (l) { return '<div class="level' + (l.s === rec.score4 ? " you" : "") + '"><b>' + l.s.toFixed(1) + "</b><span>" + l.name + "</span></div>"; }).join("") + "</div></div>";
+    html += missed.length
+      ? '<div class="card"><h2>Review before you move on</h2><ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:10px">' + missed.map(function (k) { return "<li><b>" + esc(ITEMS[k].skill) + ".</b> " + esc(ITEMS[k].key) + "</li>"; }).join("") + "</ul></div>"
+      : '<div class="card"><p class="keyidea">Remember: the denser ocean plate sinks, the continent is too buoyant to sink, and that is why the seafloor is young and the continents are old.</p></div>';
+    html += '<div class="card" id="sv"></div><div class="row"><button type="button" class="ghost" id="again">Start over</button></div>';
+    app.innerHTML = html;
+    document.getElementById("again").addEventListener("click", function () { S.who = { name: "", period: "" }; viewStart(); });
+    if (S.saved === "idle") save(rec); else saveStatus(rec);
+  }
+  function saveStatus(rec) {
+    var box = document.getElementById("sv"); if (!box) return;
+    if (S.saved === "ok") box.innerHTML = '<p class="status">Your score was sent to your teacher. You can close this page.</p>';
+    else if (S.saved === "saving") box.innerHTML = '<p class="status">Sending your score…</p>';
+    else {
+      var txt = [rec.target, rec.name, rec.teacher, "Period " + rec.period, "Score " + rec.score4.toFixed(1) + "/4", "First try " + rec.firstTryCorrect + "/" + ITEMS.length].join(" | ");
+      box.innerHTML = '<p class="status bad">Your score could not be sent automatically. Show this screen to your teacher, or copy the line below and turn it in.</p><input type="text" readonly id="cp" value="' + esc(txt) + '"><div class="row"><button type="button" id="cpb">Copy</button><button type="button" class="ghost" id="rs">Try sending again</button></div>';
+      document.getElementById("cpb").addEventListener("click", function () { document.getElementById("cp").select(); try { navigator.clipboard.writeText(txt).catch(function () {}); } catch (e) {} });
+      document.getElementById("rs").addEventListener("click", function () { save(rec); });
+    }
+  }
+  function save(rec) {
+    S.saved = "saving"; saveStatus(rec);
+    if (!db || !userCap) { S.saved = "fail"; return saveStatus(rec); }
+    var t = setTimeout(function () { if (S.saved === "saving") { S.saved = "fail"; saveStatus(rec); } }, 12000);
+    userCap.id().then(function (id) {
+      if (!id) throw new Error("no id");
+      var ref = db.doc("responses/" + id);
+      return ref.get().then(function (snap) { var old = snap.exists && snap.data() && snap.data().attempts ? snap.data().attempts : []; return ref.set({ attempts: old.concat([rec]) }); });
+    }).then(function () { clearTimeout(t); S.saved = "ok"; saveStatus(rec); }).catch(function () { clearTimeout(t); S.saved = "fail"; saveStatus(rec); });
+  }
+
+  /* ---------- teacher data ---------- */
+  var T = { rows: [], period: "All" };
+  function viewTeacher() {
+    app.className = "wrap wide";
+    app.innerHTML = '<div class="topbar"><h1>Teacher data</h1><div class="row"><button class="ghost" id="rf">Refresh</button><button class="ghost" id="bk">Back to warm-up</button></div></div><p class="status" id="ld">Loading responses…</p>';
+    document.getElementById("bk").addEventListener("click", function () { viewStart(); });
+    document.getElementById("rf").addEventListener("click", viewTeacher);
+    if (!db) { document.getElementById("ld").textContent = "Saved data is not available in this view. Open the page signed in to claude.ai with the account that owns it."; return; }
+    load();
+  }
+  function load() {
+    var ld = document.getElementById("ld"); if (!ld) return;
+    db.collection("responses").get().then(function (snap) {
+      T.rows = []; snap.docs.forEach(function (d) { var x = d.data(); (x && x.attempts || []).forEach(function (a) { var c = {}; Object.keys(a).forEach(function (k) { c[k] = a[k]; }); c._uid = d.id; T.rows.push(c); }); });
+      renderTeacher();
+    }).catch(function (e) { ld.className = "status bad"; ld.textContent = "Could not load responses (" + (e && e.code ? e.code : "error") + "). Choose Refresh to try again."; });
+  }
+  function sheetRows() {
+    var cur = T.rows.filter(function (r) { return r.nq === ITEMS.length; }).sort(function (a, b) { return a.ts - b.ts; }), seen = {};
+    return cur.map(function (r) {
+      var k = r._uid || r.name, ft = r.firstTry || []; seen[k] = (seen[k] || 0) + 1;
+      var row = [new Date(r.ts).toLocaleString("sv-SE", { timeZone: "America/Los_Angeles" }).slice(0, 16), TARGET, r.teacher, r.period, r.name, seen[k], r.score4, r.firstTryCorrect, ITEMS.length];
+      for (var i = 0; i < 3; i++) row.push(ft[i] === undefined ? "" : ft[i]);
+      row.push(r.finalCorrect, r._uid || ""); return row;
+    });
+  }
+  function sendToSheet(btn, out) {
+    var mine = sheetRows(); out.className = "status"; out.textContent = "Sending to Google Sheet…"; btn.disabled = true;
+    var usable = window.claude && claude.use ? claude.use("mcp") : Promise.resolve(null);
+    usable.then(function (mcp) {
+      if (!mcp) throw { code: "unavailable", message: "Google Sheets is not available in this view." };
+      return mcp.callTool(SHEET_SERVER, "get_values", { spreadsheetId: SHEET_ID, range: "Scores!A2:N" }).then(function (res) {
+        var old = (res.payload && res.payload.values) || [];
+        var all = old.filter(function (r) { return r[1] && r[1] !== TARGET; }).concat(mine);
+        all.sort(function (a, b) { return String(a[1]).localeCompare(String(b[1])); });
+        var blanks = Math.max(0, old.length - all.length); for (var i = 0; i < blanks; i++) all.push([]);
+        all = all.map(function (r) { r = r.slice(); while (r.length < 14) r.push(""); return r; });
+        if (!all.length) return 0;
+        return mcp.callTool(SHEET_SERVER, "update_values", { spreadsheetId: SHEET_ID, range: "Scores!A2:N" + (all.length + 1), values: all }).then(function () { return mine.length; });
+      });
+    }).then(function (n) { out.className = "status"; out.innerHTML = "Sent " + n + " rows for " + esc(TARGET) + ' to the sheet. <a href="' + SHEET_URL + '" target="_blank" rel="noopener">Open the sheet</a>'; })
+      .catch(function (e) { sheetFail(out, e); }).then(function () { btn.disabled = false; });
+  }
+  function sheetFail(out, e) {
+    var c = e && e.code ? e.code : "error", m = e && e.message ? e.message : "", t;
+    if (c === "server_not_connected" || c === "server_not_found") t = "Google Sheets is not connected for your account. Add it in claude.ai Settings, then Connectors, and try again.";
+    else if (c === "needs_reauth") t = "Reconnect Google Sheets in claude.ai Settings, then Connectors, and try again.";
+    else if (c === "approval_required") t = "Google Sheets needs your approval. Choose Send to Google Sheet again and allow it.";
+    else if (c === "not_in_manifest") t = "This page is not allowed to use Google Sheets for you. Turn it on in this page's Permissions menu.";
+    else if (c === "blocked_by_policy") t = "Your organization blocks this connection.";
+    else if (c === "tool_error") t = "Google Sheets reported a problem. Check that the sheet is shared with your Google account with edit access. " + m;
+    else t = "Could not reach Google Sheets (" + c + (m ? ": " + m : "") + "). Try again in a minute.";
+    out.className = "status bad"; out.textContent = t;
+  }
+  function renderTeacher() {
+    var cur = T.rows.filter(function (r) { return r.nq === ITEMS.length; }), hiddenN = T.rows.length - cur.length;
+    var sorted = cur.slice().sort(function (a, b) { return a.ts - b.ts; }), seen = {};
+    sorted.forEach(function (r) { var k = r._uid || String(r.name).trim().toLowerCase(); seen[k] = (seen[k] || 0) + 1; r._attempt = seen[k]; });
+    var firsts = sorted.filter(function (r) { return r._attempt === 1; });
+    var shown = firsts.filter(function (r) { return T.period === "All" || String(r.period) === String(T.period); });
+    function avg(a) { return a.length ? a.reduce(function (s, r) { return s + r.score4; }, 0) / a.length : null; }
+    function f2(x) { return x === null ? "–" : x.toFixed(2); }
+    function pct(n, d) { return d ? Math.round(100 * n / d) + "%" : "–"; }
+    var html = '<div class="topbar"><div class="pills">' + ["All"].concat(PERIODS).map(function (p) { return '<input type="radio" name="fp" id="fp_' + p + '" value="' + p + '"' + (String(T.period) === String(p) ? " checked" : "") + '><label for="fp_' + p + '">' + (p === "All" ? "All periods" : "P" + p) + "</label>"; }).join("") +
+      '</div><div class="row"><button id="cc">Copy CSV</button><button class="ghost" id="dc">Download CSV</button><button class="ghost" id="sh">Send to Google Sheet</button></div></div>' +
+      '<p class="status" id="shs" aria-live="polite"></p><p class="status">' + shown.length + " students shown (first attempt per student). " + (cur.length - firsts.length) + " repeat attempts are in the table but not in the averages." + (hiddenN ? " " + hiddenN + " rows from an earlier version are hidden." : "") + ' <a href="' + SHEET_URL + '" target="_blank" rel="noopener">Open the sheet</a></p>';
+    var dist = LEVELS.map(function (l) { return shown.filter(function (r) { return r.score4 === l.s; }).length; }), mx = Math.max.apply(null, dist.concat([1]));
+    html += '<div class="grid2"><div class="card"><h3>Scores on the 4-point scale</h3>' + LEVELS.map(function (l, k) { return '<div class="bar"><span style="width:10.5em">' + l.s.toFixed(1) + " " + l.name + '</span><i style="width:' + (dist[k] / mx * 40) + '%;min-width:' + (dist[k] ? 4 : 0) + 'px"></i><b>' + dist[k] + "</b></div>"; }).join("") +
+      '<p class="status">Average ' + f2(avg(shown)) + " · at 2.7 or above: " + pct(dist[0] + dist[1], shown.length) + "</p></div>" +
+      '<div class="card"><h3>Right on the first try, by question</h3>' + ITEMS.map(function (it, k) { var n = shown.filter(function (r) { return r.firstTry && r.firstTry[k] === 1; }).length, p = shown.length ? n / shown.length * 100 : 0;
+        return '<div class="bar"><span style="width:2.2em">Q' + (k + 1) + '</span><i style="width:' + (p * .4) + '%;min-width:' + (n ? 4 : 0) + 'px"></i><b>' + pct(n, shown.length) + '</b><span class="status">' + esc(it.skill) + "</span></div>"; }).join("") + "</div></div>";
+    var tbl = sorted.filter(function (r) { return T.period === "All" || String(r.period) === String(T.period); }).sort(function (a, b) { return a.period - b.period || String(a.name).localeCompare(String(b.name)) || a.ts - b.ts; });
+    html += '<div class="card"><h3>Students</h3><div class="scroll"><table><thead><tr><th class="num">Per</th><th>Name</th><th class="num">Attempt</th><th class="num">Score (4-pt)</th><th class="num">First-try right</th><th>First try by question</th></tr></thead><tbody>' +
+      (tbl.length ? tbl.map(function (r) { return '<tr><td class="num">' + r.period + "</td><td>" + esc(r.name) + '</td><td class="num">' + r._attempt + '</td><td class="num ' + (r.score4 >= 2.7 ? "s4" : r.score4 < 1.8 ? "s1" : "") + '"><b>' + Number(r.score4).toFixed(1) + '</b></td><td class="num">' + r.firstTryCorrect + "/" + ITEMS.length + "</td><td>" + (r.firstTry || []).map(function (v) { return v ? "✓" : "✗"; }).join(" ") + "</td></tr>"; }).join("") : '<tr><td colspan="6">No responses yet.</td></tr>') + "</tbody></table></div></div>";
+    app.innerHTML = '<div class="topbar"><h1>Teacher data</h1><div class="row"><button class="ghost" id="rf">Refresh</button><button class="ghost" id="bk">Back to warm-up</button></div></div>' + html;
+    function csv() {
+      var head = ["target", "period", "name", "attempt", "score_4pt", "first_try_correct"].concat(ITEMS.map(function (_, k) { return "q" + (k + 1) + "_first_try"; }), ["final_correct", "timestamp"]);
+      return [head.join(",")].concat(tbl.map(function (r) { return [r.target, r.period, '"' + String(r.name).replace(/"/g, '""') + '"', r._attempt, r.score4, r.firstTryCorrect].concat(r.firstTry || [], [r.finalCorrect, new Date(r.ts).toISOString()]).join(","); })).join("\n");
+    }
+    document.getElementById("bk").addEventListener("click", function () { viewStart(); });
+    document.getElementById("rf").addEventListener("click", viewTeacher);
+    document.getElementById("cc").addEventListener("click", function () { var b = document.getElementById("cc"); try { navigator.clipboard.writeText(csv()).then(function () { b.textContent = "Copied"; }).catch(function () { b.textContent = "Copy blocked: use Download"; }); } catch (e) { b.textContent = "Copy blocked: use Download"; } });
+    document.getElementById("dc").addEventListener("click", function () { if (!dl) { document.getElementById("dc").textContent = "Download not available"; return; } dl.save({ filename: TARGET + "-warmup-scores.csv", data: csv() }).catch(function () {}); });
+    document.getElementById("sh").addEventListener("click", function () { sendToSheet(document.getElementById("sh"), document.getElementById("shs")); });
+    document.querySelectorAll("#app input[name=fp]").forEach(function (i) { i.addEventListener("change", function () { T.period = i.value; renderTeacher(); }); });
+  }
+
+  viewStart();
+  if (window.claude && claude.use) {
+    claude.use("db").then(function (d) { db = d; }).catch(function () {});
+    claude.use("downloads").then(function (d) { dl = d; }).catch(function () {});
+    claude.use("user").then(function (u) { userCap = u; if (u) return u.canEdit(); }).then(function (ce) { if (ce) { canEdit = true; if (document.getElementById("f")) viewStart(); } }).catch(function () {});
+  }
 })();
 </script>
