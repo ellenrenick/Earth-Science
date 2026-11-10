@@ -67,6 +67,7 @@ ol.say{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px}
 details{border:1px solid var(--line);border-radius:8px;padding:10px 14px}
 summary{cursor:pointer;font-weight:700}
 .big{font:800 2rem var(--font-display);color:var(--good)}
+.linkbtn{display:inline-block;background:var(--accent);color:var(--accent-ink);border:2px solid var(--accent);border-radius:8px;padding:11px 18px;font-weight:700;text-decoration:none}
 .flowchart{display:flex;flex-direction:column;gap:6px}
 .flowchart div{border:2px solid var(--good);background:var(--good-bg);border-radius:8px;padding:8px 12px}
 .flowchart i{align-self:center;font-style:normal;color:var(--muted)}
@@ -82,7 +83,7 @@ summary{cursor:pointer;font-weight:700}
     { id: "start", name: "Start", min: 0 }, { id: "donow", name: "Do Now", min: 5 }, { id: "learn", name: "Learn", min: 12 },
     { id: "model", name: "Model", min: 20 }, { id: "story", name: "Story + exit", min: 8 }, { id: "finish", name: "Finish", min: 0 }
   ];
-  var S = { sec: 0, done: {}, dn: [false, false], dnRev: false, learn: 0, learnOk: [], model: [], modelRev: false, story: [], storyShown: false, exitWrote: false, exitRev: false, fin: [false, false, false, false] };
+  var S = { sec: 0, done: {}, dn: [false, false], dnRev: false, learn: 0, learnOk: [], model: [], modelRev: false, story: [], storyShown: false, exitWrote: false, exitRev: false, fin: [false, false, false, false, false, false] };
   var T = { left: 0, id: null, running: false };
 
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
@@ -161,9 +162,9 @@ summary{cursor:pointer;font-weight:700}
   /* ---------- sections ---------- */
   function secStart() {
     shell('<div class="target"><b>Focus question:</b> How does mantle convection move the plates?<br><b>Learning target ESS1-5.3:</b> I can explain how seafloor spreading makes new crust at mid-ocean ridges.</div>' +
-      "<p>Your teacher is out today. This guide leads you through the whole lesson. Work on your own or with a partner, and keep your voice low. Your <b>notebook is your answer sheet</b>: the substitute will check it at the end.</p>" +
+      "<p>Your teacher is out today. This guide leads you through the whole lesson. Work on your own or with a partner, and keep your voice low. Your <b>notebook is your answer sheet</b>: at the end you will take pictures of it and turn them in on Canvas.</p>" +
       "<h2>Set up your notebook</h2><ol class='say'><li>Title the page <b>L7 What Drives the Plates</b> and add it to your table of contents.</li><li>You will use notebook <b>pages 74-75</b>.</li><li>Have ready: your Unit 3 notebook (mantle convection page), a pencil, and colored pencils.</li></ol>" +
-      "<h2>Today's plan (50 minutes)</h2><ol class='say'><li><b>Do Now</b> · 5 min</li><li><b>Learn</b> the convection model, step by step · 12 min</li><li><b>Model</b>: draw the seafloor conveyor belt in your notebook · 20 min</li><li><b>Story chart and exit ticket</b> · 8 min</li><li>Finish: show your notebook to the substitute · 5 min</li></ol>" +
+      "<h2>Today's plan (50 minutes)</h2><ol class='say'><li><b>Do Now</b> · 5 min</li><li><b>Learn</b> the convection model, step by step · 12 min</li><li><b>Model</b>: draw the seafloor conveyor belt in your notebook · 20 min</li><li><b>Story chart and exit ticket</b> · 8 min</li><li>Finish: take pictures of your notebook and submit them on Canvas · 5 min</li></ol>" +
       "" +
       nextBtn("Start the Do Now", 1, true), 0);
     bindNext(1, "start");
@@ -267,13 +268,19 @@ summary{cursor:pointer;font-weight:700}
     upd();
   }
   var FIN = ["Do Now: my one sentence about where hot rock rises and cool rock sinks.", "My cross-section drawing with the labels from the checklist.", "My story chart (5 boxes).", "My exit ticket sentence."];
+  var FIN2 = ["My pictures are clear: I can read my writing and see my whole drawing.", "I uploaded my pictures to the Lesson 7 assignment on Canvas."];
+  var CANVAS = "https://kernhigh.instructure.com/courses/342899/assignments/13961483";
   function secFinish() {
-    shell("<h2>Finish</h2><p>Check your notebook (pages 74-75). Tick each one when it is done.</p><div id='fl' style='display:flex;flex-direction:column;gap:8px'></div><div id='fm'></div>");
-    var fl = document.getElementById("fl"), fm = document.getElementById("fm");
+    shell("<h2>Finish</h2><h3>1. Check your notebook (pages 74-75)</h3><p>Tick each one when it is done.</p><div id='fl' style='display:flex;flex-direction:column;gap:8px'></div>" +
+      "<h3>2. Turn in pictures on Canvas</h3><ol class='say'><li>Take a clear picture of <b>each notebook page</b> (74 and 75). Lay the page flat, get the whole page in the picture, and check that you can read your writing. Use the Chromebook camera app, or a phone if your school allows it.</li><li>Open Canvas, go to Unit 4, and open <b>Lesson 7: What Drives the Plates?</b> Choose <b>Submit Assignment</b> and upload your pictures.</li></ol>" +
+      "<div class='row'><a class='linkbtn' href='" + CANVAS + "' target='_blank' rel='noopener'>Open the Canvas assignment</a></div>" +
+      "<div id='fl2' style='display:flex;flex-direction:column;gap:8px'></div><div id='fm'></div>");
+    var fl = document.getElementById("fl"), fl2 = document.getElementById("fl2"), fm = document.getElementById("fm");
     FIN.forEach(function (t, k) { fl.appendChild(checkBox("fi" + k, t, S.fin[k], function (v) { S.fin[k] = v; upd(); })); });
+    FIN2.forEach(function (t, k) { fl2.appendChild(checkBox("fj" + k, t, S.fin[4 + k], function (v) { S.fin[4 + k] = v; upd(); })); });
     function upd() {
       var all = S.fin.every(Boolean); fm.innerHTML = "";
-      if (all) { S.done.finish = true; fm.innerHTML = '<div class="reveal"><div class="big">All done!</div><p><b>Show your notebook to the substitute.</b> Then, if you have time, do one of these quietly:</p><ul><li>Read Module 13, Lesson 4: Causes of Plate Motions (textbook pp. 362-364). Write two facts about slab pull or ridge push.</li><li>Open the Plate Tectonics Gizmo from Canvas (optional).</li><li>Look back at your Day 51 guess about why the seafloor is young. Would you change it?</li></ul></div>'; }
+      if (all) { S.done.finish = true; fm.innerHTML = '<div class="reveal"><div class="big">All done!</div><p><b>Your work is turned in.</b> If you have time, do one of these quietly:</p><ul><li>Read Module 13, Lesson 4: Causes of Plate Motions (textbook pp. 362-364). Write two facts about slab pull or ridge push.</li><li>Open the Plate Tectonics Gizmo from Canvas (optional).</li><li>Look back at your Day 51 guess about why the seafloor is young. Would you change it?</li></ul></div>'; }
     }
     upd();
   }
