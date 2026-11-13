@@ -1,0 +1,397 @@
+<title>Subduction and Density Lab</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap">
+<style>
+/* Layout: one centered column. A step bar sits on top (Start, Do Now, Lab, Learn, Draw, Finish); each step is one card with its own suggested time. */
+:root{
+  --bg:#eef4f3; --surface:#ffffff; --ink:#12303a; --muted:#4b6670; --line:#cbdadc;
+  --accent:#0b6e7f; --accent-ink:#ffffff; --gold:#f0b429; --gold-bg:#fff3cf;
+  --good:#1d7a46; --good-bg:#e2f4e8; --bad:#a8431a; --bad-bg:#fbeae2; --focus:#1a5fd0;
+  --ocean:#34495a; --cont:#c9a66b; --mantle:#e08a4a; --water:#bfe3ee; --wood:#a9743c; --rock:#4a4a52; --cork:#d9b382;
+  --hot:#c4361d; --push:#0b6e7f; --pull:#9a6400;
+  --font-display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif; --font-body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c1d24; --surface:#13303a; --ink:#e6f1f3; --muted:#9db6bd; --line:#27494f;
+  --accent:#49b8cc; --accent-ink:#06222a; --gold:#f0b429; --gold-bg:#3b3214;
+  --good:#6fd193; --good-bg:#12382a; --bad:#ffa58f; --bad-bg:#432019; --focus:#7ab0ff;
+  --ocean:#6b8aa0; --cont:#b39057; --mantle:#c26d32; --water:#1d4b5c; --wood:#b98550; --rock:#8a8a96; --cork:#c9a06e;
+  --hot:#ff8f78; --push:#49b8cc; --pull:#f0b429; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1d24; --surface:#13303a; --ink:#e6f1f3; --muted:#9db6bd; --line:#27494f;
+  --accent:#49b8cc; --accent-ink:#06222a; --gold:#f0b429; --gold-bg:#3b3214;
+  --good:#6fd193; --good-bg:#12382a; --bad:#ffa58f; --bad-bg:#432019; --focus:#7ab0ff;
+  --ocean:#6b8aa0; --cont:#b39057; --mantle:#c26d32; --water:#1d4b5c; --wood:#b98550; --rock:#8a8a96; --cork:#c9a06e;
+  --hot:#ff8f78; --push:#49b8cc; --pull:#f0b429; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.5;padding-block:20px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:var(--font-display);line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:2rem;font-weight:800} h2{font-size:1.4rem;font-weight:600} h3{font-size:1.05rem;font-weight:600}
+p{margin:0}
+.eyebrow{font-size:.8rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.target{background:var(--gold-bg);border-left:4px solid var(--gold);border-radius:4px;padding:12px 14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.steps{display:flex;gap:6px;flex-wrap:wrap}
+.steps button{flex:1 1 90px;font-size:.9rem;padding:8px 6px;border-radius:8px;border:2px solid var(--line);background:var(--surface);color:var(--ink);font-weight:700;cursor:pointer}
+.steps button[aria-current="step"]{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+.steps button.done:not([aria-current="step"]){border-color:var(--good);background:var(--good-bg)}
+button{font:inherit;font-weight:700;padding:11px 18px;border-radius:8px;border:2px solid var(--accent);background:var(--accent);color:var(--accent-ink);cursor:pointer}
+button.ghost{background:transparent;color:var(--accent)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.time{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.clock{font:700 1.3rem var(--font-display);font-variant-numeric:tabular-nums;min-width:3.6em}
+.pill{display:inline-block;background:var(--gold-bg);border:1px solid var(--gold);border-radius:99px;padding:2px 12px;font-size:.9rem;font-weight:700}
+.status{font-size:.95rem;color:var(--muted)}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:2px solid var(--line);border-radius:8px;background:var(--bg);cursor:pointer}
+.chk input{margin-top:5px;accent-color:var(--accent);flex:none;width:18px;height:18px}
+.chk.on{border-color:var(--good);background:var(--good-bg)}
+.stack{display:flex;flex-direction:column;gap:8px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{background:var(--bg);color:var(--ink);border:2px solid var(--line);font-weight:400;padding:10px 14px;text-align:left}
+.opt.sel{border-color:var(--accent);background:var(--surface);font-weight:700}
+.opt.ok{border-color:var(--good);background:var(--good-bg)} .opt.x{border-color:var(--bad);background:var(--bad-bg)}
+.fb{margin:0;min-height:1.3em;font-size:.97rem}
+.fb.good{color:var(--good);font-weight:700} .fb.bad{color:var(--bad);font-weight:700} .fb.note{color:var(--muted)}
+.q{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:12px}
+.reveal{border:2px solid var(--accent);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.bank{display:flex;flex-wrap:wrap;gap:6px}
+.bank span{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:2px 10px;font-weight:700;font-size:.9rem}
+.diagram{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--bg)}
+.diagram svg{width:100%;height:auto;max-width:100%;display:block}
+.lay{opacity:0} .lay.on{opacity:1}
+@media (prefers-reduced-motion:no-preference){.lay{transition:opacity .45s}.flow{stroke-dasharray:10 8;animation:dash 1.2s linear infinite}@keyframes dash{to{stroke-dashoffset:-18}}.dropper{transition:transform 1s ease-in}}
+ol.say{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--bg);font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.scroll{overflow-x:auto;max-width:100%}
+.big{font:800 2rem var(--font-display);color:var(--good)}
+.sel2{font:inherit;padding:8px 10px;border:2px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.ctrls{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.ctrls label{display:flex;flex-direction:column;gap:4px;font-weight:700}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs span{font-size:.85rem;font-weight:700;padding:3px 10px;border-radius:99px;background:var(--bg);border:1px solid var(--line)}
+.tabs span.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+</style>
+
+<div class="wrap" id="app"></div>
+
+<script>
+(function () {
+  "use strict";
+  var app = document.getElementById("app");
+  var SECS = [
+    { id: "start", name: "Start", min: 0 }, { id: "donow", name: "Do Now", min: 5 }, { id: "lab", name: "Density lab", min: 12 },
+    { id: "learn", name: "Learn", min: 10 }, { id: "draw", name: "Draw", min: 10 }, { id: "finish", name: "Finish", min: 13 }
+  ];
+  var S = { sec: 0, done: {}, dn: { pick: null, wrote: false }, lab: { step: 0, setup: [], pred: {}, res: {}, tub: {}, rank: null, glued: false, pulled: false, explainWrote: false, explainRev: false },
+    learn: 0, learnOk: [], mdl: { o: 3.0, c: 2.7, st: 0 }, draw: [], drawRev: false, sent: false, sentRev: false, u3: false, fin: [] };
+  var T = { left: 0, id: null, running: false };
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+
+  /* ---------- shared pieces: timer, nav, check boxes, one-question checks ---------- */
+  function stopTimer() { if (T.id) clearInterval(T.id); T.id = null; T.running = false; }
+  function fmt(s) { return Math.floor(s / 60) + ":" + ("0" + (s % 60)).slice(-2); }
+  function timerHtml(min) { return min ? '<div class="time"><span class="pill">Suggested time: ' + min + ' min</span><span class="clock" id="clk">' + fmt(T.left || min * 60) + '</span><button type="button" class="ghost" id="tm">' + (T.running ? "Pause timer" : "Start timer") + "</button></div>" : ""; }
+  function bindTimer(min) {
+    var b = document.getElementById("tm"); if (!b) return; if (!T.left) T.left = min * 60;
+    b.addEventListener("click", function () {
+      if (T.running) { stopTimer(); b.textContent = "Resume timer"; return; }
+      T.running = true; b.textContent = "Pause timer";
+      T.id = setInterval(function () { T.left = Math.max(0, T.left - 1); var c = document.getElementById("clk"); if (c) c.textContent = T.left ? fmt(T.left) : "Time! Wrap up this step."; if (!T.left) stopTimer(); }, 1000);
+    });
+  }
+  function go(i) { stopTimer(); T.left = 0; S.sec = i; render(); window.scrollTo(0, 0); }
+  function nav() { return '<div class="steps" role="navigation" aria-label="Lesson steps">' + SECS.map(function (s, i) { return '<button type="button" data-go="' + i + '" class="' + (S.done[s.id] ? "done" : "") + '"' + (i === S.sec ? ' aria-current="step"' : "") + ">" + (S.done[s.id] ? "✓ " : "") + esc(s.name) + "</button>"; }).join("") + "</div>"; }
+  function shell(inner, min) {
+    app.innerHTML = '<div><div class="eyebrow">Unit 4 · Lesson 8 · Day 61</div><h1>Subduction: Why Continents Survive</h1></div>' + nav() + '<div class="card">' + timerHtml(min) + inner + "</div>";
+    app.querySelectorAll("[data-go]").forEach(function (b) { b.addEventListener("click", function () { go(+b.getAttribute("data-go")); }); });
+    bindTimer(min);
+  }
+  function checkBox(id, text, on, cb) {
+    var l = el("label", "chk" + (on ? " on" : "")), i = el("input"); i.type = "checkbox"; i.id = id; i.checked = !!on; l.appendChild(i); l.appendChild(el("span", "", esc(text)));
+    i.addEventListener("change", function () { cb(i.checked); l.classList.toggle("on", i.checked); }); return l;
+  }
+  function question(q, onOk) {
+    var d = el("div", "q"), opts = el("div", "opts"), fb = el("p", "fb"); fb.setAttribute("aria-live", "polite");
+    d.appendChild(el("p", "", "<b>" + esc(q.text) + "</b>"));
+    shuffle(q.o.map(function (_, k) { return k; })).forEach(function (k) {
+      var b = el("button", "opt"); b.type = "button"; b.textContent = q.o[k];
+      b.addEventListener("click", function () {
+        if (k === 0) { opts.querySelectorAll("button").forEach(function (x) { x.disabled = true; }); b.classList.add("ok"); fb.className = "fb good"; fb.textContent = q.right; onOk(); }
+        else { b.classList.add("x"); b.disabled = true; fb.className = "fb bad"; fb.textContent = (q.hints && q.hints[k]) || "Not quite. Try another."; }
+      });
+      opts.appendChild(b);
+    });
+    d.appendChild(opts); d.appendChild(fb); return d;
+  }
+  function nextBtn(label, enabled) { return '<div class="row"><button type="button" id="nx"' + (enabled === false ? " disabled" : "") + ">" + esc(label) + "</button></div>"; }
+  function bindNext(i, mark) { var n = document.getElementById("nx"); if (n) n.addEventListener("click", function () { if (mark) S.done[mark] = true; go(i); }); }
+  function reveal(box, label, html, onShow) {
+    var b = el("button", "ghost", label); b.type = "button"; box.appendChild(b);
+    b.addEventListener("click", function () { b.remove(); box.appendChild(el("div", "reveal", html)); if (onShow) onShow(); });
+  }
+
+  /* ---------- pictures ---------- */
+  var BANK = '<div class="bank"><span>density</span><span>dense</span><span>buoyant</span><span>subduction</span><span>trench</span><span>crust</span><span>mantle</span></div>';
+  function subSVG() {
+    return '<svg viewBox="0 0 680 300" role="img" aria-label="Cross-section: the dense ocean plate bends down at a trench and sinks under the lighter continental plate into the mantle, with volcanoes on the continent.">' +
+      '<defs><marker id="sa" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto"><path d="M0 0 L14 7 L0 14z" fill="var(--ink)"/></marker></defs>' +
+      '<rect x="0" y="110" width="680" height="190" fill="var(--mantle)" opacity=".55"/><rect x="0" y="74" width="262" height="38" fill="var(--water)"/>' +
+      '<polygon points="0,110 240,110 520,262 520,286 240,134 0,134" fill="var(--ocean)"/>' +
+      '<polygon points="262,50 680,50 680,172 380,172 310,142 262,118" fill="var(--cont)"/>' +
+      '<g font-family="Atkinson Hyperlegible,Segoe UI,sans-serif" font-size="13" font-weight="700" fill="var(--ink)">' +
+      '<text x="12" y="96">Ocean water</text><text x="12" y="154">Ocean plate</text><text x="14" y="288">Mantle</text><text x="276" y="78" fill="#1d1608">Continental plate</text></g>' +
+      '<g class="lay" data-from="1" font-family="Atkinson Hyperlegible,Segoe UI,sans-serif" font-size="12" fill="var(--ink)"><text x="12" y="172" font-weight="700">Oceanic crust:</text><text x="12" y="188">dark basalt, about</text><text x="12" y="203">3.0 g/cm³ (denser)</text><text x="276" y="98" fill="#1d1608" font-weight="700">Continental crust: like granite, about 2.7 g/cm³ (lighter)</text></g>' +
+      '<g class="lay" data-from="2" font-family="Atkinson Hyperlegible,Segoe UI,sans-serif" font-size="13" font-weight="700" fill="var(--ink)"><path d="M330 168 L470 246" stroke="var(--ink)" stroke-width="3" fill="none" marker-end="url(#sa)" class="flow"/><text x="196" y="106">Trench</text><text x="478" y="232">Plate sinks (subduction)</text></g>' +
+      '<g class="lay" data-from="3" font-family="Atkinson Hyperlegible,Segoe UI,sans-serif" font-size="13" font-weight="700" fill="var(--ink)"><polygon points="430,50 450,24 470,50" fill="var(--cont)" stroke="var(--ink)"/><polygon points="500,50 515,30 530,50" fill="var(--cont)" stroke="var(--ink)"/><text x="548" y="42">Volcanoes</text></g>' +
+      '<g class="lay" data-from="4" font-family="Atkinson Hyperlegible,Segoe UI,sans-serif" font-size="12" font-weight="700" fill="var(--ink)"><text x="196" y="284">Ocean crust is recycled</text><text x="292" y="120" fill="#1d1608">Continent stays at the surface (rock up to 4 billion years old)</text></g>' +
+      '</svg>';
+  }
+  function setLayers(box, n) { box.querySelectorAll(".lay").forEach(function (g) { g.classList.toggle("on", n >= +g.getAttribute("data-from")); }); }
+
+  /* plate-collision model: the denser plate goes under */
+  var SLAB = [[[0, 100], [250, 100]], [[0, 100], [300, 100]], [[0, 100], [290, 100], [360, 140]], [[0, 100], [280, 100], [400, 168], [520, 235]]];
+  function modelSVG(m) {
+    var oDense = m.o > m.c, cDense = m.c > m.o, st = m.st;
+    var sinkSide = oDense ? "L" : cDense ? "R" : "none";
+    var gst = sinkSide === "none" ? Math.min(st, 1) : st;
+    var top = SLAB[gst], bot = top.slice().reverse().map(function (p) { return [p[0], p[1] + 22]; });
+    var slab = top.concat(bot).map(function (p) { return p.join(","); }).join(" ");
+    var cx = gst === 0 ? 340 : 300;
+    var sinkFill = oDense ? "var(--ocean)" : "var(--cont)", stableFill = oDense ? "var(--cont)" : "var(--ocean)";
+    if (sinkSide === "none") { sinkFill = "var(--ocean)"; stableFill = "var(--cont)"; }
+    var g = '<g' + (sinkSide === "R" ? ' transform="translate(640,0) scale(-1,1)"' : "") + '><polygon points="' + slab + '" fill="' + sinkFill + '"/><polygon points="' + cx + ",45 640,45 640,100 " + cx + ',100" fill="' + stableFill + '"/>' + "</g>";
+    var bump = (sinkSide === "none" && st >= 2) ? '<polygon points="280,100 320,52 360,100" fill="var(--ink)" opacity=".75"/>' : "";
+    return '<svg viewBox="0 0 640 260" role="img" aria-label="Two plates pushing together. The denser plate goes under the other one.">' +
+      '<rect x="0" y="100" width="640" height="160" fill="var(--mantle)" opacity=".55"/>' + g + bump +
+      '<g font-family="Atkinson Hyperlegible,Segoe UI,sans-serif" font-size="13" font-weight="700"><rect x="8" y="8" width="214" height="26" rx="6" fill="var(--ocean)"/><text x="16" y="26" fill="#fff">Ocean plate: ' + m.o.toFixed(1) + ' g/cm³</text><rect x="418" y="8" width="214" height="26" rx="6" fill="var(--cont)"/><text x="426" y="26" fill="#1d1608">Continental plate: ' + m.c.toFixed(1) + ' g/cm³</text></g></svg>';
+  }
+  function tubSVG(t) {
+    function item(name, cx, fill, shape, sink) {
+      var y = sink ? 150 : 82, on = t[name];
+      return '<g class="dropper" data-n="' + name + '" style="transform:translateY(' + (on ? (sink ? 70 : 8) : -40) + 'px)">' + shape(cx, fill) + "</g>";
+    }
+    return '<svg viewBox="0 0 520 220" role="img" aria-label="A water tub. Wood and cork float. Dark rock sinks to the bottom.">' +
+      '<rect x="60" y="60" width="400" height="150" rx="10" fill="var(--water)" stroke="var(--ink)" stroke-width="3"/><rect x="56" y="30" width="408" height="34" fill="var(--bg)"/>' +
+      '<line x1="60" y1="84" x2="460" y2="84" stroke="var(--ink)" stroke-width="2" stroke-dasharray="6 5"/><text x="404" y="78" font-size="12" font-weight="700" fill="var(--ink)">water surface</text>' +
+      item("wood", 150, "var(--wood)", function (cx, f) { return '<rect x="' + (cx - 34) + '" y="60" width="68" height="26" rx="3" fill="' + f + '" stroke="var(--ink)"/><text x="' + cx + '" y="78" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">wood</text>'; }, false) +
+      item("rock", 260, "var(--rock)", function (cx, f) { return '<polygon points="' + (cx - 30) + ',108 ' + (cx - 12) + ',82 ' + (cx + 18) + ',84 ' + (cx + 32) + ',108 ' + (cx + 8) + ',116 ' + (cx - 14) + ',114" fill="' + f + '" stroke="var(--ink)"/><text x="' + cx + '" y="104" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">dark rock</text>'; }, true) +
+      item("cork", 370, "var(--cork)", function (cx, f) { return '<rect x="' + (cx - 14) + '" y="64" width="28" height="22" rx="4" fill="' + f + '" stroke="var(--ink)"/><text x="' + cx + '" y="79" text-anchor="middle" font-size="10" font-weight="700" fill="#1d1608">cork</text>'; }, false) + "</svg>";
+  }
+
+  /* ---------- sections ---------- */
+  function secStart() {
+    shell('<div class="target"><b>Focus question:</b> Why does ocean crust sink but continental crust stay on top?<br><b>Learning target ESS1-5.5:</b> I can explain why ocean crust sinks at subduction zones but less-dense continental crust survives.</div>' +
+      "<h2>Set up your notebook</h2><ol class='say'><li>Title the page <b>L8 Subduction</b> and add it to your table of contents.</li><li>You will use notebook <b>pages 76-77</b>. <b>Page 76</b> (left): Do Now, Density lab table, Which material gets pulled under?, What the lab tells us. <b>Page 77</b> (right): Subduction cross-section, sentence frame, Connect to Unit 3.</li><li>Have ready: pencil, colored pencils, and your glue-in <b>Density lab table</b>.</li></ol>" +
+      "<h2>Today's plan (50 minutes)</h2><ol class='say'><li><b>Do Now</b> · 5 min</li><li><b>Density lab</b>: sink or float, rank, and what it means · 12 min</li><li><b>Learn</b>: subduction, step by step · 10 min</li><li><b>Draw</b> the cross-section and finish the sentence frame · 10 min</li><li><b>Finish</b>: share, check, and complete your notebook · 13 min</li></ol>" +
+      "<p>Your teacher is here to help. This guide leads you through each step, checks your thinking, and tells you what to write in your notebook. <b>Your notebook is your answer sheet.</b></p>" + nextBtn("Start the Do Now"), 0);
+    bindNext(1, "start");
+  }
+  function secDoNow() {
+    shell("<h2>Do Now</h2><p>In Unit 3, you learned that <b>denser materials sink below less dense ones</b>.</p><p class='target'>A dense plate meets a lighter plate. Which one do you think sinks? Why?</p><p>Pick your prediction, then write it in your notebook.</p><div class='opts' id='dp'></div><p class='fb' id='dfb' aria-live='polite'></p><div id='dw'></div><div id='dn'></div>", 5);
+    var dp = document.getElementById("dp"), dfb = document.getElementById("dfb");
+    [["dense", "The dense plate sinks"], ["light", "The lighter plate sinks"]].forEach(function (o) {
+      var b = el("button", "opt" + (S.dn.pick === o[0] ? " sel" : ""), o[1]); b.type = "button";
+      b.addEventListener("click", function () { S.dn.pick = o[0]; secDoNow(); });
+      dp.appendChild(b);
+    });
+    if (S.dn.pick) { dfb.className = "fb note"; dfb.textContent = S.dn.pick === "dense" ? "That matches what you learned in Unit 3. In the lab you will test it." : "Hmm. Think about Unit 3: denser things sink below lighter things. In the lab you will test your prediction."; }
+    var dw = document.getElementById("dw"), dn = document.getElementById("dn");
+    if (S.dn.pick) {
+      dw.appendChild(checkBox("dnw", "I wrote my prediction and my 'why' on the first two lines of page 76.", S.dn.wrote, function (v) { S.dn.wrote = v; secDoNowNext(); }));
+    }
+    function secDoNowNext() { dn.innerHTML = S.dn.wrote ? nextBtn("Next: the density lab") : ""; if (S.dn.wrote) bindNext(2, "donow"); }
+    secDoNowNext();
+  }
+
+  /* --- the lab, one step at a time --- */
+  var LAB = ["Set up", "Predict", "Test", "Rank", "Record"];
+  function labDone(i) {
+    if (i === 0) return S.lab.setup.length === 4 && S.lab.setup.every(Boolean);
+    if (i === 1) return !!(S.lab.pred.wood && S.lab.pred.rock);
+    if (i === 2) return !!(S.lab.res.wood && S.lab.res.rock);
+    if (i === 3) return S.lab.rank === "ok";
+    return S.lab.glued && S.lab.pulled && S.lab.explainWrote;
+  }
+  function labDecision() {
+    var w = S.lab.res.wood, r = S.lab.res.rock;
+    if (w === "floats" && r === "sinks") return "wood";
+    if (w === "sinks" && r === "floats") return "rock";
+    return null;
+  }
+  function secLab() {
+    var i = S.lab.step;
+    shell("<h2>Density lab: sink or float</h2><div class='tabs'>" + LAB.map(function (n, k) { return '<span class="' + (k === i ? "on" : "") + '">' + (k + 1) + ". " + n + "</span>"; }).join("") + "</div><div id='lb'></div>" +
+      '<div class="row"><button type="button" class="ghost" id="pv"' + (i ? "" : " disabled") + '>Back</button><button type="button" id="nx"' + (labDone(i) ? "" : " disabled") + ">" + (i === LAB.length - 1 ? "Next: learn about subduction" : "Next lab step") + "</button></div>", 12);
+    var lb = document.getElementById("lb"), nx = document.getElementById("nx");
+    function refresh() { nx.disabled = !labDone(i); }
+    document.getElementById("pv").addEventListener("click", function () { S.lab.step--; secLab(); });
+    nx.addEventListener("click", function () { if (i === LAB.length - 1) { S.done.lab = true; go(3); } else { S.lab.step++; secLab(); } });
+    if (i === 0) {
+      lb.appendChild(el("p", "", "Work with a partner. One person is the <b>Dropper</b> and one is the <b>Recorder</b>. Switch halfway."));
+      var st = el("div", "stack");
+      ["I have a water tub filled about three-quarters full.", "I have a piece of wood (this models <b>continental crust</b>).", "I have a piece of dark rock or clay (this models <b>oceanic crust</b>).", "I have paper towels. We will keep the water in the tub and wipe up spills right away."].forEach(function (t, k) {
+        st.appendChild(checkBox("su" + k, t.replace(/<[^>]+>/g, ""), S.lab.setup[k], function (v) { S.lab.setup[k] = v; refresh(); }));
+      });
+      lb.appendChild(st);
+      lb.appendChild(el("p", "status", "Optional: a small cork to compare. No tub or materials? Use the virtual tub in step 3."));
+    }
+    if (i === 1) {
+      lb.appendChild(el("p", "", "<b>Predict first.</b> Will each material sink or float in water? Pick one for each, then write both predictions in your notebook margin if you like."));
+      [["wood", "Wood (continental crust model)"], ["rock", "Dark rock or clay (oceanic crust model)"]].forEach(function (m) {
+        var row = el("div", "q"), opts = el("div", "opts"); row.appendChild(el("p", "", "<b>" + m[1] + "</b>"));
+        ["sinks", "floats"].forEach(function (v) { var b = el("button", "opt" + (S.lab.pred[m[0]] === v ? " sel" : ""), v === "sinks" ? "Sinks" : "Floats"); b.type = "button"; b.addEventListener("click", function () { S.lab.pred[m[0]] = v; secLab(); }); opts.appendChild(b); });
+        row.appendChild(opts); lb.appendChild(row);
+      });
+    }
+    if (i === 2) {
+      lb.appendChild(el("p", "", "<b>Test it.</b> Gently place each material in the water. Watch for about 5 seconds. Then pick what you saw."));
+      [["wood", "Wood", "Wood usually floats."], ["rock", "Dark rock or clay", "Dark rock or clay usually sinks."]].forEach(function (m) {
+        var row = el("div", "q"), opts = el("div", "opts"), fb = el("p", "fb"); fb.setAttribute("aria-live", "polite");
+        row.appendChild(el("p", "", "<b>" + m[1] + ":</b> what did you see?"));
+        ["sinks", "floats"].forEach(function (v) { var b = el("button", "opt" + (S.lab.res[m[0]] === v ? " sel" : ""), v === "sinks" ? "It sinks" : "It floats"); b.type = "button"; b.addEventListener("click", function () { S.lab.res[m[0]] = v; secLab(); }); opts.appendChild(b); });
+        row.appendChild(opts); row.appendChild(fb); lb.appendChild(row);
+        var v = S.lab.res[m[0]];
+        if (v) {
+          var exp = m[0] === "wood" ? "floats" : "sinks", pr = S.lab.pred[m[0]];
+          fb.className = "fb " + (v === exp ? "good" : "bad");
+          fb.textContent = (v === exp ? "That is what we expect. " : m[2] + " If yours is different, try another piece or ask your teacher. ") + (pr ? (pr === v ? "It matched your prediction." : "Your prediction was different. Good scientists notice that.") : "");
+        }
+      });
+      var vt = el("details"); vt.innerHTML = "<summary>No tub or materials? Use the virtual tub</summary>";
+      var vb = el("div", "stack"); vb.style.marginTop = "10px";
+      vb.innerHTML = '<div class="diagram" id="tb">' + tubSVG(S.lab.tub) + '</div><div class="row"><button type="button" class="ghost" data-d="wood">Drop the wood</button><button type="button" class="ghost" data-d="rock">Drop the dark rock</button><button type="button" class="ghost" data-d="cork">Drop the cork</button><button type="button" class="ghost" data-d="reset">Reset</button></div>';
+      vt.appendChild(vb); if (S.lab.tub.wood || S.lab.tub.rock || S.lab.tub.cork) vt.open = true; lb.appendChild(vt);
+      var useB = el("button", "ghost", "Use the virtual results"); useB.type = "button"; useB.hidden = !(S.lab.tub.wood && S.lab.tub.rock); vb.appendChild(useB);
+      vb.querySelectorAll("[data-d]").forEach(function (b) {
+        b.addEventListener("click", function () {
+          var n = b.getAttribute("data-d");
+          if (n === "reset") { S.lab.tub = {}; } else { S.lab.tub[n] = true; }
+          var tb = document.getElementById("tb"); tb.innerHTML = tubSVG(S.lab.tub);
+          requestAnimationFrame(function () { tb.querySelectorAll(".dropper").forEach(function (g) { g.style.transform = "translateY(" + (S.lab.tub[g.getAttribute("data-n")] ? (g.getAttribute("data-n") === "rock" ? 70 : 8) : -40) + "px)"; }); });
+          useB.hidden = !(S.lab.tub.wood && S.lab.tub.rock);
+        });
+      });
+      useB.addEventListener("click", function () { S.lab.res.wood = "floats"; S.lab.res.rock = "sinks"; secLab(); });
+    }
+    if (i === 3) {
+      var dec = labDecision();
+      lb.appendChild(el("p", "", "<b>Rank them.</b> A material that <b>floats</b> is <b>less dense</b> than water. A material that <b>sinks</b> is <b>more dense</b> than water. Rank the two crust models from least dense (1) to most dense (2)."));
+      if (!dec) lb.appendChild(el("p", "fb bad", "Your two results are the same, so water cannot tell them apart. Go back to step 3: try different pieces, use the virtual tub, or ask your teacher."));
+      else {
+        var q = question({ text: "Which is LESS dense, the wood or the dark rock (or clay)?", o: [dec === "wood" ? "The wood" : "The dark rock or clay", dec === "wood" ? "The dark rock or clay" : "The wood"], right: "Yes. So it gets rank 1 (least dense), and the other gets rank 2.", hints: { 1: "Look at your results. The material that floats is the less dense one." } }, function () { S.lab.rank = "ok"; refresh(); });
+        if (S.lab.rank === "ok") { q.querySelectorAll("button").forEach(function (b) { b.disabled = true; }); q.querySelector(".fb").className = "fb good"; q.querySelector(".fb").textContent = "Done."; }
+        lb.appendChild(q);
+        var lessName = dec === "wood" ? "Wood" : "Dark rock", moreName = dec === "wood" ? "Dark rock" : "Wood";
+        var tbl = '<div class="scroll"><table><thead><tr><th>Material</th><th>Sinks or floats?</th><th>Rank (1 = least dense)</th><th>What it models</th></tr></thead><tbody>' +
+          "<tr><td>Wood</td><td>" + esc(S.lab.res.wood) + "</td><td>" + (dec === "wood" ? 1 : 2) + "</td><td>Continental crust</td></tr><tr><td>Dark rock</td><td>" + esc(S.lab.res.rock) + "</td><td>" + (dec === "wood" ? 2 : 1) + "</td><td>Oceanic crust</td></tr></tbody></table></div>";
+        lb.appendChild(el("div", "stack", "<p class='status'>Your table should look like this. Copy your results into the <b>Density lab table</b> on page 76.</p>" + tbl));
+      }
+    }
+    if (i === 4) {
+      lb.appendChild(el("p", "", "<b>Record and explain.</b> Finish page 76."));
+      var st4 = el("div", "stack");
+      st4.appendChild(checkBox("gl", "I glued in the Density lab table on page 76 and filled in sinks or floats, rank, and what it models.", S.lab.glued, function (v) { S.lab.glued = v; refresh(); }));
+      lb.appendChild(st4);
+      var q2 = question({ text: "If the wood is the continent and the dark rock is the ocean plate, which one gets pulled under when they collide?", o: ["The dark rock (ocean plate). It is denser.", "The wood (continent)."], right: "Yes. The denser material goes under the less dense one.", hints: { 1: "The wood floated, so it is the less dense one. The denser material goes under." } }, function () { S.lab.pulled = true; refresh(); });
+      if (S.lab.pulled) { q2.querySelectorAll("button").forEach(function (b) { b.disabled = true; }); q2.querySelector(".fb").className = "fb good"; q2.querySelector(".fb").textContent = "Done."; }
+      lb.appendChild(q2);
+      lb.appendChild(el("p", "", "Under <b>Which material gets pulled under when they collide?</b> on page 76, write your answer using your lab results. Then under <b>What the lab tells us</b>, explain what the lab shows."));
+      var ex = el("div", "stack"); lb.appendChild(ex);
+      ex.appendChild(checkBox("ew", "I wrote my answers under both headings on page 76.", S.lab.explainWrote, function (v) { S.lab.explainWrote = v; refresh(); if (v && !S.lab.explainRev) { S.lab.explainRev = true; showEx(); } }));
+      var exr = el("div", "stack"); ex.appendChild(exr);
+      function showEx() { exr.innerHTML = '<div class="reveal"><b>A good answer:</b><p>The dark rock (ocean plate model) sinks and the wood (continent model) floats. The denser material goes under the less dense material. So when an ocean plate and a continent collide, the denser ocean plate is pulled under.</p><p class="status">Fix or add to your answer if you need to.</p></div>'; }
+      if (S.lab.explainRev) showEx();
+    }
+  }
+
+  /* --- learn: four steps --- */
+  var LEARN = [
+    { t: "Two kinds of crust", x: "Earth's surface has two kinds of crust. <b>Oceanic crust</b> is dark, heavy rock called basalt, about <b>3.0 g/cm³</b>. As it gets older and colder, it gets even denser. <b>Continental crust</b> is lighter rock, like granite, about <b>2.7 g/cm³</b>. It is thicker, but thick does not mean dense.", vis: 1, q: { text: "Which crust is denser?", o: ["Oceanic crust (about 3.0 g/cm³)", "Continental crust (about 2.7 g/cm³)"], right: "Right. Oceanic crust is denser.", hints: { 1: "Compare the numbers: 3.0 is more than 2.7." } } },
+    { t: "What happens when plates collide", x: "At a convergent boundary, two plates push together. Try the model below. You can change the densities to see what the rule predicts. <b>The denser plate goes under the lighter plate.</b>", vis: "model", q: { text: "In the model, when the ocean plate is denser than the continental plate, what happens?", o: ["The ocean plate goes under the continental plate", "The continental plate goes under the ocean plate"], right: "Yes. The denser plate goes under. In real life, the ocean plate is the denser one.", hints: { 1: "Set the ocean plate to 3.0 and the continental plate to 2.7 and push again. Which plate goes under?" } } },
+    { t: "Subduction and the trench", x: "When the dense ocean plate sinks into the mantle, we call it <b>subduction</b>. A deep groove called a <b>trench</b> forms where the plate bends down. Volcanoes form on the continent above the sinking plate.", vis: 3, q: { text: "What is it called when the ocean plate sinks into the mantle at a convergent boundary?", o: ["Subduction", "Seafloor spreading", "A transform fault"], right: "Yes, subduction.", hints: { 1: "Seafloor spreading makes new crust at a ridge.", 2: "A transform fault is where plates slide past each other." } } },
+    { t: "Why continents survive", x: "The ocean plate sinks back into the mantle, so ocean crust is <b>recycled</b>. That is why no seafloor rock is older than about 200 million years. The continent is less dense and too <b>buoyant</b> to be pulled down, so it stays at the surface. Some continental rock is nearly 4 billion years old.", vis: 4, q: { text: "Why does continental crust stay at the surface?", o: ["It is less dense and too buoyant to be pulled down", "It is too cold", "It is too thin"], right: "Right. Lower density means it stays on top.", hints: { 1: "Temperature is not the reason. Density is.", 2: "Continental crust is thicker than ocean crust. The reason is its lower density." } } }
+  ];
+  function secLearn() {
+    var i = S.learn, st = LEARN[i], ok = !!S.learnOk[i];
+    shell("<h2>Learn: subduction, step by step</h2><p class='status'>Step " + (i + 1) + " of " + LEARN.length + ". Read, use the picture, and answer the check question.</p><div class='diagram' id='dg'></div><div id='mc'></div><h3>" + (i + 1) + ". " + esc(st.t) + "</h3><p>" + st.x + "</p><div id='qq'></div><div class='status'>Word bank: " + BANK + '</div><div class="row"><button type="button" class="ghost" id="pv"' + (i ? "" : " disabled") + '>Back</button><button type="button" id="nx"' + (ok ? "" : " disabled") + ">" + (i === LEARN.length - 1 ? "Next: draw the cross-section" : "Next step") + "</button></div>", 10);
+    var dg = document.getElementById("dg"), mc = document.getElementById("mc");
+    if (st.vis === "model") {
+      dg.innerHTML = modelSVG(S.mdl);
+      mc.innerHTML = '<div class="ctrls"><label>Ocean plate density<select class="sel2" id="mo"><option value="2.5">2.5 g/cm³</option><option value="3">3.0 g/cm³ (real)</option></select></label><label>Continental plate density<select class="sel2" id="mcn"><option value="2.7">2.7 g/cm³ (real)</option><option value="3">3.0 g/cm³</option><option value="3.2">3.2 g/cm³</option></select></label></div><div class="row" style="margin-top:10px"><button type="button" id="mp">Push the plates together</button><button type="button" class="ghost" id="mr">Reset</button></div><p class="fb note" id="mm" aria-live="polite"></p>';
+      document.getElementById("mo").value = String(S.mdl.o === 3 ? "3" : S.mdl.o); document.getElementById("mcn").value = String(S.mdl.c === 3 ? "3" : S.mdl.c);
+      function msg() {
+        var m = S.mdl, t = ["The plates are apart. Pick densities, then push.", "The plates touch.", "Pushing harder...", ""][m.st];
+        if (m.st === 3 || (m.o === m.c && m.st >= 2)) t = m.o > m.c ? "The ocean plate is denser, so it goes under the continental plate. That is subduction." : m.c > m.o ? "The continental plate is denser in this what-if, so it goes under. (In real life, continental crust is lighter, so this does not happen.)" : "Same density, so neither plate goes under. The edges crumple up and make mountains.";
+        document.getElementById("mm").textContent = t;
+      }
+      function redraw() { dg.innerHTML = modelSVG(S.mdl); msg(); }
+      document.getElementById("mo").addEventListener("change", function () { S.mdl.o = parseFloat(this.value); S.mdl.st = 0; redraw(); });
+      document.getElementById("mcn").addEventListener("change", function () { S.mdl.c = parseFloat(this.value); S.mdl.st = 0; redraw(); });
+      document.getElementById("mp").addEventListener("click", function () { S.mdl.st = Math.min(3, S.mdl.st + 1); redraw(); });
+      document.getElementById("mr").addEventListener("click", function () { S.mdl.st = 0; redraw(); });
+      msg();
+    } else { dg.innerHTML = subSVG(); setLayers(dg, st.vis); }
+    var qq = document.getElementById("qq");
+    if (ok) qq.innerHTML = '<p class="fb good">You answered this one correctly.</p>'; else qq.appendChild(question(st.q, function () { S.learnOk[i] = true; document.getElementById("nx").disabled = false; }));
+    document.getElementById("pv").addEventListener("click", function () { S.learn--; secLearn(); });
+    document.getElementById("nx").addEventListener("click", function () { if (i === LEARN.length - 1) { S.done.learn = true; go(4); } else { S.learn++; secLearn(); } });
+  }
+
+  /* --- draw --- */
+  var DRAW = ["An ocean plate sinking under a continent.", "A trench where the ocean plate bends down.", "Ocean crust and continental crust labeled.", "The mantle labeled.", "Volcanoes labeled on the continent.", "An arrow showing the direction the ocean plate moves."];
+  function secDraw() {
+    shell("<h2>Draw the cross-section</h2><p>On page 77, under <b>Subduction cross-section</b>, draw a cross-section where an ocean plate sinks under a continent. Use colored pencils and the Learn pictures to help.</p><h3>Your drawing needs:</h3><div class='stack' id='dl'></div><div id='dr'></div>" +
+      "<h3>Sentence frame</h3><p>Under <b>Ocean crust sinks because / Continental crust stays because</b> on page 77, finish both sentences:</p><p class='target'>Ocean crust sinks because ______. Continental crust stays because ______.</p><div class='stack' id='sf'></div><div id='sn'></div>", 10);
+    var dl = document.getElementById("dl"), dr = document.getElementById("dr"), sf = document.getElementById("sf"), sn = document.getElementById("sn");
+    DRAW.forEach(function (t, k) { dl.appendChild(checkBox("dw" + k, t, S.draw[k], function (v) { S.draw[k] = v; upd(); })); });
+    function upd() {
+      var all = DRAW.every(function (_, k) { return S.draw[k]; }); dr.innerHTML = "";
+      if (all) {
+        var b = el("button", "ghost", S.drawRev ? "Hide the model drawing" : "Compare with the model drawing"); b.type = "button"; dr.appendChild(b);
+        b.addEventListener("click", function () { S.drawRev = !S.drawRev; upd(); });
+        if (S.drawRev) { dr.appendChild(el("div", "reveal", "<b>Model drawing</b><div class='diagram' id='mg'>" + subSVG() + "</div><p>Check your drawing against this one. Add or fix anything that is missing in a different color pencil. It does not need to look exactly like this.</p>")); setLayers(document.getElementById("mg"), 4); }
+      } else dr.innerHTML = '<p class="status">Tick each box when your drawing has it. Then you can compare with the model drawing.</p>';
+    }
+    upd();
+    sf.appendChild(checkBox("sfw", "I finished both sentences on page 77.", S.sent, function (v) { S.sent = v; sup(); }));
+    function sup() {
+      sn.innerHTML = "";
+      if (S.sent) {
+        var b = el("button", "ghost", "Check my sentences"); b.type = "button"; sn.appendChild(b);
+        function show() { sn.innerHTML = '<div class="reveal"><b>A good answer:</b><p>Ocean crust sinks because it is <b>denser</b> (about 3.0 g/cm³ compared with about 2.7 g/cm³ for continental crust). Continental crust stays because it is <b>less dense</b> and too buoyant to sink.</p><p class="status">Fix your sentences if you need to. Use the words dense and buoyant.</p></div>' + nextBtn("Next: finish and share"); bindNext(5, "draw"); }
+        if (S.sentRev) show(); else b.addEventListener("click", function () { S.sentRev = true; show(); });
+      }
+    }
+    sup();
+  }
+
+  /* --- finish --- */
+  var FIN = ["Page 76: Do Now prediction and 'why'.", "Page 76: Density lab table glued in and filled out.", "Page 76: Which material gets pulled under (with my lab results).", "Page 76: What the lab tells us.", "Page 77: Subduction cross-section with all the labels and the arrow.", "Page 77: Both sentence-frame sentences.", "Page 77: Connect to Unit 3 (one sentence about density and the layers)."];
+  function secFinish() {
+    shell("<h2>Finish and share</h2><h3>1. Connect to Unit 3</h3><p>Under <b>Connect to Unit 3</b> on page 77, write <b>one sentence about density and the layers</b> of Earth.</p><div id='u3'></div><div id='u3r'></div>" +
+      "<h3>2. Finish and share</h3><ol class='say'><li>Finish your cross-section and your sentences.</li><li>Share your sentence frame with a partner. Does your partner's sentence say <b>why</b> (density)? Help each other fix it.</li><li>Listen for your teacher's whole-class check on the density lab ranking. Fix your table if you need to.</li></ol>" +
+      "<h3>3. Check your notebook (pages 76-77)</h3><div class='stack' id='fl'></div><div id='fm'></div>", 13);
+    var u3 = document.getElementById("u3"), u3r = document.getElementById("u3r");
+    u3.appendChild(checkBox("u3w", "I wrote my Connect to Unit 3 sentence.", S.u3, function (v) { S.u3 = v; if (v) showU3(); else u3r.innerHTML = ""; }));
+    function showU3() { u3r.innerHTML = '<div class="reveal"><b>A good answer:</b><p>Just like in Earth\'s layers, denser materials sink below less dense ones: the dense core is at the center and the lighter crust is on top.</p><p class="status">Fix your sentence if you need to.</p></div>'; }
+    if (S.u3) showU3();
+    var fl = document.getElementById("fl"), fm = document.getElementById("fm");
+    FIN.forEach(function (t, k) { fl.appendChild(checkBox("fi" + k, t, S.fin[k], function (v) { S.fin[k] = v; upd(); })); });
+    function upd() {
+      var all = FIN.every(function (_, k) { return S.fin[k]; }); fm.innerHTML = "";
+      if (all) { S.done.finish = true; fm.innerHTML = '<div class="reveal"><div class="big">All done!</div><p><b>Your notebook is your answer sheet.</b> Keep it neat. Your teacher will check it.</p><p><b>Next class</b> starts with a short warm-up (about 7 minutes) on today\'s lesson. It gives you feedback right away, so look over your notes before class.</p></div>'; }
+    }
+    upd();
+  }
+  function render() { [secStart, secDoNow, secLab, secLearn, secDraw, secFinish][S.sec](); }
+  render();
+})();
+</script>
