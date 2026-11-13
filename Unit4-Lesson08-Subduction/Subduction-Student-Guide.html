@@ -87,7 +87,7 @@ th{background:var(--bg);font-size:.8rem;letter-spacing:.04em;text-transform:uppe
     { id: "start", name: "Start", min: 0 }, { id: "donow", name: "Do Now", min: 5 }, { id: "lab", name: "Density lab", min: 12 },
     { id: "learn", name: "Learn", min: 10 }, { id: "draw", name: "Draw", min: 10 }, { id: "finish", name: "Finish", min: 13 }
   ];
-  var S = { sec: 0, done: {}, dn: { pick: null, wrote: false }, lab: { step: 0, setup: [], pred: {}, res: {}, tub: {}, rank: null, glued: false, pulled: false, explainWrote: false, explainRev: false },
+  var S = { sec: 0, done: {}, dn: { pick: null, wrote: false }, lab: { step: 0, last: null, pred: {}, res: {}, tub: {}, rank: null, glued: false, pulled: false, explainWrote: false, explainRev: false },
     learn: 0, learnOk: [], mdl: { o: 3.0, c: 2.7, st: 0 }, draw: [], drawRev: false, sent: false, sentRev: false, u3: false, fin: [] };
   var T = { left: 0, id: null, running: false };
 
@@ -180,7 +180,7 @@ th{background:var(--bg);font-size:.8rem;letter-spacing:.04em;text-transform:uppe
     }
     return '<svg viewBox="0 0 520 220" role="img" aria-label="A water tub. Wood and cork float. Dark rock sinks to the bottom.">' +
       '<rect x="60" y="60" width="400" height="150" rx="10" fill="var(--water)" stroke="var(--ink)" stroke-width="3"/><rect x="56" y="30" width="408" height="34" fill="var(--bg)"/>' +
-      '<line x1="60" y1="84" x2="460" y2="84" stroke="var(--ink)" stroke-width="2" stroke-dasharray="6 5"/><text x="404" y="78" font-size="12" font-weight="700" fill="var(--ink)">water surface</text>' +
+      '<line x1="60" y1="84" x2="460" y2="84" stroke="var(--ink)" stroke-width="2" stroke-dasharray="6 5"/><text x="68" y="104" font-size="12" font-weight="700" fill="var(--ink)">water surface</text>' +
       item("wood", 150, "var(--wood)", function (cx, f) { return '<rect x="' + (cx - 34) + '" y="60" width="68" height="26" rx="3" fill="' + f + '" stroke="var(--ink)"/><text x="' + cx + '" y="78" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">wood</text>'; }, false) +
       item("rock", 260, "var(--rock)", function (cx, f) { return '<polygon points="' + (cx - 30) + ',108 ' + (cx - 12) + ',82 ' + (cx + 18) + ',84 ' + (cx + 32) + ',108 ' + (cx + 8) + ',116 ' + (cx - 14) + ',114" fill="' + f + '" stroke="var(--ink)"/><text x="' + cx + '" y="104" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">dark rock</text>'; }, true) +
       item("cork", 370, "var(--cork)", function (cx, f) { return '<rect x="' + (cx - 14) + '" y="64" width="28" height="22" rx="4" fill="' + f + '" stroke="var(--ink)"/><text x="' + cx + '" y="79" text-anchor="middle" font-size="10" font-weight="700" fill="#1d1608">cork</text>'; }, false) + "</svg>";
@@ -189,8 +189,8 @@ th{background:var(--bg);font-size:.8rem;letter-spacing:.04em;text-transform:uppe
   /* ---------- sections ---------- */
   function secStart() {
     shell('<div class="target"><b>Focus question:</b> Why does ocean crust sink but continental crust stay on top?<br><b>Learning target ESS1-5.5:</b> I can explain why ocean crust sinks at subduction zones but less-dense continental crust survives.</div>' +
-      "<h2>Set up your notebook</h2><ol class='say'><li>Title the page <b>L8 Subduction</b> and add it to your table of contents.</li><li>You will use notebook <b>pages 76-77</b>. <b>Page 76</b> (left): Do Now, Density lab table, Which material gets pulled under?, What the lab tells us. <b>Page 77</b> (right): Subduction cross-section, sentence frame, Connect to Unit 3.</li><li>Have ready: pencil, colored pencils, and your glue-in <b>Density lab table</b>.</li></ol>" +
-      "<h2>Today's plan (50 minutes)</h2><ol class='say'><li><b>Do Now</b> · 5 min</li><li><b>Density lab</b>: sink or float, rank, and what it means · 12 min</li><li><b>Learn</b>: subduction, step by step · 10 min</li><li><b>Draw</b> the cross-section and finish the sentence frame · 10 min</li><li><b>Finish</b>: share, check, and complete your notebook · 13 min</li></ol>" +
+      "<h2>Set up your notebook</h2><ol class='say'><li>Title the page <b>L8 Subduction</b> and add it to your table of contents.</li><li>You will use notebook <b>pages 76-77</b>. <b>Page 76</b> (left): Do Now, Density lab table, Which material gets pulled under?, What the lab tells us. <b>Page 77</b> (right): Subduction cross-section, sentence frame, Connect to Unit 3.</li><li>Have ready: pencil, colored pencils, and your glue-in <b>Density lab table</b>. The lab is virtual, so you do not need water or rocks.</li></ol>" +
+      "<h2>Today's plan (50 minutes)</h2><ol class='say'><li><b>Do Now</b> · 5 min</li><li><b>Density lab</b> (virtual, on this page): sink or float, rank, and what it means · 12 min</li><li><b>Learn</b>: subduction, step by step · 10 min</li><li><b>Draw</b> the cross-section and finish the sentence frame · 10 min</li><li><b>Finish</b>: share, check, and complete your notebook · 13 min</li></ol>" +
       "<p>Your teacher is here to help. This guide leads you through each step, checks your thinking, and tells you what to write in your notebook. <b>Your notebook is your answer sheet.</b></p>" + nextBtn("Start the Do Now"), 0);
     bindNext(1, "start");
   }
@@ -212,90 +212,79 @@ th{background:var(--bg);font-size:.8rem;letter-spacing:.04em;text-transform:uppe
   }
 
   /* --- the lab, one step at a time --- */
-  var LAB = ["Set up", "Predict", "Test", "Rank", "Record"];
+  var LAB = ["Predict", "Test", "Rank", "Record"];
+  var TUBNAMES = { wood: "Wood", rock: "Dark rock", cork: "Cork" };
+  var TUBCAP = { wood: "The wood floats. It is less dense than water.", rock: "The dark rock sinks to the bottom. It is more dense than water.", cork: "The cork floats. It is less dense than water." };
   function labDone(i) {
-    if (i === 0) return S.lab.setup.length === 4 && S.lab.setup.every(Boolean);
-    if (i === 1) return !!(S.lab.pred.wood && S.lab.pred.rock);
-    if (i === 2) return !!(S.lab.res.wood && S.lab.res.rock);
-    if (i === 3) return S.lab.rank === "ok";
+    if (i === 0) return !!(S.lab.pred.wood && S.lab.pred.rock);
+    if (i === 1) return !!(S.lab.res.wood && S.lab.res.rock);
+    if (i === 2) return S.lab.rank === "ok";
     return S.lab.glued && S.lab.pulled && S.lab.explainWrote;
   }
-  function labDecision() {
-    var w = S.lab.res.wood, r = S.lab.res.rock;
-    if (w === "floats" && r === "sinks") return "wood";
-    if (w === "sinks" && r === "floats") return "rock";
-    return null;
-  }
+  function labDecision() { return (S.lab.res.wood === "floats" && S.lab.res.rock === "sinks") ? "wood" : null; }
   function secLab() {
     var i = S.lab.step;
-    shell("<h2>Density lab: sink or float</h2><div class='tabs'>" + LAB.map(function (n, k) { return '<span class="' + (k === i ? "on" : "") + '">' + (k + 1) + ". " + n + "</span>"; }).join("") + "</div><div id='lb'></div>" +
+    shell("<h2>Density lab: sink or float (virtual)</h2><div class='tabs'>" + LAB.map(function (n, k) { return '<span class="' + (k === i ? "on" : "") + '">' + (k + 1) + ". " + n + "</span>"; }).join("") + "</div><div id='lb'></div>" +
       '<div class="row"><button type="button" class="ghost" id="pv"' + (i ? "" : " disabled") + '>Back</button><button type="button" id="nx"' + (labDone(i) ? "" : " disabled") + ">" + (i === LAB.length - 1 ? "Next: learn about subduction" : "Next lab step") + "</button></div>", 12);
     var lb = document.getElementById("lb"), nx = document.getElementById("nx");
     function refresh() { nx.disabled = !labDone(i); }
     document.getElementById("pv").addEventListener("click", function () { S.lab.step--; secLab(); });
     nx.addEventListener("click", function () { if (i === LAB.length - 1) { S.done.lab = true; go(3); } else { S.lab.step++; secLab(); } });
     if (i === 0) {
-      lb.appendChild(el("p", "", "Work with a partner. One person is the <b>Dropper</b> and one is the <b>Recorder</b>. Switch halfway."));
-      var st = el("div", "stack");
-      ["I have a water tub filled about three-quarters full.", "I have a piece of wood (this models <b>continental crust</b>).", "I have a piece of dark rock or clay (this models <b>oceanic crust</b>).", "I have paper towels. We will keep the water in the tub and wipe up spills right away."].forEach(function (t, k) {
-        st.appendChild(checkBox("su" + k, t.replace(/<[^>]+>/g, ""), S.lab.setup[k], function (v) { S.lab.setup[k] = v; refresh(); }));
-      });
-      lb.appendChild(st);
-      lb.appendChild(el("p", "status", "Optional: a small cork to compare. No tub or materials? Use the virtual tub in step 3."));
-    }
-    if (i === 1) {
-      lb.appendChild(el("p", "", "<b>Predict first.</b> Will each material sink or float in water? Pick one for each, then write both predictions in your notebook margin if you like."));
-      [["wood", "Wood (continental crust model)"], ["rock", "Dark rock or clay (oceanic crust model)"]].forEach(function (m) {
+      lb.appendChild(el("p", "", "This lab is <b>virtual</b>: you will drop materials into a tub of water on this page. No water or rocks needed. Work with a partner and talk about what you notice."));
+      lb.appendChild(el("p", "", "The <b>wood</b> is a model of <b>continental crust</b>. The <b>dark rock</b> is a model of <b>oceanic crust</b>."));
+      lb.appendChild(el("p", "", "<b>Predict first.</b> Will each material sink or float in water? Pick one for each."));
+      [["wood", "Wood (continental crust model)"], ["rock", "Dark rock (oceanic crust model)"]].forEach(function (m) {
         var row = el("div", "q"), opts = el("div", "opts"); row.appendChild(el("p", "", "<b>" + m[1] + "</b>"));
         ["sinks", "floats"].forEach(function (v) { var b = el("button", "opt" + (S.lab.pred[m[0]] === v ? " sel" : ""), v === "sinks" ? "Sinks" : "Floats"); b.type = "button"; b.addEventListener("click", function () { S.lab.pred[m[0]] = v; secLab(); }); opts.appendChild(b); });
         row.appendChild(opts); lb.appendChild(row);
       });
     }
-    if (i === 2) {
-      lb.appendChild(el("p", "", "<b>Test it.</b> Gently place each material in the water. Watch for about 5 seconds. Then pick what you saw."));
-      [["wood", "Wood", "Wood usually floats."], ["rock", "Dark rock or clay", "Dark rock or clay usually sinks."]].forEach(function (m) {
-        var row = el("div", "q"), opts = el("div", "opts"), fb = el("p", "fb"); fb.setAttribute("aria-live", "polite");
-        row.appendChild(el("p", "", "<b>" + m[1] + ":</b> what did you see?"));
-        ["sinks", "floats"].forEach(function (v) { var b = el("button", "opt" + (S.lab.res[m[0]] === v ? " sel" : ""), v === "sinks" ? "It sinks" : "It floats"); b.type = "button"; b.addEventListener("click", function () { S.lab.res[m[0]] = v; secLab(); }); opts.appendChild(b); });
-        row.appendChild(opts); row.appendChild(fb); lb.appendChild(row);
-        var v = S.lab.res[m[0]];
-        if (v) {
-          var exp = m[0] === "wood" ? "floats" : "sinks", pr = S.lab.pred[m[0]];
-          fb.className = "fb " + (v === exp ? "good" : "bad");
-          fb.textContent = (v === exp ? "That is what we expect. " : m[2] + " If yours is different, try another piece or ask your teacher. ") + (pr ? (pr === v ? "It matched your prediction." : "Your prediction was different. Good scientists notice that.") : "");
-        }
-      });
-      var vt = el("details"); vt.innerHTML = "<summary>No tub or materials? Use the virtual tub</summary>";
-      var vb = el("div", "stack"); vb.style.marginTop = "10px";
-      vb.innerHTML = '<div class="diagram" id="tb">' + tubSVG(S.lab.tub) + '</div><div class="row"><button type="button" class="ghost" data-d="wood">Drop the wood</button><button type="button" class="ghost" data-d="rock">Drop the dark rock</button><button type="button" class="ghost" data-d="cork">Drop the cork</button><button type="button" class="ghost" data-d="reset">Reset</button></div>';
-      vt.appendChild(vb); if (S.lab.tub.wood || S.lab.tub.rock || S.lab.tub.cork) vt.open = true; lb.appendChild(vt);
-      var useB = el("button", "ghost", "Use the virtual results"); useB.type = "button"; useB.hidden = !(S.lab.tub.wood && S.lab.tub.rock); vb.appendChild(useB);
-      vb.querySelectorAll("[data-d]").forEach(function (b) {
+    if (i === 1) {
+      lb.appendChild(el("p", "", "<b>Test it.</b> Drop the wood and the dark rock into the tub. Watch what happens. (The cork is optional.)"));
+      lb.appendChild(el("div", "diagram", "")).id = "tb";
+      var tb = document.getElementById("tb"); tb.innerHTML = tubSVG(S.lab.tub);
+      var ctr = el("div", "row"); ctr.innerHTML = '<button type="button" data-d="wood">Drop the wood</button><button type="button" data-d="rock">Drop the dark rock</button><button type="button" class="ghost" data-d="cork">Drop the cork (optional)</button><button type="button" class="ghost" data-d="reset">Reset</button>';
+      lb.appendChild(ctr);
+      var cap = el("p", "fb note"); cap.setAttribute("aria-live", "polite"); lb.appendChild(cap);
+      var obs = el("div", "stack"); lb.appendChild(obs);
+      function caption() { var last = S.lab.last; cap.textContent = last ? TUBCAP[last] : "Drop a material to see what happens."; }
+      function showObs() {
+        obs.innerHTML = "";
+        if (!(S.lab.tub.wood && S.lab.tub.rock)) { obs.appendChild(el("p", "status", "Drop both the wood and the dark rock, then tell what you saw.")); return; }
+        obs.appendChild(el("p", "", "<b>What did you see?</b>"));
+        [["wood", "What happened to the wood?", ["It floated", "It sank"], "floats", "Yes. The wood floats, so it is less dense than water.", "Look at the tub again. The wood stays at the top."], ["rock", "What happened to the dark rock?", ["It sank", "It floated"], "sinks", "Yes. The dark rock sinks, so it is more dense than water.", "Look at the tub again. The dark rock goes to the bottom."]].forEach(function (m) {
+          var q = question({ text: m[1], o: m[2], right: m[4], hints: { 1: m[5] } }, function () { S.lab.res[m[0]] = m[3]; refresh(); cmp(); });
+          if (S.lab.res[m[0]]) { q.querySelectorAll("button").forEach(function (b) { b.disabled = true; }); q.querySelector(".fb").className = "fb good"; q.querySelector(".fb").textContent = m[4]; }
+          obs.appendChild(q);
+        });
+        var cm = el("p", "fb note"); cm.id = "cmp"; obs.appendChild(cm); cmp();
+      }
+      function cmp() {
+        var c = document.getElementById("cmp"); if (!c) return;
+        if (S.lab.res.wood && S.lab.res.rock) { var bits = []; ["wood", "rock"].forEach(function (k) { if (S.lab.pred[k]) bits.push((TUBNAMES[k]) + ": you predicted " + S.lab.pred[k].replace("sinks", "it sinks").replace("floats", "it floats") + (S.lab.pred[k] === S.lab.res[k] ? " (matched)" : " (different, and that is OK)")); }); c.textContent = bits.join(". ") + "."; }
+        else c.textContent = "";
+      }
+      ctr.querySelectorAll("[data-d]").forEach(function (b) {
         b.addEventListener("click", function () {
           var n = b.getAttribute("data-d");
-          if (n === "reset") { S.lab.tub = {}; } else { S.lab.tub[n] = true; }
-          var tb = document.getElementById("tb"); tb.innerHTML = tubSVG(S.lab.tub);
+          if (n === "reset") { S.lab.tub = {}; S.lab.last = null; } else { S.lab.tub[n] = true; S.lab.last = n; }
+          tb.innerHTML = tubSVG(S.lab.tub);
           requestAnimationFrame(function () { tb.querySelectorAll(".dropper").forEach(function (g) { g.style.transform = "translateY(" + (S.lab.tub[g.getAttribute("data-n")] ? (g.getAttribute("data-n") === "rock" ? 70 : 8) : -40) + "px)"; }); });
-          useB.hidden = !(S.lab.tub.wood && S.lab.tub.rock);
+          caption(); showObs();
         });
       });
-      useB.addEventListener("click", function () { S.lab.res.wood = "floats"; S.lab.res.rock = "sinks"; secLab(); });
+      caption(); showObs();
     }
-    if (i === 3) {
+    if (i === 2) {
       var dec = labDecision();
       lb.appendChild(el("p", "", "<b>Rank them.</b> A material that <b>floats</b> is <b>less dense</b> than water. A material that <b>sinks</b> is <b>more dense</b> than water. Rank the two crust models from least dense (1) to most dense (2)."));
-      if (!dec) lb.appendChild(el("p", "fb bad", "Your two results are the same, so water cannot tell them apart. Go back to step 3: try different pieces, use the virtual tub, or ask your teacher."));
-      else {
-        var q = question({ text: "Which is LESS dense, the wood or the dark rock (or clay)?", o: [dec === "wood" ? "The wood" : "The dark rock or clay", dec === "wood" ? "The dark rock or clay" : "The wood"], right: "Yes. So it gets rank 1 (least dense), and the other gets rank 2.", hints: { 1: "Look at your results. The material that floats is the less dense one." } }, function () { S.lab.rank = "ok"; refresh(); });
-        if (S.lab.rank === "ok") { q.querySelectorAll("button").forEach(function (b) { b.disabled = true; }); q.querySelector(".fb").className = "fb good"; q.querySelector(".fb").textContent = "Done."; }
-        lb.appendChild(q);
-        var lessName = dec === "wood" ? "Wood" : "Dark rock", moreName = dec === "wood" ? "Dark rock" : "Wood";
-        var tbl = '<div class="scroll"><table><thead><tr><th>Material</th><th>Sinks or floats?</th><th>Rank (1 = least dense)</th><th>What it models</th></tr></thead><tbody>' +
-          "<tr><td>Wood</td><td>" + esc(S.lab.res.wood) + "</td><td>" + (dec === "wood" ? 1 : 2) + "</td><td>Continental crust</td></tr><tr><td>Dark rock</td><td>" + esc(S.lab.res.rock) + "</td><td>" + (dec === "wood" ? 2 : 1) + "</td><td>Oceanic crust</td></tr></tbody></table></div>";
-        lb.appendChild(el("div", "stack", "<p class='status'>Your table should look like this. Copy your results into the <b>Density lab table</b> on page 76.</p>" + tbl));
-      }
+      var q = question({ text: "Which is LESS dense, the wood or the dark rock?", o: ["The wood", "The dark rock"], right: "Yes. The wood floated, so it is the less dense one. It gets rank 1 (least dense). The dark rock gets rank 2.", hints: { 1: "The dark rock sank. The material that floats is the less dense one." } }, function () { S.lab.rank = "ok"; refresh(); });
+      if (S.lab.rank === "ok") { q.querySelectorAll("button").forEach(function (b) { b.disabled = true; }); q.querySelector(".fb").className = "fb good"; q.querySelector(".fb").textContent = "Done."; }
+      lb.appendChild(q);
+      lb.appendChild(el("div", "stack", "<p class='status'>Your table should look like this. Copy your results into the <b>Density lab table</b> on page 76.</p><div class=\"scroll\"><table><thead><tr><th>Material</th><th>Sinks or floats?</th><th>Rank (1 = least dense)</th><th>What it models</th></tr></thead><tbody><tr><td>Wood</td><td>" + esc(S.lab.res.wood || "floats") + "</td><td>1</td><td>Continental crust</td></tr><tr><td>Dark rock</td><td>" + esc(S.lab.res.rock || "sinks") + "</td><td>2</td><td>Oceanic crust</td></tr></tbody></table></div>"));
     }
-    if (i === 4) {
+    if (i === 3) {
       lb.appendChild(el("p", "", "<b>Record and explain.</b> Finish page 76."));
       var st4 = el("div", "stack");
       st4.appendChild(checkBox("gl", "I glued in the Density lab table on page 76 and filled in sinks or floats, rank, and what it models.", S.lab.glued, function (v) { S.lab.glued = v; refresh(); }));
