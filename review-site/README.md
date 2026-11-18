@@ -1,7 +1,7 @@
 # Personalized CFA review site
 
 Students type their name and get a review plan built from their own CFA scores.
-Covers every published "Unit N CFA ..." assignment in the live course (342899);
+Covers the published "Unit N CFA ..." assignments for Unit 4 only (change with `--units 3,4`) in the live course (342899);
 review content is reused from the matching "Unit N Review ... (Mastery Path)"
 assignment, so editing a review page in Canvas and rebuilding updates the site.
 
@@ -10,7 +10,7 @@ assignment, so editing a review page in Canvas and rebuilding updates the site.
     python3 review-site/build.py        # writes review-site/dist/index.html
 
 - Status per target: **Not taken** / **Needs review** (< 2.67) / **Proficient** (2.67-3.4) / **Mastered** (3.5+).
-- A CFA no one has submitted yet (currently Unit 4 ESS1-5.5 and 5.6) is left out automatically and appears once scores exist.
+- A CFA no one has submitted yet (e.g. a Unit 4 CFA not yet taken by anyone) is left out automatically and appears once scores exist.
 - Names are stored only as salted SHA-256 hashes (new salt each build). "First Last", "Last, First" and "First Middle Last" all match.
 
 ## Privacy: read before sharing

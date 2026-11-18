@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build the personalized CFA review site from live Canvas data.
 
-Usage: python3 build.py [--course 342899] [--out dist/index.html]
+Usage: python3 build.py [--units 4] [--course 342899] [--out dist/index.html]
 
 Reads the roster, every "Unit N CFA <id>: <title>" assignment's scores, and the
 matching "Unit N Review <id>: ..." assignment's page content. Writes ONE
@@ -47,15 +47,17 @@ def key(salt, name):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--course", default="342899")
+    ap.add_argument("--units", default="4", help="comma-separated unit numbers to include (default: 4)")
     ap.add_argument("--out", default=os.path.join(HERE, "dist", "index.html"))
     a = ap.parse_args()
     c = f"/courses/{a.course}"
+    units = {u.strip() for u in a.units.split(",")}
 
     assigns = get(f"{c}/assignments?per_page=100")
     cfas, reviews = {}, {}
     for x in assigns:
         m = re.match(r"\s*Unit (\d+) CFA ([\w.\-]+):\s*(.+)", x["name"])
-        if m and x["published"]:
+        if m and x["published"] and m[1] in units:
             cfas[(m[1], m[2])] = (x, m[3].strip())
         m = re.match(r"\s*Unit (\d+) Review ([\w.\-]+):", x["name"])
         if m:
