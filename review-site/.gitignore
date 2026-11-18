@@ -1,0 +1,2 @@
+# Built site embeds student performance data (FERPA). Never commit it.
+dist/

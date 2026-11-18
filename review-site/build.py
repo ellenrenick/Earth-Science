@@ -1,0 +1,120 @@
+#!/usr/bin/env python3
+"""Build the personalized CFA review site from live Canvas data.
+
+Usage: python3 build.py [--course 342899] [--out dist/index.html]
+
+Reads the roster, every "Unit N CFA <id>: <title>" assignment's scores, and the
+matching "Unit N Review <id>: ..." assignment's page content. Writes ONE
+self-contained HTML file. Student names are never stored in plaintext: the data
+is keyed by a salted SHA-256 of the normalized name.
+"""
+import argparse, hashlib, json, os, re, secrets, sys, unicodedata, urllib.request
+
+BASE = "https://kernhigh.instructure.com/api/v1"
+PROFICIENT = 2.7   # CLAUDE.md bands: 0.9 / 1.8 / 2.7 proficient / 3.5 mastered
+MASTERED = 3.5
+HERE = os.path.dirname(os.path.abspath(__file__))
+
+
+def get(path):
+    """GET all pages of a Canvas list endpoint (token injected by the proxy)."""
+    url, out = f"{BASE}{path}", []
+    while url:
+        with urllib.request.urlopen(urllib.request.Request(url)) as r:
+            data = json.load(r)
+            link = r.headers.get("Link", "")
+        if isinstance(data, list):
+            out += data
+        else:
+            return data
+        m = re.search(r'<([^>]+)>; rel="next"', link)
+        url = m.group(1) if m else None
+    return out
+
+
+def norm(name):
+    """'Andrews, Norah' / 'norah  andrews' -> 'andrews norah' (order-insensitive)."""
+    name = unicodedata.normalize("NFD", name)
+    name = "".join(ch for ch in name if not unicodedata.combining(ch))
+    toks = re.findall(r"[a-z]+", name.lower().replace("'", "").replace("’", ""))
+    return " ".join(sorted(toks))
+
+
+def key(salt, name):
+    return hashlib.sha256((salt + norm(name)).encode()).hexdigest()[:20]
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--course", default="342899")
+    ap.add_argument("--out", default=os.path.join(HERE, "dist", "index.html"))
+    a = ap.parse_args()
+    c = f"/courses/{a.course}"
+
+    assigns = get(f"{c}/assignments?per_page=100")
+    cfas, reviews = {}, {}
+    for x in assigns:
+        m = re.match(r"\s*Unit (\d+) CFA ([\w.\-]+):\s*(.+)", x["name"])
+        if m and x["published"]:
+            cfas[(m[1], m[2])] = (x, m[3].strip())
+        m = re.match(r"\s*Unit (\d+) Review ([\w.\-]+):", x["name"])
+        if m:
+            reviews[(m[1], m[2])] = x
+
+    users = get(f"{c}/users?enrollment_type[]=student&per_page=100")
+    uid = {u["id"]: u for u in users}
+
+    targets = []
+    for (unit, tid), (asg, title) in sorted(cfas.items(), key=lambda kv: (int(kv[0][0]), kv[0][1])):
+        subs = {s["user_id"]: s for s in get(f"{c}/assignments/{asg['id']}/submissions?per_page=100")}
+        # A CFA counts as "given" once anyone has actually submitted it.
+        given = any(s.get("submitted_at") for s in subs.values())
+        rev = reviews.get((unit, tid))
+        html = rev["description"] if rev else ""
+        html = re.sub(r"<p>Your CFA score was[^<]*</p>\s*", "", html)
+        m = re.search(r"Learning target [^:]+:</strong>\s*(.*?)</p>", html, re.S)
+        targets.append(dict(unit=unit, id=tid, title=title, given=given,
+                            goal=re.sub(r"<[^>]+>", "", m[1]).strip() if m else title,
+                            html=html, cfa_url=asg["html_url"], _subs=subs))
+
+    salt = secrets.token_hex(8)
+    students, seen = {}, {}
+    for u in users:
+        row = []
+        for t in targets:
+            s = t["_subs"].get(u["id"])
+            if not t["given"]:
+                row.append(None)            # CFA not given yet: leave out
+            elif s is None or s.get("excused"):
+                row.append("x")             # excused / no record
+            elif not s.get("submitted_at"):
+                row.append("n")             # not taken (auto-zero)
+            else:
+                row.append(round(s["score"] or 0, 2))
+        # accept "First Last", "Last, First" and "First Middle Last"
+        names = {u["name"], u.get("short_name") or u["name"], u["sortable_name"]}
+        parts = u["name"].split()
+        if len(parts) > 2:
+            names.add(f"{parts[0]} {parts[-1]}")
+        for n in names:
+            k = key(salt, n)
+            if k in seen and seen[k] != u["id"]:
+                print(f"WARN: name collision for {n!r}; dropping that spelling", file=sys.stderr)
+                students.pop(k, None); continue
+            seen[k] = u["id"]; students[k] = row
+
+    for t in targets:
+        t.pop("_subs")
+    payload = dict(salt=salt, proficient=PROFICIENT, mastered=MASTERED,
+                   built=__import__("datetime").date.today().isoformat(),
+                   targets=targets, students=students)
+    tpl = open(os.path.join(HERE, "template.html"), encoding="utf-8").read()
+    html = tpl.replace("/*__DATA__*/null", json.dumps(payload, ensure_ascii=False).replace("</", "<\\/"))
+    os.makedirs(os.path.dirname(a.out), exist_ok=True)
+    open(a.out, "w", encoding="utf-8").write(html)
+    print(f"{len(users)} students, {len(students)} name keys, "
+          f"{sum(t['given'] for t in targets)}/{len(targets)} CFAs given -> {a.out}")
+
+
+if __name__ == "__main__":
+    main()
