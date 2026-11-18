@@ -9,7 +9,7 @@ assignment, so editing a review page in Canvas and rebuilding updates the site.
 
     python3 review-site/build.py        # writes review-site/dist/index.html
 
-- Status per target: **Not taken** / **Needs review** (< 2.7) / **Proficient** (2.7-3.4) / **Mastered** (3.5+).
+- Status per target: **Not taken** / **Needs review** (< 2.67) / **Proficient** (2.67-3.4) / **Mastered** (3.5+).
 - A CFA no one has submitted yet (currently Unit 4 ESS1-5.5 and 5.6) is left out automatically and appears once scores exist.
 - Names are stored only as salted SHA-256 hashes (new salt each build). "First Last", "Last, First" and "First Middle Last" all match.
 

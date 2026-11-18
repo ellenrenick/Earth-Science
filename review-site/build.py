@@ -11,7 +11,7 @@ is keyed by a salted SHA-256 of the normalized name.
 import argparse, hashlib, json, os, re, secrets, sys, unicodedata, urllib.request
 
 BASE = "https://kernhigh.instructure.com/api/v1"
-PROFICIENT = 2.7   # CLAUDE.md bands: 0.9 / 1.8 / 2.7 proficient / 3.5 mastered
+PROFICIENT = 2.67  # Proficient band is 2.7; 2.67 (e.g. 8/3) counts too. Below this = review
 MASTERED = 3.5
 HERE = os.path.dirname(os.path.abspath(__file__))
 
