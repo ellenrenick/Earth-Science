@@ -100,10 +100,12 @@ def main():
 
     for t in targets:
         t.pop("_subs")
-    payload = dict(salt=salt, proficient=PROFICIENT, mastered=MASTERED,
+    pr = json.load(open(os.path.join(HERE, "practice.json"), encoding="utf-8"))
+    payload = dict(practice=pr, salt=salt, proficient=PROFICIENT, mastered=MASTERED,
                    built=__import__("datetime").date.today().isoformat(),
                    targets=targets, students=students)
     tpl = open(os.path.join(HERE, "template.html"), encoding="utf-8").read()
+    tpl = tpl.replace("/*__ENGINE__*/", open(os.path.join(HERE, "engine.js"), encoding="utf-8").read())
     html = tpl.replace("/*__DATA__*/null", json.dumps(payload, ensure_ascii=False).replace("</", "<\\/"))
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     open(a.out, "w", encoding="utf-8").write(html)

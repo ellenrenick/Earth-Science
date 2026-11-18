@@ -1,0 +1,511 @@
+{
+ "ESS1-5.1": {
+  "anim": "fit",
+  "qs": [
+   {
+    "q": "Which piece of evidence is a shape clue?",
+    "o": [
+     "Matching Glossopteris fossils",
+     "The coastlines of South America and Africa fit like puzzle pieces",
+     "The Appalachians match mountains in Scotland",
+     "Mesosaurus fossils on two continents"
+    ],
+    "a": 1,
+    "why": "The fit of the coastlines is the shape clue.",
+    "f": [
+     "Fossils are the second clue. The shape clue is about how the outlines of the continents match.",
+     null,
+     "Rocks and mountains are the third clue (Formations). The shape clue is about the coastlines.",
+     "Fossils are the second clue. The shape clue is about the coastlines."
+    ],
+    "tip": "Fit, Fossils, Formations (rocks)."
+   },
+   {
+    "q": "Mesosaurus was a freshwater reptile. Its fossils are found only in South America and Africa. What does that suggest?",
+    "o": [
+     "It swam across the Atlantic Ocean",
+     "The continents were once joined",
+     "It was carried across by ships",
+     "The fossils formed in two different oceans"
+    ],
+    "a": 1,
+    "why": "It could not cross a salty ocean, so the land must have been connected.",
+    "f": [
+     "Mesosaurus lived in fresh water. It could not swim across a salty ocean.",
+     null,
+     "The fossils are about 280 million years old, long before ships.",
+     "It lived in fresh water, not in an ocean. The simplest explanation is that the land was joined."
+    ],
+    "tip": "Land animals and fresh-water animals cannot cross a wide ocean."
+   },
+   {
+    "q": "The Appalachian Mountains match mountains in Scotland and Scandinavia in age and rock type. If you fit the continents together, you would see…",
+    "o": [
+     "Two unrelated mountain ranges",
+     "One long mountain chain that was later split apart",
+     "An ocean trench between them",
+     "A chain of volcanoes"
+    ],
+    "a": 1,
+    "why": "The ranges line up into one long chain.",
+    "f": [
+     "If they match in age and rock type, they are not unrelated. They formed together.",
+     null,
+     "A trench forms when an ocean plate sinks. These are matching mountains.",
+     "The clue is matching rock type and age, which points to one chain."
+    ],
+    "tip": "Formations: matching rocks and mountains across the Atlantic."
+   },
+   {
+    "q": "Glossopteris seeds were too heavy to blow across an ocean, yet its fossils are on five continents. What is the best explanation?",
+    "o": [
+     "Those continents were joined when the plant lived",
+     "Wind blew the seeds across the ocean",
+     "The plant could swim",
+     "Scientists planted them later"
+    ],
+    "a": 0,
+    "why": "Joined continents let the plant spread over land.",
+    "f": [
+     null,
+     "The seeds were too heavy to blow across an ocean.",
+     "Plants cannot swim across an ocean.",
+     "These are fossils that formed long before people. The simplest explanation is joined land."
+    ],
+    "tip": "Fossils: the same land fossils on continents far apart."
+   }
+  ]
+ },
+ "ESS1-5.2": {
+  "anim": "ages",
+  "qs": [
+   {
+    "q": "Using the table (500 km = 20 million years, 1,000 km = 40 million years), how old is rock 500 km from the ridge?",
+    "o": [
+     "0 million years",
+     "20 million years",
+     "40 million years",
+     "60 million years"
+    ],
+    "a": 1,
+    "why": "500 km out, the rock is about 20 million years old.",
+    "f": [
+     "0 million years is right at the ridge, at 0 km.",
+     null,
+     "40 million years is the rock at 1,000 km.",
+     "60 million years is the rock at 1,500 km."
+    ],
+    "tip": "Youngest at the ridge, older with distance on both sides.",
+    "to": 0.33,
+    "from": 0
+   },
+   {
+    "q": "Where is the youngest rock on the seafloor?",
+    "o": [
+     "Far from the ridge",
+     "Right at the ridge",
+     "At the edge of a continent",
+     "Halfway between ridges"
+    ],
+    "a": 1,
+    "why": "Youngest at the ridge, where new crust forms.",
+    "f": [
+     "Rock gets older as you move away from the ridge, so the far rock is the oldest.",
+     null,
+     "The ridge is where new crust forms, not the continent edge.",
+     "Age increases steadily with distance from the ridge, so halfway is middle-aged."
+    ],
+    "tip": "Youngest at the ridge, oldest farthest from it.",
+    "to": 0.1,
+    "from": 0
+   },
+   {
+    "q": "How do the magnetic stripes on one side of a ridge compare to the other side?",
+    "o": [
+     "They match like a mirror image",
+     "They are completely random",
+     "They only appear on one side",
+     "They get older toward the ridge"
+    ],
+    "a": 0,
+    "why": "The stripes mirror each other across the ridge.",
+    "f": [
+     null,
+     "The stripes follow a clear pattern that matches on both sides.",
+     "Both sides have stripes, matching each other.",
+     "Rock gets older away from the ridge, not toward it."
+    ],
+    "tip": "Stripes on one side match the other like a mirror image.",
+    "to": 1,
+    "from": 0.2
+   },
+   {
+    "q": "Why are the stripes a mirror image?",
+    "o": [
+     "New crust forms in the middle and moves away equally in both directions",
+     "Earth's field flips only on one side of the ridge",
+     "Waves wash the stripes into place",
+     "Two ridges formed side by side"
+    ],
+    "a": 0,
+    "why": "New crust forms at the center and spreads equally both ways.",
+    "f": [
+     null,
+     "The field flips everywhere at once. The crust that locked it in moves both ways.",
+     "Waves do not change magnetic direction locked in rock.",
+     "There is one ridge. Crust forms at it and moves outward on both sides."
+    ],
+    "tip": "Magnetic grains lock in Earth's field as the lava cools.",
+    "to": 1,
+    "from": 0.2
+   }
+  ]
+ },
+ "ESS1-5.3": {
+  "anim": "spread",
+  "qs": [
+   {
+    "q": "Which order shows how seafloor spreading makes new crust?",
+    "o": [
+     "Cool, Rise, Push, Older",
+     "Rise, Cool, Push, Older",
+     "Push, Rise, Older, Cool",
+     "Older, Cool, Rise, Push"
+    ],
+    "a": 1,
+    "why": "Magma rises, cools into crust, pushes older crust aside, and that older crust ends up farther away.",
+    "f": [
+     "Magma has to rise first, then it can cool.",
+     null,
+     "Crust cannot push anything until the magma has risen and cooled.",
+     "The older crust is the result at the end, not the start."
+    ],
+    "tip": "Rise, Cool, Push, Older.",
+    "to": 1,
+    "from": 0
+   },
+   {
+    "q": "A rock 1,000 km from the ridge is 40 million years old. What is the spreading rate? (rate = distance ÷ age)",
+    "o": [
+     "25 km per million years",
+     "40 km per million years",
+     "4 km per million years",
+     "1,040 km per million years"
+    ],
+    "a": 0,
+    "why": "1,000 ÷ 40 = 25 km per million years (2.5 cm per year).",
+    "f": [
+     null,
+     "40 is the age. You still need to divide the distance by the age.",
+     "Check the division: 1,000 ÷ 40 is 25, not 4.",
+     "Don't add. Divide the distance by the age."
+    ],
+    "tip": "Spreading rate = distance ÷ age.",
+    "to": 1,
+    "from": 0.4
+   },
+   {
+    "q": "A spreading rate of 2.5 cm per year means the Atlantic Ocean is…",
+    "o": [
+     "Getting narrower",
+     "Slowly getting wider",
+     "Staying the same width",
+     "Getting deeper but not wider"
+    ],
+    "a": 1,
+    "why": "New crust keeps forming, so the ocean widens slowly.",
+    "f": [
+     "Narrower would mean plates coming together. At a ridge they move apart.",
+     null,
+     "Plates are moving apart by about 2.5 cm each year, so the width changes.",
+     "The plates are moving apart, so the ocean gets wider."
+    ],
+    "tip": "New crust pushes older crust away on both sides.",
+    "to": 1,
+    "from": 0.3
+   },
+   {
+    "q": "Each stripe in the seafloor shows…",
+    "o": [
+     "Where a storm hit",
+     "When that crust formed, locking in Earth's magnetic direction",
+     "Where two continents collided",
+     "A fault line"
+    ],
+    "a": 1,
+    "why": "Each stripe is a time stamp of when the crust formed.",
+    "f": [
+     "Storms do not change magnetic direction in rock.",
+     null,
+     "Continents colliding makes mountains, not stripes.",
+     "A fault is a crack. Stripes are bands of magnetic direction locked in as crust cooled."
+    ],
+    "tip": "The field flips, crust keeps forming, so each flip adds a stripe.",
+    "to": 1,
+    "from": 0.2
+   }
+  ]
+ },
+ "ESS1-5.4": {
+  "anim": "bound",
+  "qs": [
+   {
+    "q": "Plates are moving toward each other. What type of boundary is it?",
+    "o": [
+     "Divergent",
+     "Convergent",
+     "Transform",
+     "Ridge"
+    ],
+    "a": 1,
+    "why": "Convergent means plates come together.",
+    "f": [
+     "Divergent = Divide. Plates move apart.",
+     null,
+     "Transform plates slide past each other.",
+     "A ridge is a landform at a divergent boundary, not a boundary type."
+    ],
+    "tip": "Divergent = Divide. Convergent = Come together. Transform = slide.",
+    "tab": "subduct"
+   },
+   {
+    "q": "The San Andreas Fault is an example of which boundary?",
+    "o": [
+     "Divergent",
+     "Convergent",
+     "Transform",
+     "None of these"
+    ],
+    "a": 2,
+    "why": "The plates slide past each other, which is a transform boundary.",
+    "f": [
+     "At divergent boundaries the plates move apart, like the Mid-Atlantic Ridge.",
+     "At convergent boundaries the plates push together, like the Himalayas.",
+     null,
+     "It is a boundary. Plates slide past each other here."
+    ],
+    "tip": "Transform = slide. Example: San Andreas Fault.",
+    "tab": "tr"
+   },
+   {
+    "q": "Where would you find a mid-ocean ridge?",
+    "o": [
+     "At a convergent boundary",
+     "At a divergent boundary",
+     "At a transform boundary",
+     "At all three"
+    ],
+    "a": 1,
+    "why": "Ridges form where plates move apart and magma fills the gap.",
+    "f": [
+     "Convergent boundaries make trenches, volcanoes and mountains.",
+     null,
+     "Transform boundaries make faults and offset streams.",
+     "Each boundary type has its own landforms. A ridge is where plates pull apart."
+    ],
+    "tip": "Divergent: plates move apart. Landforms: mid-ocean ridge, rift valley.",
+    "tab": "div"
+   },
+   {
+    "q": "When two continents collide, what forms?",
+    "o": [
+     "A deep ocean trench",
+     "A rift valley",
+     "Tall mountain ranges like the Himalayas",
+     "A mid-ocean ridge"
+    ],
+    "a": 2,
+    "why": "Neither continent sinks, so the crust crumples upward into mountains.",
+    "f": [
+     "A trench forms when an ocean plate sinks. Continents do not sink.",
+     "A rift valley forms where plates pull apart.",
+     null,
+     "A ridge forms where plates pull apart. This is a collision."
+    ],
+    "tip": "Two continents collide, neither sinks, so the crust crumples.",
+    "tab": "cc"
+   },
+   {
+    "q": "Why do earthquakes and volcanoes line up around the Pacific Ocean?",
+    "o": [
+     "Most happen along plate edges",
+     "Plates are thickest there",
+     "Pacific water heats the crust",
+     "They don't line up"
+    ],
+    "a": 0,
+    "why": "Most earthquakes and volcanoes happen along plate boundaries, like the Ring of Fire.",
+    "f": [
+     null,
+     "Thickness is not the cause. The location is the edge of plates.",
+     "Heat from water isn't the cause. The plate edges are where plates interact.",
+     "They do line up. It is called the Ring of Fire."
+    ],
+    "tip": "Look along the edges of plates.",
+    "tab": "subduct"
+   }
+  ]
+ },
+ "ESS1-5.5": {
+  "anim": "subduct",
+  "qs": [
+   {
+    "q": "Which crust is more dense?",
+    "o": [
+     "Oceanic crust (about 3.0 g/cm³)",
+     "Continental crust (about 2.7 g/cm³)",
+     "They are the same",
+     "It depends on the day"
+    ],
+    "a": 0,
+    "why": "Oceanic basalt is denser than continental granite.",
+    "f": [
+     null,
+     "Continental crust is the lighter one, about 2.7 g/cm³.",
+     "Oceanic crust is 3.0 and continental is 2.7. They are different.",
+     "Density is a property of the rock. It does not change."
+    ],
+    "tip": "Oceanic: dark basalt, dense. Continental: lighter, like granite.",
+    "to": 1,
+    "from": 0.6
+   },
+   {
+    "q": "At a convergent boundary, an ocean plate meets a continental plate. Which one sinks?",
+    "o": [
+     "The continental plate",
+     "The oceanic plate",
+     "Both sink equally",
+     "Neither moves"
+    ],
+    "a": 1,
+    "why": "The denser oceanic crust sinks beneath the lighter continental crust.",
+    "f": [
+     "Continental crust is too buoyant to be pulled down.",
+     null,
+     "The denser one sinks, not both.",
+     "Plates keep moving. The denser plate goes under."
+    ],
+    "tip": "Dense ocean crust sinks. Light continental crust stays up.",
+    "to": 0.7,
+    "from": 0
+   },
+   {
+    "q": "What is it called when one plate sinks beneath another?",
+    "o": [
+     "Subduction",
+     "Spreading",
+     "Transform motion",
+     "Erosion"
+    ],
+    "a": 0,
+    "why": "Subduction is one plate sinking beneath another. A trench forms where it bends down.",
+    "f": [
+     null,
+     "Spreading is plates moving apart at a ridge.",
+     "Transform means sliding sideways.",
+     "Erosion is wearing away of surface rock, not plates moving."
+    ],
+    "tip": "A trench forms where the plate bends down.",
+    "to": 0.7,
+    "from": 0
+   },
+   {
+    "q": "Some continental rocks are nearly 4 billion years old, but no seafloor is older than about 200 million years. Why?",
+    "o": [
+     "Continental crust is not recycled; ocean crust is subducted and destroyed",
+     "Continental rock is made of harder minerals",
+     "The seafloor forms more slowly",
+     "Ocean water melts old rock"
+    ],
+    "a": 0,
+    "why": "Ocean crust is recycled at trenches. Light continental crust is not.",
+    "f": [
+     null,
+     "It is about density, not hardness. Light crust stays at the surface.",
+     "Seafloor forms at ridges all the time. The old parts sink at trenches.",
+     "Water does not melt the crust. Subduction destroys the old ocean crust."
+    ],
+    "tip": "Ocean crust gets recycled at trenches. Continental crust does not.",
+    "to": 1,
+    "from": 0
+   }
+  ]
+ },
+ "ESS1-5.6": {
+  "anim": "cer",
+  "qs": [
+   {
+    "q": "Which part of an argument uses numbers or data?",
+    "o": [
+     "Claim",
+     "Evidence",
+     "Reasoning",
+     "Question"
+    ],
+    "a": 1,
+    "why": "Evidence is the data or observations.",
+    "f": [
+     "The claim answers the question. The data supports it.",
+     null,
+     "Reasoning explains why the evidence supports the claim. The numbers themselves are the evidence.",
+     "A question starts the argument, but the data is the evidence."
+    ],
+    "tip": "Claim answers. Evidence is data. Reasoning explains why."
+   },
+   {
+    "q": "Which is strong evidence that the seafloor is young?",
+    "o": [
+     "I think the ocean looks young",
+     "Seafloor ages increase with distance from the ridge",
+     "Everyone knows continents are old",
+     "The ocean feels newer"
+    ],
+    "a": 1,
+    "why": "Measured ages are data. That makes strong evidence.",
+    "f": [
+     "That's an opinion. Strong evidence uses data and measurements.",
+     null,
+     "Appeals to what \"everyone knows\" aren't data.",
+     "How something feels isn't evidence."
+    ],
+    "tip": "Strong: data and observations. Weak: opinions or guesses."
+   },
+   {
+    "q": "Fill in: New crust forms at ______ and old crust sinks at ______.",
+    "o": [
+     "trenches; ridges",
+     "ridges; trenches",
+     "continents; ridges",
+     "trenches; continents"
+    ],
+    "a": 1,
+    "why": "New crust forms at ridges. Old crust sinks at trenches.",
+    "f": [
+     "That's reversed. Ridges make new crust.",
+     null,
+     "Ridges make new crust. Continents are not where it forms.",
+     "Ridges make new crust. Old ocean crust sinks at trenches, not at continents."
+    ],
+    "tip": "Ridges make crust. Trenches destroy it."
+   },
+   {
+    "q": "Which reasoning best connects the evidence to the claim \"the seafloor is younger than the continents\"?",
+    "o": [
+     "Dense ocean crust sinks at trenches, but light continental crust is too buoyant to sink",
+     "The ocean is bigger than the land",
+     "Scientists agree",
+     "Basalt is a dark rock"
+    ],
+    "a": 0,
+    "why": "Reasoning explains why: ocean crust is destroyed, continental crust survives.",
+    "f": [
+     null,
+     "Size doesn't explain why one is younger.",
+     "Agreement isn't reasoning. Reasoning explains why the evidence supports the claim.",
+     "Rock color doesn't explain age. Reasoning links evidence to the claim."
+    ],
+    "tip": "Reasoning explains why the evidence supports the claim."
+   }
+  ]
+ }
+}

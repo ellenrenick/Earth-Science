@@ -19,3 +19,9 @@ assignment, so editing a review page in Canvas and rebuilding updates the site.
 or put it on a public host (e.g. public GitHub Pages). A 6-digit ID is only weak protection: a student who knows or guesses a
 classmate's ID can look that classmate up. Host it only behind your school login (Canvas file / Google
 Drive restricted to the domain).
+
+## Interactive pieces
+
+- `practice.json`: multiple-choice practice per target, with a specific explanation for every wrong choice and a memory trick. Edit this file to change questions, then rebuild.
+- `engine.js`: the animations (continent fit, seafloor ages, spreading, plate boundaries, subduction, claim/evidence/reasoning sorter) and the practice flow (a wrong answer shows an explanation plus the animation replaying; two misses reveal the answer and the question comes back once).
+- Progress and written answers are saved only in the student's browser (not sent to anyone).

@@ -7,9 +7,9 @@
 <title>My Earth Science Review</title>
 <style>
 :root{--bg:#f6f8fb;--card:#fff;--ink:#1d2733;--mute:#5b6b7c;--line:#d9e1ea;--brand:#1f5fa8;
---need:#b4341f;--needbg:#fdeeea;--ok:#8a5a00;--okbg:#fff6df;--mast:#1b6b3a;--mastbg:#e5f5ea;--na:#4a5663;--nabg:#eceff3}
+--need:#b4341f;--needbg:#fdeeea;--ok:#8a5a00;--okbg:#fff6df;--mast:#1b6b3a;--mastbg:#e5f5ea;--na:#4a5663;--nabg:#eceff3;--water:#d4e9f7;--oc:#46566a;--cont:#d2b277;--cont2:#b8975a;--mantle:#fbe9d8;--magma:#e5683c;--cn:#4b5d78;--cr:#ecd9a0}
 @media (prefers-color-scheme:dark){:root{--bg:#10161d;--card:#18212b;--ink:#e8eef5;--mute:#9fb0c1;--line:#2b3846;--brand:#6fb1ff;
---need:#ff9a86;--needbg:#3a1f1a;--ok:#f3c65f;--okbg:#352b10;--mast:#7fd89f;--mastbg:#14301f;--na:#b6c2cf;--nabg:#222d39}}
+--need:#ff9a86;--needbg:#3a1f1a;--ok:#f3c65f;--okbg:#352b10;--mast:#7fd89f;--mastbg:#14301f;--na:#b6c2cf;--nabg:#222d39;--water:#1c3a52;--oc:#8da2ba;--cont:#8a6f3d;--cont2:#a98a50;--mantle:#3a2a22;--magma:#ff8a5c;--cn:#7f93b0;--cr:#7d6a3a}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
 main{max-width:780px;margin:0 auto;padding:20px 16px 60px}
@@ -63,6 +63,48 @@ button.again{color:var(--need);border-color:var(--need)}
 .done{background:var(--mastbg);color:var(--mast);padding:10px 14px;border-radius:10px;font-weight:600;margin:12px 0}
 .saved{font-size:.8rem;color:var(--mute)}
 @media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+
+.watch,.prac{margin:18px 0}
+.anim svg{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+.anim .t{fill:var(--ink);font:11px system-ui,sans-serif}
+.s-water{fill:var(--water)}.s-mantle{fill:var(--mantle)}.s-cont{fill:var(--cont);stroke:var(--cont2);stroke-width:1}
+.s-cont2{fill:var(--cont2)}.s-oc{fill:var(--oc)}.s-magma{fill:var(--magma)}.s-cn{fill:var(--cn)}.s-cr{fill:var(--cr)}
+.s-slab{stroke:var(--oc)}.s-magmaline{stroke:var(--magma);stroke-width:4;stroke-dasharray:6 5;transition:opacity .3s}
+.s-fossil{fill:#d1495b}.s-fossil2{fill:#2f9e6e}.s-band{stroke:#7a4fb5;stroke-width:6}
+.s-mark{stroke:var(--ink);stroke-width:2;stroke-dasharray:4 3}
+.s-arrow path{stroke:var(--ink);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.s-fault{stroke:var(--magma);stroke-width:3;stroke-dasharray:8 5}.s-stream{stroke:#3a8fd1;stroke-width:6;stroke-linejoin:round}
+.actl{display:flex;gap:12px;align-items:center;margin-top:8px;flex-wrap:wrap}
+.actl .play{padding:7px 14px;font-size:.9rem;min-width:7.5em}
+.sl{flex:1 1 180px;display:flex;flex-direction:column;font-size:.8rem;color:var(--mute);font-weight:600}
+.sl input{width:100%;accent-color:var(--brand)}
+.cap{margin:6px 0 0;font-size:.95rem;min-height:2.8em}.cap.hi{color:var(--mast);font-weight:600}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.tabs button{background:transparent;color:var(--brand);border:2px solid var(--brand);padding:6px 12px;font-size:.85rem}
+.tabs button[aria-selected=true]{background:var(--brand);color:#fff}
+.cs{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0;background:var(--card)}
+.cs p{margin:0 0 6px}.cs.ok{border-color:var(--mast);background:var(--mastbg)}
+.cs .row button{background:transparent;color:var(--brand);border:2px solid var(--brand);padding:5px 10px;font-size:.85rem}
+.cs .row button:disabled{opacity:.45;cursor:default}.cs .row button.right{background:var(--mast);border-color:var(--mast);color:#fff;opacity:1}
+.dots{display:flex;gap:6px;margin:4px 0 10px}
+.dots .d{width:14px;height:14px;border-radius:50%;background:var(--line);display:inline-block;transition:background .3s,transform .3s}
+.dots .d.f{background:var(--mast);transform:scale(1.15)}.dots .d.l{background:var(--ok)}.dots .d.m{background:var(--need)}
+.pq{font-weight:600;margin:6px 0 10px}
+.opts{display:grid;gap:8px}
+.opt{background:var(--card);color:var(--ink);border:2px solid var(--line);text-align:left;font-weight:500;padding:10px 14px}
+.opt:hover:not(:disabled){border-color:var(--brand)}
+.opt.right{background:var(--mastbg);border-color:var(--mast);color:var(--mast);font-weight:700;animation:pop .35s}
+.opt.reveal{border-color:var(--mast);border-style:dashed}
+.opt.wrong{background:var(--needbg);border-color:var(--need);color:var(--need);text-decoration:line-through}
+.opt:disabled:not(.right):not(.wrong):not(.reveal){opacity:.6}
+.fb{margin:10px 0 0;font-weight:600}.fb.g{color:var(--mast)}.fb.a{color:var(--need)}
+.reteach{border:2px solid var(--brand);border-radius:12px;padding:10px 14px;margin:12px 0;background:var(--card);animation:slide .3s}
+.rth{margin:0 0 4px;font-weight:700;color:var(--brand)}.tip{margin:0 0 8px}
+.shake{animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+@keyframes pop{0%{transform:scale(.96)}60%{transform:scale(1.04)}100%{transform:scale(1)}}
+@keyframes slide{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.shake,.opt.right,.reteach{animation:none}.dots .d,.s-magmaline{transition:none}}
 @media (max-width:560px){.card>summary{flex-wrap:wrap;gap:6px 10px}.goal{flex-basis:100%;order:3}.card>summary::after{order:2}}
 @media print{form,button,.hint{display:none}.card{break-inside:avoid}.card>summary::after{display:none}}
 </style>
@@ -145,9 +187,12 @@ const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){retu
 const grow=ta=>{ta.style.height="auto";ta.style.height=Math.min(ta.scrollHeight+2,400)+"px"};
 function enhance(card,t){
   const sk="cfa:"+curKey+":"+t.unit+":"+t.id, uid=("r"+t.id).replace(/\W/g,"");
-  const st=Object.assign({ans:{},rev:{},chk:{},q:{}},store.get(sk)||{});
+  const st=Object.assign({ans:{},rev:{},chk:{},q:{},p:{}},store.get(sk)||{});
   const save=()=>store.set(sk,st);
   const body=card.querySelector(".body");
+  const P=D.practice&&D.practice[t.id];
+  if(P){const a=document.createElement("div");a.className="watch";a.innerHTML='<h3>Watch and explore</h3><div class="stage"></div>';
+    body.querySelector(".barlbl").after(a);mountAnim(P.anim,a.querySelector(".stage"),{});}
   const dets=[...body.querySelectorAll("details")];
   const checks=dets.length;
   // "Try it" checks: answer first, then reveal, then self-mark
@@ -192,21 +237,27 @@ function enhance(card,t){
       setTimeout(()=>{cp.textContent="Copy all my answers"},2500)};
     wrap.appendChild(r);ol.replaceWith(wrap);
   }
+  if(P){const pd=document.createElement("div");pd.className="prac";
+    if(h3)h3.before(pd);else body.appendChild(pd);
+    mountPractice(pd,t,P,st,save,()=>prog());}
+  const pn=P?P.qs.length:0;
   const doneBox=document.createElement("div");doneBox.className="done";doneBox.hidden=true;
-  doneBox.textContent="You finished this review. Paste your answers into Canvas, then ask Ms. Renick about retaking the CFA.";
+  doneBox.textContent="You finished this review. Paste your written answers into Canvas, then ask Ms. Renick about retaking the CFA.";
   body.appendChild(doneBox);
   const bar=body.querySelector(".bar i"),lbl=body.querySelector(".barlbl"),pg=card.querySelector(".prog");
   function prog(){
     const got=Object.values(st.chk).filter(v=>v==="got").length;
     const ans=Object.values(st.q).filter(v=>v&&v.trim().length>3).length;
-    const total=checks+qn,done=got+Math.min(ans,qn);
+    const pc=Object.values(st.p||{}).filter(v=>v==="first"||v==="later").length;
+    const total=checks+qn+pn,done=got+Math.min(ans,qn)+pc;
     bar.style.width=(total?Math.round(100*done/total):0)+"%";
-    lbl.textContent=`${got} of ${checks} checks · ${Math.min(ans,qn)} of ${qn} answers`;
+    lbl.textContent=`${pc} of ${pn} practice · ${got} of ${checks} checks · ${Math.min(ans,qn)} of ${qn} answers`;
     pg.textContent=done?`${done}/${total}`:"";
     doneBox.hidden=!(total&&done===total);
   }
   prog();
 }
+/*__ENGINE__*/
 function show(row){
   const items=D.targets.map((t,i)=>({t,v:row[i]})).filter(x=>x.v!==null);
   const grp={0:[],1:[],2:[],3:[],4:[]};
