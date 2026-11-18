@@ -5,8 +5,8 @@ Usage: python3 build.py [--units 4] [--course 342899] [--out dist/index.html]
 
 Reads the roster, every "Unit N CFA <id>: <title>" assignment's scores, and the
 matching "Unit N Review <id>: ..." assignment's page content. Writes ONE
-self-contained HTML file. Student names are never stored in plaintext: the data
-is keyed by a salted SHA-256 of the normalized name.
+self-contained HTML file. Student IDs are never stored in plaintext: the data
+is keyed by a salted SHA-256 of the student ID.
 """
 import argparse, hashlib, json, os, re, secrets, sys, unicodedata, urllib.request
 
@@ -32,16 +32,13 @@ def get(path):
     return out
 
 
-def norm(name):
-    """'Andrews, Norah' / 'norah  andrews' -> 'andrews norah' (order-insensitive)."""
-    name = unicodedata.normalize("NFD", name)
-    name = "".join(ch for ch in name if not unicodedata.combining(ch))
-    toks = re.findall(r"[a-z]+", name.lower().replace("'", "").replace("’", ""))
-    return " ".join(sorted(toks))
+def norm(sid):
+    """Student ID -> digits only ('651-439 ' -> '651439')."""
+    return re.sub(r"\D", "", str(sid))
 
 
-def key(salt, name):
-    return hashlib.sha256((salt + norm(name)).encode()).hexdigest()[:20]
+def key(salt, sid):
+    return hashlib.sha256((salt + norm(sid)).encode()).hexdigest()[:20]
 
 
 def main():
@@ -80,7 +77,7 @@ def main():
                             html=html, cfa_url=asg["html_url"], _subs=subs))
 
     salt = secrets.token_hex(8)
-    students, seen = {}, {}
+    students = {}
     for u in users:
         row = []
         for t in targets:
@@ -93,17 +90,13 @@ def main():
                 row.append("n")             # not taken (auto-zero)
             else:
                 row.append(round(s["score"] or 0, 2))
-        # accept "First Last", "Last, First" and "First Middle Last"
-        names = {u["name"], u.get("short_name") or u["name"], u["sortable_name"]}
-        parts = u["name"].split()
-        if len(parts) > 2:
-            names.add(f"{parts[0]} {parts[-1]}")
-        for n in names:
-            k = key(salt, n)
-            if k in seen and seen[k] != u["id"]:
-                print(f"WARN: name collision for {n!r}; dropping that spelling", file=sys.stderr)
-                students.pop(k, None); continue
-            seen[k] = u["id"]; students[k] = row
+        sid = norm(u.get("sis_user_id") or "")
+        if not sid:
+            print(f"WARN: a student has no ID; skipped (user {u['id']})", file=sys.stderr); continue
+        k = key(salt, sid)
+        if k in students:
+            print("WARN: duplicate student ID; dropping", file=sys.stderr); students.pop(k); continue
+        students[k] = row
 
     for t in targets:
         t.pop("_subs")

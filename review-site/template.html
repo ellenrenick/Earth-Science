@@ -51,14 +51,14 @@ button.ghost{background:transparent;color:var(--brand);border:2px solid var(--br
 <main>
 <section id="login">
   <h1>My Earth Science Review</h1>
-  <p class="sub">Type your name to see which learning targets to work on next, with a review for each one.</p>
+  <p class="sub">Enter your student ID to see which learning targets to work on next, with a review for each one.</p>
   <form id="f" autocomplete="off">
-    <label for="n" hidden>Your name</label>
-    <input id="n" type="text" placeholder="First and last name" required autocapitalize="words" spellcheck="false">
+    <label for="n" hidden>Student ID</label>
+    <input id="n" type="text" inputmode="numeric" pattern="[0-9 \-]*" placeholder="Student ID number" required spellcheck="false">
     <button type="submit">Go</button>
   </form>
   <div id="err" class="msg" role="alert" hidden></div>
-  <p class="hint">Use the name you're enrolled with in Canvas. “First Last” or “Last, First” both work. Not finding yourself? Ask Ms. Renick.</p>
+  <p class="hint">Your student ID is the 6-digit number in your school email (before the @). Not working? Ask Ms. Renick.</p>
 </section>
 
 <section id="plan" hidden>
@@ -94,10 +94,7 @@ function sha256(s){
     H[4]=(H[4]+e)|0;H[5]=(H[5]+f)|0;H[6]=(H[6]+g)|0;H[7]=(H[7]+h)|0}
   return H.map(x=>(x>>>0).toString(16).padStart(8,"0")).join("");
 }
-function norm(n){
-  n=n.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/['’]/g,"");
-  return (n.match(/[a-z]+/g)||[]).sort().join(" ");
-}
+function norm(n){return String(n).replace(/\D/g,"")}
 const key=n=>sha256(D.salt+norm(n)).slice(0,20);
 
 const $=id=>document.getElementById(id);
@@ -141,12 +138,10 @@ function show(row){
 }
 $("f").addEventListener("submit",e=>{
   e.preventDefault();
-  const typed=$("n").value.trim(),row=D.students[key(typed)];
+  const typed=$("n").value,row=D.students[key(typed)];
   if(!row){const m=$("err");m.hidden=false;
-    m.textContent="I couldn't find that name. Check the spelling, or try “Last, First”. Still stuck? Ask Ms. Renick.";return}
+    m.textContent="I couldn't find that ID. Check the number and try again. Still stuck? Ask Ms. Renick.";return}
   $("err").hidden=true;
-  const parts=typed.includes(",")?typed.split(",").map(x=>x.trim()).reverse().join(" "):typed;
-  $("hello").textContent="Hi, "+parts.split(/\s+/).filter(Boolean).map(w=>w[0].toUpperCase()+w.slice(1)).join(" ")+"!";
   show(row);
 });
 $("back").addEventListener("click",()=>{$("plan").hidden=true;$("login").hidden=false;$("n").value="";$("out").innerHTML="";$("n").focus()});
