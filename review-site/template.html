@@ -134,31 +134,19 @@ button.again{color:var(--need);border-color:var(--need)}
 <script>
 const D=/*__DATA__*/null;
 
-// Compact SHA-256 so lookup works on file:// and http:// alike.
-function sha256(s){
-  const K=[],H=[];let p=0;const ml=Math.pow(2,32);
-  for(let c=2;p<64;c++){let ok=1;for(let q=2;q*q<=c;q++)if(c%q==0){ok=0;break}
-    if(ok){if(p<8)H[p]=(Math.pow(c,.5)*ml)|0;K[p++]=(Math.pow(c,1/3)*ml)|0}}
-  const b=new TextEncoder().encode(s),L=b.length*8,w=[];
-  const pad=((b.length+9+63)>>6)<<6,bytes=new Uint8Array(pad);bytes.set(b);bytes[b.length]=0x80;
-  const dv=new DataView(bytes.buffer);dv.setUint32(pad-4,L>>>0);dv.setUint32(pad-8,Math.floor(L/ml));
-  const rr=(x,n)=>(x>>>n)|(x<<(32-n));
-  for(let i=0;i<pad;i+=64){
-    for(let j=0;j<16;j++)w[j]=dv.getUint32(i+j*4);
-    for(let j=16;j<64;j++){const a=w[j-15],c=w[j-2];
-      w[j]=(w[j-16]+(rr(a,7)^rr(a,18)^(a>>>3))+w[j-7]+(rr(c,17)^rr(c,19)^(c>>>10)))|0}
-    let [a,b2,c,d,e,f,g,h]=H;
-    for(let j=0;j<64;j++){
-      const t1=(h+(rr(e,6)^rr(e,11)^rr(e,25))+((e&f)^(~e&g))+K[j]+w[j])|0;
-      const t2=((rr(a,2)^rr(a,13)^rr(a,22))+((a&b2)^(a&c)^(b2&c)))|0;
-      h=g;g=f;f=e;e=(d+t1)|0;d=c;c=b2;b2=a;a=(t1+t2)|0}
-    H[0]=(H[0]+a)|0;H[1]=(H[1]+b2)|0;H[2]=(H[2]+c)|0;H[3]=(H[3]+d)|0;
-    H[4]=(H[4]+e)|0;H[5]=(H[5]+f)|0;H[6]=(H[6]+g)|0;H[7]=(H[7]+h)|0}
-  return H.map(x=>(x>>>0).toString(16).padStart(8,"0")).join("");
-}
 function norm(n){return String(n).replace(/\D/g,"")}
-const key=n=>sha256(D.salt+norm(n)).slice(0,20);
-
+const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+const hex=u=>[...u].map(x=>x.toString(16).padStart(2,"0")).join("");
+// Student ID -> PBKDF2 key; look up the tag, then decrypt that student's scores with AES-GCM.
+async function unlock(id){
+  const enc=new TextEncoder(),base=await crypto.subtle.importKey("raw",enc.encode(norm(id)),"PBKDF2",false,["deriveBits"]);
+  const dk=await crypto.subtle.deriveBits({name:"PBKDF2",hash:"SHA-256",salt:b64(D.salt),iterations:D.iter},base,256);
+  const tag=hex(new Uint8Array(await crypto.subtle.digest("SHA-256",new Uint8Array([...enc.encode("tag"),...new Uint8Array(dk)])))).slice(0,20);
+  const blob=D.students[tag];if(!blob)return null;
+  const raw=b64(blob),k=await crypto.subtle.importKey("raw",dk,"AES-GCM",false,["decrypt"]);
+  try{return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:"AES-GCM",iv:raw.slice(0,12)},k,raw.slice(12))));}catch(e){return null}
+}
+let curKey=null;
 const $=id=>document.getElementById(id);
 const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
@@ -181,7 +169,6 @@ function card(t,v,open){
   <div class="body"><div class="bar" aria-hidden="true"><i></i></div><p class="barlbl"></p>${t.html}<p class="cfa">${esc(note)}</p></div></details>`;
 }
 
-let curKey=null;
 const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},
   set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 const grow=ta=>{ta.style.height="auto";ta.style.height=Math.min(ta.scrollHeight+2,400)+"px"};
@@ -277,12 +264,15 @@ function show(row){
   document.querySelectorAll("#out .card").forEach(c=>{const t=D.targets.find(x=>x.unit+":"+x.id===c.dataset.i);if(t)enhance(c,t)});
   $("login").hidden=true;$("plan").hidden=false;window.scrollTo(0,0);
 }
-$("f").addEventListener("submit",e=>{
+$("f").addEventListener("submit",async e=>{
   e.preventDefault();
-  const typed=$("n").value,k=key(typed),row=D.students[k];curKey=k;
-  if(!row){const m=$("err");m.hidden=false;
-    m.textContent="I couldn't find that ID. Check the number and try again. Still stuck? Ask Ms. Renick.";return}
-  $("err").hidden=true;
+  const typed=$("n").value,btn=e.target.querySelector("button"),m=$("err");
+  if(!window.crypto||!crypto.subtle){m.hidden=false;m.textContent="This browser can't open the page securely. Try Chrome or Edge on your school device.";return}
+  btn.disabled=true;btn.textContent="Checking…";m.hidden=true;
+  let row=null;try{row=await unlock(typed)}catch(x){row=null}
+  btn.disabled=false;btn.textContent="Go";
+  if(!row){m.hidden=false;m.textContent="I couldn't find that ID. Check the number and try again. Still stuck? Ask Ms. Renick.";return}
+  curKey=norm(typed);
   show(row);
 });
 $("back").addEventListener("click",()=>{$("plan").hidden=true;$("login").hidden=false;$("n").value="";$("out").innerHTML="";$("n").focus()});

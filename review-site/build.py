@@ -5,12 +5,14 @@ Usage: python3 build.py [--units 4] [--course 342899] [--out dist/index.html]
 
 Reads the roster, every "Unit N CFA <id>: <title>" assignment's scores, and the
 matching "Unit N Review <id>: ..." assignment's page content. Writes ONE
-self-contained HTML file. Student IDs are never stored in plaintext: the data
-is keyed by a salted SHA-256 of the student ID.
+self-contained HTML file. Each student's scores are AES-GCM encrypted with a key derived (PBKDF2)
+from their own student ID, so the file reveals nothing without the right ID.
 """
-import argparse, hashlib, json, os, re, secrets, sys, unicodedata, urllib.request
+import argparse, base64, hashlib, json, os, re, secrets, sys, unicodedata, urllib.request
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
 BASE = "https://kernhigh.instructure.com/api/v1"
+ITER = 600_000     # PBKDF2 rounds: slows down anyone guessing IDs offline
 PROFICIENT = 2.67  # Proficient band is 2.7; 2.67 (e.g. 8/3) counts too. Below this = review
 MASTERED = 3.5
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -37,8 +39,15 @@ def norm(sid):
     return re.sub(r"\D", "", str(sid))
 
 
-def key(salt, sid):
-    return hashlib.sha256((salt + norm(sid)).encode()).hexdigest()[:20]
+def derive(salt, sid):
+    """ID -> (lookup tag, AES key). One PBKDF2 run; guessing an ID costs ITER hashes."""
+    dk = hashlib.pbkdf2_hmac("sha256", norm(sid).encode(), salt, ITER, 32)
+    return hashlib.sha256(b"tag" + dk).hexdigest()[:20], dk
+
+
+def seal(dk, row):
+    iv = secrets.token_bytes(12)
+    return base64.b64encode(iv + AESGCM(dk).encrypt(iv, json.dumps(row).encode(), None)).decode()
 
 
 def main():
@@ -76,7 +85,7 @@ def main():
                             goal=re.sub(r"<[^>]+>", "", m[1]).strip() if m else title,
                             html=html, cfa_url=asg["html_url"], _subs=subs))
 
-    salt = secrets.token_hex(8)
+    salt = secrets.token_bytes(16)
     students = {}
     for u in users:
         row = []
@@ -93,15 +102,15 @@ def main():
         sid = norm(u.get("sis_user_id") or "")
         if not sid:
             print(f"WARN: a student has no ID; skipped (user {u['id']})", file=sys.stderr); continue
-        k = key(salt, sid)
+        k, dk = derive(salt, sid)
         if k in students:
             print("WARN: duplicate student ID; dropping", file=sys.stderr); students.pop(k); continue
-        students[k] = row
+        students[k] = seal(dk, row)
 
     for t in targets:
         t.pop("_subs")
     pr = json.load(open(os.path.join(HERE, "practice.json"), encoding="utf-8"))
-    payload = dict(practice=pr, salt=salt, proficient=PROFICIENT, mastered=MASTERED,
+    payload = dict(practice=pr, salt=base64.b64encode(salt).decode(), iter=ITER, proficient=PROFICIENT, mastered=MASTERED,
                    built=__import__("datetime").date.today().isoformat(),
                    targets=targets, students=students)
     tpl = open(os.path.join(HERE, "template.html"), encoding="utf-8").read()
