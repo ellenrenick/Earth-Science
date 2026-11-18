@@ -43,6 +43,26 @@ button.ghost{background:transparent;color:var(--brand);border:2px solid var(--br
 .top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
 .hint{font-size:.9rem;color:var(--mute)}
 [hidden]{display:none!important}
+
+.try{background:var(--nabg);border-radius:10px;padding:10px 12px;margin:6px 0 14px}
+.try label,.q label{display:block;font-size:.85rem;font-weight:600;color:var(--mute);margin-bottom:4px}
+textarea{width:100%;font:inherit;font-size:.95rem;padding:8px 10px;border:2px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);resize:vertical;min-height:2.6em}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.row button{padding:7px 14px;font-size:.9rem}
+.key{background:var(--card);border-left:4px solid var(--brand);padding:8px 12px;border-radius:6px;margin-top:8px}
+.key p{margin:0}
+button.got{background:var(--mast);color:#fff}
+button.again{color:var(--need);border-color:var(--need)}
+.res{margin:6px 0 0;font-weight:600;font-size:.9rem}
+.res.g{color:var(--mast)}.res.a{color:var(--need)}
+.q{margin:10px 0 14px}.q .qt{margin:0 0 4px;font-weight:600}
+.prog{font-size:.8rem;color:var(--mute);white-space:nowrap}
+.bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin:12px 0 4px}
+.bar i{display:block;height:100%;background:var(--mast);width:0;transition:width .25s}
+.barlbl{font-size:.85rem;color:var(--mute);margin:0 0 6px}
+.done{background:var(--mastbg);color:var(--mast);padding:10px 14px;border-radius:10px;font-weight:600;margin:12px 0}
+.saved{font-size:.8rem;color:var(--mute)}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
 @media (max-width:560px){.card>summary{flex-wrap:wrap;gap:6px 10px}.goal{flex-basis:100%;order:3}.card>summary::after{order:2}}
 @media print{form,button,.hint{display:none}.card{break-inside:avoid}.card>summary::after{display:none}}
 </style>
@@ -115,8 +135,77 @@ function card(t,v,open){
     :s.k==="need"?"Work through the review, then ask Ms. Renick about retaking the CFA."
     :s.k==="ok"?"You're proficient. Use this if you want to lock it in before the test."
     :s.k==="mast"?"Nice work. Skim this if you want a refresher.":"";
-  return `<details class="card"${open?" open":""}><summary><span class="tid">${esc(t.id)}</span><span class="goal">${esc(t.goal)}</span><span class="pill ${s.k}">${esc(s.pill)}</span></summary>
-  <div class="body">${t.html}<p class="cfa">${esc(note)}</p></div></details>`;
+  return `<details class="card" data-i="${t.unit}:${t.id}"${open?" open":""}><summary><span class="tid">${esc(t.id)}</span><span class="goal">${esc(t.goal)}</span><span class="prog"></span><span class="pill ${s.k}">${esc(s.pill)}</span></summary>
+  <div class="body"><div class="bar" aria-hidden="true"><i></i></div><p class="barlbl"></p>${t.html}<p class="cfa">${esc(note)}</p></div></details>`;
+}
+
+let curKey=null;
+const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const grow=ta=>{ta.style.height="auto";ta.style.height=Math.min(ta.scrollHeight+2,400)+"px"};
+function enhance(card,t){
+  const sk="cfa:"+curKey+":"+t.unit+":"+t.id, uid=("r"+t.id).replace(/\W/g,"");
+  const st=Object.assign({ans:{},rev:{},chk:{},q:{}},store.get(sk)||{});
+  const save=()=>store.set(sk,st);
+  const body=card.querySelector(".body");
+  const dets=[...body.querySelectorAll("details")];
+  const checks=dets.length;
+  // "Try it" checks: answer first, then reveal, then self-mark
+  dets.forEach((d,i)=>{
+    const sm=d.querySelector("summary");if(sm)sm.remove();
+    const key=d.innerHTML,box=document.createElement("div");box.className="try";
+    box.innerHTML=`<label for="${uid}a${i}">Your answer</label><textarea id="${uid}a${i}" rows="2" placeholder="Type your answer first, then check it."></textarea>
+    <div class="row"><button type="button" class="chk">Check my answer</button></div>
+    <div class="rev" hidden><div class="key"><strong>Answer:</strong> ${key}</div>
+    <div class="row"><button type="button" class="got">I got it</button><button type="button" class="ghost again">Not yet</button></div></div><p class="res" aria-live="polite"></p>`;
+    d.replaceWith(box);
+    const ta=box.querySelector("textarea"),rev=box.querySelector(".rev"),res=box.querySelector(".res");
+    const paint=()=>{rev.hidden=!st.rev[i];
+      res.textContent=st.chk[i]==="got"?"✓ Got it":st.chk[i]==="again"?"Read the answer again, then try the next part.":"";
+      res.className="res "+(st.chk[i]==="got"?"g":st.chk[i]==="again"?"a":"")};
+    ta.value=st.ans[i]||"";grow(ta);paint();
+    ta.addEventListener("input",()=>{st.ans[i]=ta.value;grow(ta);save()});
+    box.querySelector(".chk").onclick=()=>{st.rev[i]=1;save();paint();prog()};
+    box.querySelector(".got").onclick=()=>{st.chk[i]="got";save();paint();prog()};
+    box.querySelector(".again").onclick=()=>{st.chk[i]="again";save();paint();prog()};
+  });
+  // final questions: write answers in boxes, copy to paste into Canvas
+  let qn=0;
+  const h3=[...body.querySelectorAll("h3")].find(h=>/^Show what you know/i.test(h.textContent));
+  const ol=h3&&h3.nextElementSibling&&h3.nextElementSibling.tagName==="OL"?h3.nextElementSibling:null;
+  if(ol){
+    const wrap=document.createElement("div"),items=[...ol.children];qn=items.length;
+    items.forEach((li,j)=>{
+      const q=document.createElement("div");q.className="q";
+      q.innerHTML=`<p class="qt">${j+1}. ${li.innerHTML}</p><label for="${uid}q${j}">Your answer</label><textarea id="${uid}q${j}" rows="3" placeholder="Answer in your own words."></textarea>`;
+      const ta=q.querySelector("textarea");ta.value=st.q[j]||"";
+      ta.addEventListener("input",()=>{st.q[j]=ta.value;grow(ta);save();prog()});
+      wrap.appendChild(q);setTimeout(()=>grow(ta),0);
+    });
+    const r=document.createElement("div");r.className="row";
+    r.innerHTML=`<button type="button" class="cp">Copy all my answers</button><span class="saved">Saved on this device as you type.</span>`;
+    const cp=r.querySelector(".cp");
+    cp.onclick=async()=>{
+      const text=items.map((li,j)=>`${j+1}. ${li.textContent.trim()}\n${st.q[j]||""}`).join("\n\n");
+      try{await navigator.clipboard.writeText(text);cp.textContent="Copied!"}
+      catch(e){const ta=document.createElement("textarea");ta.value=text;wrap.appendChild(ta);ta.select();cp.textContent="Select and copy the text below"}
+      setTimeout(()=>{cp.textContent="Copy all my answers"},2500)};
+    wrap.appendChild(r);ol.replaceWith(wrap);
+  }
+  const doneBox=document.createElement("div");doneBox.className="done";doneBox.hidden=true;
+  doneBox.textContent="You finished this review. Paste your answers into Canvas, then ask Ms. Renick about retaking the CFA.";
+  body.appendChild(doneBox);
+  const bar=body.querySelector(".bar i"),lbl=body.querySelector(".barlbl"),pg=card.querySelector(".prog");
+  function prog(){
+    const got=Object.values(st.chk).filter(v=>v==="got").length;
+    const ans=Object.values(st.q).filter(v=>v&&v.trim().length>3).length;
+    const total=checks+qn,done=got+Math.min(ans,qn);
+    bar.style.width=(total?Math.round(100*done/total):0)+"%";
+    lbl.textContent=`${got} of ${checks} checks · ${Math.min(ans,qn)} of ${qn} answers`;
+    pg.textContent=done?`${done}/${total}`:"";
+    doneBox.hidden=!(total&&done===total);
+  }
+  prog();
 }
 function show(row){
   const items=D.targets.map((t,i)=>({t,v:row[i]})).filter(x=>x.v!==null);
@@ -134,11 +223,12 @@ function show(row){
     :"No targets need review right now. Nice work!";
   $("out").innerHTML=h;
   $("built").textContent="Updated "+D.built+". Scores change when you retake a CFA, so check back after Ms. Renick refreshes this page.";
+  document.querySelectorAll("#out .card").forEach(c=>{const t=D.targets.find(x=>x.unit+":"+x.id===c.dataset.i);if(t)enhance(c,t)});
   $("login").hidden=true;$("plan").hidden=false;window.scrollTo(0,0);
 }
 $("f").addEventListener("submit",e=>{
   e.preventDefault();
-  const typed=$("n").value,row=D.students[key(typed)];
+  const typed=$("n").value,k=key(typed),row=D.students[k];curKey=k;
   if(!row){const m=$("err");m.hidden=false;
     m.textContent="I couldn't find that ID. Check the number and try again. Still stuck? Ask Ms. Renick.";return}
   $("err").hidden=true;
